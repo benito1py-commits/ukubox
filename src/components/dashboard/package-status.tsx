@@ -2,10 +2,10 @@ import { PackageStatus } from "@/lib/types";
 
 const statusStyles: Record<PackageStatus, string> = {
   "En Miami": "bg-blue-100 text-blue-800",
-  "En Tránsito": "bg-yellow-100 text-yellow-800",
+  "En Tránsito": "bg-amber-100 text-amber-800",
   "En Aduana": "bg-orange-100 text-orange-800",
-  "Listo para Retiro": "bg-green-100 text-green-800",
-  "Entregado": "bg-gray-100 text-gray-800",
+  "Listo para Retiro": "bg-emerald-100 text-emerald-800",
+  "Entregado": "bg-gray-100 text-gray-600",
 };
 
 export function PackageStatusBadge({ status }: { status: PackageStatus }) {

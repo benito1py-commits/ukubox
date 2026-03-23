@@ -3,7 +3,7 @@ import { Logo } from "./logo";
 
 export function Footer() {
   return (
-    <footer className="bg-foreground text-white mt-auto">
+    <footer className="bg-primary text-white mt-auto">
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -29,10 +29,10 @@ export function Footer() {
           <div>
             <h3 className="font-bold mb-4">Enlaces</h3>
             <div className="space-y-2 text-sm">
-              <a href="/nosotros" className="block text-white/60 hover:text-white transition-colors">Nosotros</a>
-              <a href="/servicios" className="block text-white/60 hover:text-white transition-colors">Servicios</a>
-              <a href="/preguntas-frecuentes" className="block text-white/60 hover:text-white transition-colors">Preguntas Frecuentes</a>
-              <a href="/login" className="block text-white/60 hover:text-white transition-colors">Iniciar Sesión</a>
+              <a href="/nosotros" className="block text-white/60 hover:text-accent transition-colors">Nosotros</a>
+              <a href="/servicios" className="block text-white/60 hover:text-accent transition-colors">Servicios</a>
+              <a href="/preguntas-frecuentes" className="block text-white/60 hover:text-accent transition-colors">Preguntas Frecuentes</a>
+              <a href="/login" className="block text-white/60 hover:text-accent transition-colors">Iniciar Sesión</a>
             </div>
           </div>
         </div>

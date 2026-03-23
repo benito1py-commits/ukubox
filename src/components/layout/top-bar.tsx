@@ -2,7 +2,7 @@ import { companyInfo } from "@/lib/mock-data";
 
 export function TopBar() {
   return (
-    <div className="bg-black text-white text-sm py-2.5 px-4">
+    <div className="bg-primary text-white text-sm py-2.5 px-4">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center gap-2">
           <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">

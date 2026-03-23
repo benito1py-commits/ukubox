@@ -21,8 +21,8 @@ export function DashboardTabs() {
           href={tab.href}
           className={`px-5 py-2.5 text-sm font-medium transition-colors ${
             pathname === tab.href
-              ? "bg-foreground text-white"
-              : "bg-white text-foreground hover:bg-muted"
+              ? "bg-primary text-white"
+              : "bg-white text-foreground hover:bg-primary-light"
           }`}
         >
           {tab.label}
@@ -30,7 +30,7 @@ export function DashboardTabs() {
       ))}
       <Link
         href="/login"
-        className="px-5 py-2.5 text-sm font-medium bg-white text-foreground hover:bg-muted transition-colors"
+        className="px-5 py-2.5 text-sm font-medium bg-white text-foreground hover:bg-primary-light transition-colors"
       >
         Salir
       </Link>

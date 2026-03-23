@@ -52,7 +52,7 @@ export function ChangePassword() {
           />
         </div>
         {message && (
-          <p className={`text-sm ${message.includes("correctamente") ? "text-green-600" : "text-primary"}`}>
+          <p className={`text-sm ${message.includes("correctamente") ? "text-green-600" : "text-danger"}`}>
             {message}
           </p>
         )}
