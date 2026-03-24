@@ -37,8 +37,8 @@ export function ChangePassword() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-3 bg-muted rounded-lg border-0 outline-none focus:ring-2 focus:ring-primary/20"
-            placeholder="••••••"
+            className="w-full px-4 py-3 bg-white border border-border rounded-lg outline-none focus:ring-2 focus:ring-primary/20"
+            placeholder="••••••••"
           />
         </div>
         <div>
@@ -48,7 +48,7 @@ export function ChangePassword() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             className="w-full px-4 py-3 bg-white border border-border rounded-lg outline-none focus:ring-2 focus:ring-primary/20"
-            placeholder="########"
+            placeholder="••••••••"
           />
         </div>
         {message && (

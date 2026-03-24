@@ -2,13 +2,13 @@
 
 @theme inline {
   --color-background: #ffffff;
-  --color-foreground: #1a1a2e;
+  --color-foreground: #222222;
   --color-primary: #1a56db;
   --color-primary-hover: #1648b8;
   --color-primary-light: #e8effc;
-  --color-accent: #f5b800;
-  --color-accent-hover: #daa600;
-  --color-accent-light: #fef9e7;
+  --color-accent: #FFCC00;
+  --color-accent-hover: #e0b400;
+  --color-accent-light: #fff9e6;
   --color-muted: #f3f4f6;
   --color-muted-foreground: #6b7280;
   --color-border: #e5e7eb;

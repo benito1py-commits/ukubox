@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Servicios - UKUXBOX",
@@ -204,10 +205,10 @@ export default function ServiciosPage() {
             Contactanos y con gusto te asesoramos para encontrar la mejor opción para vos.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="/preguntas-frecuentes" className="bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-primary-hover transition-colors">
+            <Link href="/preguntas-frecuentes" className="bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-primary-hover transition-colors">
               Ver Preguntas Frecuentes
-            </a>
-            <a href="https://wa.me/595982208071" className="border-2 border-primary text-primary px-8 py-3 rounded-lg font-bold hover:bg-primary hover:text-white transition-colors">
+            </Link>
+            <a href="https://wa.me/595986733000" className="border-2 border-primary text-primary px-8 py-3 rounded-lg font-bold hover:bg-primary hover:text-white transition-colors">
               Contactar por WhatsApp
             </a>
           </div>

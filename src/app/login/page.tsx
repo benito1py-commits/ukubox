@@ -92,7 +92,7 @@ export default function LoginPage() {
 
         <p className="text-center text-sm text-muted-foreground mt-6">
           ¿Necesitás ayuda?{" "}
-          <a href="https://wa.me/595982208071" className="text-primary hover:underline font-medium">
+          <a href="https://wa.me/595986733000" className="text-primary hover:underline font-medium">
             Contactanos
           </a>
         </p>

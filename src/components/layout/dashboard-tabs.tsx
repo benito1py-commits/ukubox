@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/lib/auth-context";
 
 const tabs = [
   { href: "/dashboard/paquetes", label: "Mis Paquetes" },
@@ -12,6 +13,7 @@ const tabs = [
 
 export function DashboardTabs() {
   const pathname = usePathname();
+  const { logout } = useAuth();
 
   return (
     <div className="flex flex-wrap gap-0 border border-border rounded-lg overflow-hidden w-fit">
@@ -28,12 +30,12 @@ export function DashboardTabs() {
           {tab.label}
         </Link>
       ))}
-      <Link
-        href="/login"
-        className="px-5 py-2.5 text-sm font-medium bg-white text-foreground hover:bg-primary-light transition-colors"
+      <button
+        onClick={logout}
+        className="px-5 py-2.5 text-sm font-medium bg-white text-foreground hover:bg-danger/5 hover:text-danger transition-colors"
       >
         Salir
-      </Link>
+      </button>
     </div>
   );
 }
