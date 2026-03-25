@@ -7,7 +7,7 @@ import { Search, Package2, Calculator, Plane, Ship, Ban, Truck, ShoppingCart, Gl
 
 const steps = [
   { num: "01", title: "Registrate", desc: "Creá tu casilla gratuitamente y ya estarás habilitado para realizar tus compras en el exterior.", href: "/login" },
-  { num: "02", title: "Comprá Online", desc: "Comprá todo lo que deseas en cualquier tienda de USA y envialo a tu casilla en Miami.", href: "/servicios" },
+  { num: "02", title: "Comprá Online", desc: "Comprá todo lo que deseas en cualquier tienda de USA y envialo a tu casilla en Miami o New York.", href: "/servicios" },
   { num: "03", title: "Seguí tus Paquetes", desc: "Seguí los estados de tus paquetes 24/7 desde tu panel de cliente.", href: "/dashboard/paquetes" },
   { num: "04", title: "Recibí tu Paquete", desc: "Retirá en nuestra oficina o solicitá delivery a tu domicilio.", href: "/dashboard/paquetes" },
 ];
@@ -32,6 +32,7 @@ const manejoItems = [
 
 const addresses = [
   { country: "EEUU (Miami)", flag: "🇺🇸", lines: ["6758 N.W. 72 AV", "Miami, FL 33166-3049", "Florida - USA"], tel: "+1 (305) 430-5100" },
+  { country: "EEUU (New York)", flag: "🇺🇸", lines: ["New York, NY", "USA"], tel: "+1 (305) 430-5100" },
   { country: "Paraguay", flag: "🇵🇾", lines: ["Teniente del Valle casi Itapúa", "Asunción - Paraguay"], tel: "+595 986 733 000" },
 ];
 
@@ -64,7 +65,8 @@ export default function HomePage() {
           <div className="flex-1 text-white text-center lg:text-left">
             <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black mb-6 leading-tight">
               Tu Casillero en{" "}
-              <span className="text-accent">Miami</span>
+              <span className="text-accent">Miami</span> y{" "}
+              <span className="text-accent">New York</span>
             </h1>
             <p className="text-lg text-white/80 max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
               Comprá en cualquier tienda de Estados Unidos y recibí tus paquetes en Paraguay. Rápido, seguro y al mejor precio.
@@ -430,7 +432,7 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-black text-foreground mb-4">¿Listo para empezar?</h2>
           <p className="text-foreground/70 mb-8 text-lg">
-            Registrate hoy y obtené tu dirección en Miami. Empezá a comprar en tus tiendas favoritas de USA.
+            Registrate hoy y obtené tu dirección en Miami y New York. Empezá a comprar en tus tiendas favoritas de USA.
           </p>
           <Link
             href="/login"
