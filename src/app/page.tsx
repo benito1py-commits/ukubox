@@ -47,7 +47,7 @@ export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [trackingNumber, setTrackingNumber] = useState("");
   const [weight, setWeight] = useState("1");
-  const estimatedCost = (parseFloat(weight || "0") * 20).toFixed(2);
+  const estimatedCost = (parseFloat(weight || "0") * 25).toFixed(2);
 
   const handleTrack = (e: React.FormEvent) => {
     e.preventDefault();
