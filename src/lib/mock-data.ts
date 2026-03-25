@@ -1,6 +1,7 @@
 import { User, Package, PreAlerta, Oficina, FAQ } from "./types";
 
 export const mockUser: User = {
+  id: "mock-user-id",
   codigo: "UKU#50016",
   nombre: "GUILLERMO",
   telefono: "0982208071",

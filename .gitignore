@@ -41,6 +41,13 @@ yarn-error.log*
 .agents/
 .playwright-mcp/
 skills-lock.json
+.mcp.json
+
+# documentos cliente / screenshots
+helga/
+screenshots/
+*.png
+HEARTBEAT.md
 
 # typescript
 *.tsbuildinfo

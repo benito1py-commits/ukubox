@@ -3,26 +3,31 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) {
       setError("Complete todos los campos");
       return;
     }
-    const success = login(email, password);
+    setLoading(true);
+    setError("");
+    const success = await login(email, password);
     if (success) {
       router.push("/dashboard/paquetes");
     } else {
       setError("Credenciales incorrectas");
     }
+    setLoading(false);
   };
 
   return (
@@ -75,17 +80,18 @@ export default function LoginPage() {
             )}
             <button
               type="submit"
-              className="w-full bg-accent text-primary py-3 rounded-lg font-bold hover:bg-accent-hover transition-colors text-lg"
+              disabled={loading}
+              className="w-full bg-accent text-primary py-3 rounded-lg font-bold hover:bg-accent-hover transition-colors text-lg disabled:opacity-50"
             >
-              Ingresar
+              {loading ? "Ingresando..." : "Ingresar"}
             </button>
             <div className="flex items-center justify-between text-sm">
               <a href="#" className="text-primary hover:underline">
                 ¿Olvidaste tu contraseña?
               </a>
-              <a href="#" className="text-primary hover:underline">
+              <Link href="/registro" className="text-primary hover:underline">
                 Registrate
-              </a>
+              </Link>
             </div>
           </form>
         </div>

@@ -8,6 +8,7 @@ const tabs = [
   { href: "/dashboard/paquetes", label: "Mis Paquetes" },
   { href: "/dashboard/historial", label: "Historial" },
   { href: "/dashboard/pre-alerta", label: "Pre-Alerta" },
+  { href: "/dashboard/destinatarios", label: "Destinatarios" },
   { href: "/dashboard/perfil", label: "Mi Perfil" },
 ];
 

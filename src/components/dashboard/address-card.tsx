@@ -2,6 +2,7 @@ import { mockUser } from "@/lib/mock-data";
 
 export function AddressCard() {
   const addr = mockUser.direccionUS;
+  if (!addr) return null;
   return (
     <div className="border border-border rounded-lg p-6">
       <h3 className="font-bold text-lg mb-4">Mi Dirección</h3>

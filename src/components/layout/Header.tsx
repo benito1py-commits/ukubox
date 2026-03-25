@@ -11,7 +11,6 @@ const navLinks = [
   { href: "/nosotros", label: "Nosotros" },
   { href: "/servicios", label: "Servicios" },
   { href: "/preguntas-frecuentes", label: "Preguntas Frecuentes" },
-  { href: "/open-worldd", label: "Open Worldd" },
 ];
 
 const moreLinks = [

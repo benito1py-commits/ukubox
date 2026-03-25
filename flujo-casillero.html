@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>UKUXBOX - Flujo Operativo del Casillero</title>
+<style>
+  @page { size: A4 landscape; margin: 20mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #222; background: #fff; padding: 40px; max-width: 1100px; margin: 0 auto; }
+
+  .header { display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid #1a56db; padding-bottom: 16px; margin-bottom: 30px; }
+  .logo { font-size: 28px; font-weight: 900; }
+  .logo span { color: #1a56db; }
+  .subtitle { color: #666; font-size: 14px; }
+  .date { color: #999; font-size: 12px; }
+
+  h2 { font-size: 20px; color: #1a56db; margin: 28px 0 16px; border-left: 4px solid #1a56db; padding-left: 12px; }
+  h3 { font-size: 15px; margin: 20px 0 10px; color: #333; }
+
+  .flow-container { display: flex; gap: 8px; align-items: stretch; margin: 20px 0; }
+  .flow-step { flex: 1; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 10px; text-align: center; position: relative; }
+  .flow-step.active { background: #eff6ff; border-color: #1a56db; }
+  .flow-step .step-num { display: inline-block; background: #1a56db; color: #fff; width: 24px; height: 24px; border-radius: 50%; font-size: 12px; font-weight: 700; line-height: 24px; margin-bottom: 6px; }
+  .flow-step .step-title { font-weight: 700; font-size: 11px; text-transform: uppercase; color: #1a56db; margin-bottom: 4px; }
+  .flow-step .step-desc { font-size: 10px; color: #666; line-height: 1.4; }
+  .flow-step .step-status { display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 9px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-top: 6px; }
+  .flow-step .step-who { font-size: 9px; color: #999; margin-top: 4px; font-style: italic; }
+  .arrow { display: flex; align-items: center; color: #cbd5e1; font-size: 20px; }
+
+  .actors { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .actor-card { border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; }
+  .actor-card h4 { font-size: 13px; color: #1a56db; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .actor-card h4 .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .actor-card ul { font-size: 11px; color: #555; list-style: none; line-height: 1.8; }
+  .actor-card ul li::before { content: "→ "; color: #1a56db; font-weight: 700; }
+  .dot-blue { background: #1a56db; }
+  .dot-yellow { background: #FFCC00; }
+  .dot-green { background: #10b981; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 11px; margin: 10px 0; }
+  th { background: #1a56db; color: #fff; padding: 8px 10px; text-align: left; font-weight: 600; }
+  td { padding: 7px 10px; border-bottom: 1px solid #e5e7eb; }
+  tr:nth-child(even) { background: #f9fafb; }
+
+  .modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0; }
+  .module-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px 12px; }
+  .module-card .name { font-weight: 700; font-size: 11px; color: #1a56db; }
+  .module-card .desc { font-size: 10px; color: #666; margin-top: 2px; }
+
+  .page-break { page-break-before: always; }
+  .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 10px; color: #999; text-align: center; }
+
+  @media print {
+    body { padding: 0; }
+    .no-print { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="header">
+  <div>
+    <div class="logo"><span>UKU</span>XBOX</div>
+    <div class="subtitle">Flujo Operativo del Módulo Casillero</div>
+  </div>
+  <div class="date">Documento interno - Marzo 2026</div>
+</div>
+
+<h2>Flujo Principal: Del Compra a la Entrega</h2>
+
+<div class="flow-container">
+  <div class="flow-step">
+    <div class="step-num">1</div>
+    <div class="step-title">Compra Online</div>
+    <div class="step-desc">Cliente compra en USA usando su dirección Miami</div>
+    <div class="step-who">Cliente</div>
+  </div>
+  <div class="arrow">▸</div>
+  <div class="flow-step">
+    <div class="step-num">2</div>
+    <div class="step-title">Pre-Alerta</div>
+    <div class="step-desc">Cliente registra tracking, tienda y valor declarado</div>
+    <div class="step-status">pre_alert: active</div>
+    <div class="step-who">Cliente</div>
+  </div>
+  <div class="arrow">▸</div>
+  <div class="flow-step active">
+    <div class="step-num">3</div>
+    <div class="step-title">Recepción</div>
+    <div class="step-desc">Paquete llega al warehouse. Operador escanea y registra</div>
+    <div class="step-status">received</div>
+    <div class="step-who">Operador Miami</div>
+  </div>
+  <div class="arrow">▸</div>
+  <div class="flow-step active">
+    <div class="step-num">4</div>
+    <div class="step-title">Digitación</div>
+    <div class="step-desc">Pesar, medir, fotografiar, asignar a cliente</div>
+    <div class="step-status">digitized</div>
+    <div class="step-who">Operador Miami</div>
+  </div>
+  <div class="arrow">▸</div>
+  <div class="flow-step active">
+    <div class="step-num">5</div>
+    <div class="step-title">Agrupación</div>
+    <div class="step-desc">Juntar paquetes en bolsas con precinto</div>
+    <div class="step-who">Operador Miami</div>
+  </div>
+</div>
+
+<div class="flow-container">
+  <div class="flow-step active">
+    <div class="step-num">6</div>
+    <div class="step-title">Despacho</div>
+    <div class="step-desc">Envío aéreo Miami → Paraguay</div>
+    <div class="step-status">in_transit</div>
+    <div class="step-who">Operador Miami</div>
+  </div>
+  <div class="arrow">▸</div>
+  <div class="flow-step">
+    <div class="step-num">7</div>
+    <div class="step-title">Aduana</div>
+    <div class="step-desc">Proceso aduanero en destino</div>
+    <div class="step-status">customs</div>
+    <div class="step-who">Aduana / Operador PY</div>
+  </div>
+  <div class="arrow">▸</div>
+  <div class="flow-step">
+    <div class="step-num">8</div>
+    <div class="step-title">Listo</div>
+    <div class="step-desc">Paquete en oficina, listo para retiro</div>
+    <div class="step-status">ready</div>
+    <div class="step-who">Operador PY</div>
+  </div>
+  <div class="arrow">▸</div>
+  <div class="flow-step">
+    <div class="step-num">9</div>
+    <div class="step-title">Cobro</div>
+    <div class="step-desc">Conciliación de pago ($25/kg)</div>
+    <div class="step-who">Operador PY</div>
+  </div>
+  <div class="arrow">▸</div>
+  <div class="flow-step">
+    <div class="step-num">10</div>
+    <div class="step-title">Entrega</div>
+    <div class="step-desc">Cliente retira o recibe delivery</div>
+    <div class="step-status">delivered</div>
+    <div class="step-who">Cliente / Operador</div>
+  </div>
+</div>
+
+<h2>Actores del Sistema</h2>
+
+<div class="actors">
+  <div class="actor-card">
+    <h4><span class="dot dot-blue"></span> Cliente</h4>
+    <ul>
+      <li>Se registra y obtiene casillero (UKU#XXXXX)</li>
+      <li>Recibe dirección Miami para compras</li>
+      <li>Crea pre-alertas con tracking</li>
+      <li>Consulta estado de paquetes</li>
+      <li>Gestiona destinatarios</li>
+      <li>Retira o recibe paquetes</li>
+    </ul>
+  </div>
+  <div class="actor-card">
+    <h4><span class="dot dot-yellow"></span> Operador Miami</h4>
+    <ul>
+      <li>Recibe paquetes en warehouse</li>
+      <li>Escanea tracking al llegar</li>
+      <li>Digita: pesa, mide, fotografía</li>
+      <li>Asigna paquetes a clientes</li>
+      <li>Agrupa en bolsas (precintos)</li>
+      <li>Crea despachos a Paraguay</li>
+    </ul>
+  </div>
+  <div class="actor-card">
+    <h4><span class="dot dot-green"></span> Operador Paraguay</h4>
+    <ul>
+      <li>Recibe despachos de Miami</li>
+      <li>Gestiona proceso aduanero</li>
+      <li>Actualiza estados de paquetes</li>
+      <li>Cobra al cliente ($25/kg)</li>
+      <li>Entrega paquetes</li>
+      <li>Gestiona facturación oficina</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page-break"></div>
+
+<div class="header">
+  <div>
+    <div class="logo"><span>UKU</span>XBOX</div>
+    <div class="subtitle">Módulos del Sistema - Panel Admin</div>
+  </div>
+  <div class="date">Documento interno - Marzo 2026</div>
+</div>
+
+<h2>Módulos Admin del Casillero</h2>
+
+<div class="modules-grid">
+  <div class="module-card">
+    <div class="name">Consultar Guía</div>
+    <div class="desc">Búsqueda avanzada por tracking, HAWB, MAWB, fechas, estado, país, peso</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Pre Alertas</div>
+    <div class="desc">Ver/gestionar pre-alertas de clientes. Filtrar por estado, vincular a paquetes</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Recepción de Paquetes</div>
+    <div class="desc">Registrar paquetes al llegar al warehouse. Auto-match con pre-alertas</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Digitación de Paquetes</div>
+    <div class="desc">Pesar, medir, fotografiar. Asignar a cliente si no tiene</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Clientes</div>
+    <div class="desc">CRUD de clientes. Buscar por nombre, cédula, código. Crear nuevos</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Clientes NN</div>
+    <div class="desc">Paquetes sin dueño identificado. Buscar y asignar a cliente</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Solicitar Despachos</div>
+    <div class="desc">Crear envío para un cliente específico con sus paquetes listos</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Despachos General</div>
+    <div class="desc">Despacho masivo de múltiples clientes en un solo envío</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Agrupar Paquetes</div>
+    <div class="desc">Crear bolsas/sacas con número de precinto. Consolidación</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Conciliación de Pagos</div>
+    <div class="desc">Verificar pagos, marcar como pagado, registrar método</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Estado de Cuenta</div>
+    <div class="desc">Balance por cliente: pagos, deudas, paquetes pendientes</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Facturación Franquicia</div>
+    <div class="desc">Generar facturas por oficina/sucursal en un período</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Historial</div>
+    <div class="desc">Auditoría completa de todos los paquetes con filtros. Exportar CSV</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Ubicación</div>
+    <div class="desc">Gestión de estantes/ubicaciones del almacén. Asignar paquetes</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Destinatarios</div>
+    <div class="desc">Ver y gestionar destinatarios de todos los clientes</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Tiendas</div>
+    <div class="desc">Catálogo de tiendas (Amazon, eBay, etc.)</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Códigos Promocionales</div>
+    <div class="desc">Descuentos con fecha de vigencia y límite de usos</div>
+  </div>
+  <div class="module-card">
+    <div class="name">Ibox</div>
+    <div class="desc">Gestión de buzones virtuales por cliente</div>
+  </div>
+</div>
+
+<h2>Estados del Paquete</h2>
+
+<table>
+  <tr>
+    <th>Estado</th>
+    <th>Nombre visible</th>
+    <th>Descripción</th>
+    <th>Quién lo cambia</th>
+  </tr>
+  <tr>
+    <td><strong>received</strong></td>
+    <td>En Miami</td>
+    <td>Paquete llegó al warehouse y fue escaneado</td>
+    <td>Operador Miami (Recepción)</td>
+  </tr>
+  <tr>
+    <td><strong>digitized</strong></td>
+    <td>En Miami</td>
+    <td>Paquete pesado, medido, fotografiado y asignado</td>
+    <td>Operador Miami (Digitación)</td>
+  </tr>
+  <tr>
+    <td><strong>in_transit</strong></td>
+    <td>En Tránsito</td>
+    <td>Despachado de Miami hacia destino</td>
+    <td>Operador Miami (Despacho)</td>
+  </tr>
+  <tr>
+    <td><strong>customs</strong></td>
+    <td>En Aduana</td>
+    <td>En proceso aduanero en país destino</td>
+    <td>Operador PY</td>
+  </tr>
+  <tr>
+    <td><strong>ready</strong></td>
+    <td>Listo para Retiro</td>
+    <td>En oficina destino, disponible para el cliente</td>
+    <td>Operador PY</td>
+  </tr>
+  <tr>
+    <td><strong>delivered</strong></td>
+    <td>Entregado</td>
+    <td>Cliente retiró o recibió el paquete</td>
+    <td>Operador PY</td>
+  </tr>
+</table>
+
+<div class="footer">
+  UKUXBOX - Global Ware House Center &nbsp;|&nbsp; Documento generado marzo 2026 &nbsp;|&nbsp; Confidencial
+</div>
+
+<div class="no-print" style="margin-top: 30px; text-align: center;">
+  <button onclick="window.print()" style="background: #1a56db; color: white; border: none; padding: 12px 32px; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer;">
+    Imprimir / Guardar como PDF
+  </button>
+</div>
+
+</body>
+</html>

@@ -1,11 +1,16 @@
+// ============================================
+// User & Auth
+// ============================================
+
 export interface User {
+  id: string;
   codigo: string;
   nombre: string;
   telefono: string;
   email: string;
   oficina: string;
   direccion: string;
-  direccionUS: DireccionUS;
+  direccionUS: DireccionUS | null;
 }
 
 export interface DireccionUS {
@@ -17,6 +22,10 @@ export interface DireccionUS {
   zipcode: string;
   telefono: string;
 }
+
+// ============================================
+// Packages
+// ============================================
 
 export type PackageStatus =
   | "En Miami"
@@ -38,6 +47,10 @@ export interface Package {
   fechaEntrega?: string;
 }
 
+// ============================================
+// Pre-Alertas
+// ============================================
+
 export interface PreAlerta {
   id: string;
   tracking: string;
@@ -46,6 +59,10 @@ export interface PreAlerta {
   valor: number;
   fecha: string;
 }
+
+// ============================================
+// Offices & Misc
+// ============================================
 
 export interface Oficina {
   id: string;
