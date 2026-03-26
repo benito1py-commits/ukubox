@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { mockFAQs } from "@/lib/mock-data";
 import { Search, Package2, Calculator, Plane, Ship, Ban, Truck, ShoppingCart, Globe, Box, Shield, Warehouse, MapPin, Phone, Clock, Mail } from "lucide-react";
 
@@ -47,6 +47,8 @@ export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [trackingNumber, setTrackingNumber] = useState("");
   const [weight, setWeight] = useState("1");
+  const [contactSent, setContactSent] = useState(false);
+  const contactFormRef = useRef<HTMLFormElement>(null);
   const estimatedCost = (parseFloat(weight || "0") * 25).toFixed(2);
 
   const handleTrack = (e: React.FormEvent) => {
@@ -386,14 +388,30 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
             <div className="bg-white rounded-xl p-8 border border-border shadow-sm">
               <h3 className="font-bold text-xl mb-6">Envianos un mensaje</h3>
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                <input type="text" placeholder="Nombre completo" className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary/20 outline-none bg-gray-50 focus:bg-white transition-colors" />
-                <input type="email" placeholder="Email" className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary/20 outline-none bg-gray-50 focus:bg-white transition-colors" />
-                <input type="text" placeholder="Asunto" className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary/20 outline-none bg-gray-50 focus:bg-white transition-colors" />
-                <textarea placeholder="Mensaje" rows={4} className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary/20 outline-none resize-none bg-gray-50 focus:bg-white transition-colors" />
-                <button className="w-full bg-primary text-white px-8 py-3.5 rounded-lg font-bold hover:bg-primary-hover shadow transition-all">
+              <form ref={contactFormRef} className="space-y-4" onSubmit={(e) => {
+                e.preventDefault();
+                const form = e.currentTarget;
+                const nombre = (form.elements.namedItem("nombre") as HTMLInputElement).value;
+                const email = (form.elements.namedItem("email") as HTMLInputElement).value;
+                const asunto = (form.elements.namedItem("asunto") as HTMLInputElement).value;
+                const mensaje = (form.elements.namedItem("mensaje") as HTMLTextAreaElement).value;
+                if (!nombre || !email || !mensaje) return;
+                const text = `Hola, soy ${nombre} (${email}).%0A%0AAsunto: ${asunto}%0A%0A${mensaje}`;
+                window.open(`https://wa.me/595986733000?text=${text}`, "_blank");
+                setContactSent(true);
+                form.reset();
+                setTimeout(() => setContactSent(false), 3000);
+              }}>
+                <input type="text" name="nombre" placeholder="Nombre completo" required className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary/20 outline-none bg-gray-50 focus:bg-white transition-colors" />
+                <input type="email" name="email" placeholder="Email" required className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary/20 outline-none bg-gray-50 focus:bg-white transition-colors" />
+                <input type="text" name="asunto" placeholder="Asunto" className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary/20 outline-none bg-gray-50 focus:bg-white transition-colors" />
+                <textarea name="mensaje" placeholder="Mensaje" rows={4} required className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary/20 outline-none resize-none bg-gray-50 focus:bg-white transition-colors" />
+                <button type="submit" className="w-full bg-primary text-white px-8 py-3.5 rounded-lg font-bold hover:bg-primary-hover shadow transition-all">
                   Enviar
                 </button>
+                {contactSent && (
+                  <p className="text-green-600 text-sm text-center">Se abrió WhatsApp con tu mensaje.</p>
+                )}
               </form>
             </div>
             <div className="space-y-6">

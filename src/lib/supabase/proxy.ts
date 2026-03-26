@@ -35,17 +35,39 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser()
 
   // Redirect unauthenticated users away from protected routes
-  const isProtectedRoute =
-    request.nextUrl.pathname.startsWith('/dashboard') ||
-    request.nextUrl.pathname.startsWith('/admin')
+  const isDashboardRoute = request.nextUrl.pathname.startsWith('/dashboard')
+  const isAdminRoute = request.nextUrl.pathname.startsWith('/admin')
+  const isAdminLogin = request.nextUrl.pathname === '/admin/login'
   const isAuthRoute =
     request.nextUrl.pathname === '/login' ||
     request.nextUrl.pathname === '/registro'
 
-  if (!user && isProtectedRoute) {
+  if (!user && isDashboardRoute) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     return NextResponse.redirect(url)
+  }
+
+  // Admin routes: check authentication and admin role
+  if (isAdminRoute && !isAdminLogin) {
+    if (!user) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/admin/login'
+      return NextResponse.redirect(url)
+    }
+    // Verify admin role
+    const { data: admin } = await supabase
+      .from('admin_users')
+      .select('id')
+      .eq('id', user.id)
+      .eq('is_active', true)
+      .single()
+
+    if (!admin) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/dashboard/paquetes'
+      return NextResponse.redirect(url)
+    }
   }
 
   // Redirect authenticated users away from auth pages

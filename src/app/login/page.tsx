@@ -23,7 +23,9 @@ export default function LoginPage() {
     setError("");
     const success = await login(email, password);
     if (success) {
-      router.push("/dashboard/paquetes");
+      // Use window.location for full page reload so cookies propagate to middleware
+      window.location.href = "/dashboard/paquetes";
+      return;
     } else {
       setError("Credenciales incorrectas");
     }
@@ -86,7 +88,7 @@ export default function LoginPage() {
               {loading ? "Ingresando..." : "Ingresar"}
             </button>
             <div className="flex items-center justify-between text-sm">
-              <a href="#" className="text-primary hover:underline">
+              <a href="https://wa.me/595986733000?text=Hola%2C%20necesito%20recuperar%20mi%20contraseña" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                 ¿Olvidaste tu contraseña?
               </a>
               <Link href="/registro" className="text-primary hover:underline">

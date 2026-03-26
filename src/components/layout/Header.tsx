@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MapPin, Phone, Mail, Menu, X, ChevronDown } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 
@@ -20,8 +20,11 @@ const moreLinks = [
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const { user, logout } = useAuth();
+
+  useEffect(() => { setMounted(true); }, []);
 
   const isActive = (href: string) => pathname === href;
 
@@ -42,7 +45,7 @@ export function Header() {
             </a>
           </div>
           <div className="flex items-center gap-4">
-            {user ? (
+            {mounted && user ? (
               <>
                 <Link href="/dashboard/paquetes" className="hover:text-accent transition-colors font-medium">
                   Mi Casillero
@@ -97,7 +100,7 @@ export function Header() {
             >
               Rastrear Paquete
             </a>
-            {user ? (
+            {mounted && user ? (
               <Link
                 href="/dashboard/paquetes"
                 className="ml-2 bg-accent text-foreground px-5 py-2 rounded-lg text-sm font-bold hover:bg-accent-hover transition-colors"
@@ -160,7 +163,7 @@ export function Header() {
                   <a href="mailto:sac@ukuxbox.com">sac@ukuxbox.com</a>
                 </div>
               </div>
-              {user ? (
+              {mounted && user ? (
                 <>
                   <Link
                     href="/dashboard/paquetes"

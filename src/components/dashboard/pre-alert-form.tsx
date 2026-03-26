@@ -31,10 +31,11 @@ export function PreAlertForm({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
     setLoading(true);
     setMessage("");
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
     const storeId = formData.get("store_id") as string;
     const store = stores.find((s) => s.id === storeId);
     if (store) {
@@ -47,7 +48,7 @@ export function PreAlertForm({
       setMessage(result.error);
     } else {
       setMessage("Pre-Alerta registrada correctamente");
-      e.currentTarget.reset();
+      form.reset();
       // Add to local state optimistically
       const newAlerta: PreAlertaDisplay = {
         id: `temp-${Date.now()}`,
