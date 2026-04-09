@@ -46,12 +46,11 @@ export function Footer() {
         <div>
           <h4 className="font-semibold text-lg mb-4">Enlaces Rápidos</h4>
           <ul className="space-y-3 text-sm text-gray-400">
-            <li><Link href="/nosotros" className="hover:text-accent transition-colors">Nosotros</Link></li>
-            <li><Link href="/servicios" className="hover:text-accent transition-colors">Servicios</Link></li>
-            <li><Link href="/preguntas-frecuentes" className="hover:text-accent transition-colors">Preguntas Frecuentes</Link></li>
+            <li><Link href="/sitio/nosotros" className="hover:text-accent transition-colors">Nosotros</Link></li>
+            <li><Link href="/sitio/servicios" className="hover:text-accent transition-colors">Servicios</Link></li>
+            <li><Link href="/sitio/preguntas-frecuentes" className="hover:text-accent transition-colors">Preguntas Frecuentes</Link></li>
             <li><a href="https://parcelsapp.com/" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">Rastrear Paquete</a></li>
-            <li><Link href="/login" className="hover:text-accent transition-colors">Iniciar Sesión</Link></li>
-            <li><Link href="/dashboard/paquetes" className="hover:text-accent transition-colors">Mis Paquetes</Link></li>
+            <li><a href="https://parcelsapp.com/" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">Rastrear Paquete</a></li>
           </ul>
         </div>
 
@@ -59,11 +58,11 @@ export function Footer() {
         <div>
           <h4 className="font-semibold text-lg mb-4">Servicios</h4>
           <ul className="space-y-3 text-sm text-gray-400">
-            <li><Link href="/servicios" className="hover:text-accent transition-colors">Casillero en Miami</Link></li>
-            <li><Link href="/servicios" className="hover:text-accent transition-colors">Transporte Aéreo</Link></li>
-            <li><Link href="/servicios" className="hover:text-accent transition-colors">Transporte Marítimo</Link></li>
-            <li><Link href="/servicios" className="hover:text-accent transition-colors">Servicio de Compras</Link></li>
-            <li><Link href="/servicios" className="hover:text-accent transition-colors">Consolidación</Link></li>
+            <li><Link href="/sitio/servicios" className="hover:text-accent transition-colors">Casillero en Miami</Link></li>
+            <li><Link href="/sitio/servicios" className="hover:text-accent transition-colors">Transporte Aéreo</Link></li>
+            <li><Link href="/sitio/servicios" className="hover:text-accent transition-colors">Transporte Marítimo</Link></li>
+            <li><Link href="/sitio/servicios" className="hover:text-accent transition-colors">Servicio de Compras</Link></li>
+            <li><Link href="/sitio/servicios" className="hover:text-accent transition-colors">Consolidación</Link></li>
           </ul>
         </div>
 

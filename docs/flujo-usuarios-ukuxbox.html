@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>UKUXBOX - Flujo de Usuarios y Credenciales de Prueba</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page-break { page-break-before: always; }
+  }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 30px;
+    color: #1e293b;
+    line-height: 1.6;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #6366f1;
+  }
+  .header h1 {
+    font-size: 2.2rem;
+    margin: 0;
+    color: #1e293b;
+  }
+  .header h1 span { color: #6366f1; }
+  .header p {
+    color: #64748b;
+    margin: 8px 0 0;
+    font-size: 1.1rem;
+  }
+  .header .date {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    margin-top: 4px;
+  }
+  h2 {
+    color: #6366f1;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 8px;
+    margin-top: 40px;
+  }
+  h3 {
+    color: #334155;
+    margin-top: 24px;
+  }
+  .credentials-box {
+    background: #f8fafc;
+    border: 2px solid #6366f1;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+  .credentials-box h3 {
+    margin-top: 0;
+    color: #6366f1;
+  }
+  .cred-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+  }
+  .cred-table th {
+    background: #6366f1;
+    color: white;
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 0.9rem;
+  }
+  .cred-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.9rem;
+  }
+  .cred-table tr:nth-child(even) { background: #f1f5f9; }
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .badge-admin { background: #fef3c7; color: #92400e; }
+  .badge-client { background: #dbeafe; color: #1e40af; }
+  .mermaid {
+    margin: 20px 0;
+    text-align: center;
+  }
+  .routes-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.9rem;
+  }
+  .routes-table th {
+    background: #334155;
+    color: white;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  .routes-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .routes-table tr:nth-child(even) { background: #f8fafc; }
+  .routes-table code {
+    background: #e2e8f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+  }
+  .note {
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    padding: 12px 16px;
+    margin: 16px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.9rem;
+  }
+  .url-box {
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-family: monospace;
+    font-size: 0.95rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1><span>UKU</span>XBOX</h1>
+  <p>Flujo de Usuarios y Credenciales de Prueba</p>
+  <div class="date">Generado: 25 de Marzo, 2026</div>
+</div>
+
+<!-- CREDENCIALES -->
+<h2>1. Credenciales de Prueba</h2>
+
+<div class="credentials-box">
+  <h3>Usuarios para Testing</h3>
+  <table class="cred-table">
+    <thead>
+      <tr>
+        <th>Rol</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>URL de Login</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="badge badge-admin">ADMIN</span></td>
+        <td>admin@ukuxbox.com</td>
+        <td>Admin123!</td>
+        <td>/admin/login</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-client">CLIENTE</span></td>
+        <td>test@ukuxbox.com</td>
+        <td>Test123!</td>
+        <td>/login</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- FLUJO GENERAL -->
+<h2>2. Flujo General del Sistema</h2>
+
+<div class="mermaid">
+flowchart TD
+    A["🌐 Usuario visita UKUXBOX"] --> B{¿Tiene cuenta?}
+    B -->|No| C["📝 Registro /registro"]
+    B -->|Sí| D{¿Qué tipo de usuario?}
+    C --> C1["Ingresa: nombre, email, teléfono, cédula, password"]
+    C1 --> C2["Sistema genera casillero UKU#XXXXX + dirección Miami"]
+    C2 --> D
+    D -->|Cliente| E["🔐 Login Cliente /login"]
+    D -->|Admin| F["🔐 Login Admin /admin/login"]
+    E --> G["📦 Dashboard Cliente /dashboard"]
+    F --> H["⚙️ Panel Admin /admin"]
+
+    style A fill:#6366f1,color:#fff
+    style C fill:#dbeafe,color:#1e40af
+    style E fill:#dbeafe,color:#1e40af
+    style F fill:#fef3c7,color:#92400e
+    style G fill:#dbeafe,color:#1e40af
+    style H fill:#fef3c7,color:#92400e
+</div>
+
+<!-- FLUJO CLIENTE -->
+<div class="page-break"></div>
+<h2>3. Flujo del Cliente</h2>
+
+<div class="mermaid">
+flowchart TD
+    LOGIN["🔐 Login /login<br/>test@ukuxbox.com / Test123!"] --> DASH["📦 Dashboard /dashboard/paquetes"]
+
+    DASH --> PKG["Mis Paquetes<br/>/dashboard/paquetes"]
+    DASH --> HIST["Historial<br/>/dashboard/historial"]
+    DASH --> PRE["Pre-Alerta<br/>/dashboard/pre-alerta"]
+    DASH --> DEST["Destinatarios<br/>/dashboard/destinatarios"]
+    DASH --> PERF["Mi Perfil<br/>/dashboard/perfil"]
+
+    PKG --> PKG1["Ver paquetes activos"]
+    PKG --> PKG2["Estado: en Miami / en tránsito / listo"]
+
+    PRE --> PRE1["Registrar compra entrante"]
+    PRE1 --> PRE2["Tracking + tienda + descripción + valor"]
+
+    DEST --> DEST1["Agregar personas autorizadas<br/>para retirar paquetes"]
+
+    PERF --> PERF1["Ver dirección Miami asignada"]
+    PERF --> PERF2["Cambiar contraseña"]
+    PERF --> PERF3["Cambiar oficina de retiro"]
+
+    style LOGIN fill:#6366f1,color:#fff
+    style DASH fill:#3b82f6,color:#fff
+    style PKG fill:#dbeafe,color:#1e40af
+    style HIST fill:#dbeafe,color:#1e40af
+    style PRE fill:#dbeafe,color:#1e40af
+    style DEST fill:#dbeafe,color:#1e40af
+    style PERF fill:#dbeafe,color:#1e40af
+</div>
+
+<h3>Ciclo de vida de un paquete (vista cliente)</h3>
+
+<div class="mermaid">
+flowchart LR
+    A["📋 Pre-Alerta<br/>Cliente registra compra"] --> B["📥 Recibido en Miami<br/>received"]
+    B --> C["✈️ En Tránsito<br/>in_transit"]
+    C --> D["🛃 En Aduana<br/>customs"]
+    D --> E["✅ Listo para Retiro<br/>ready"]
+    E --> F["📦 Entregado<br/>delivered"]
+
+    style A fill:#f0f9ff,color:#0c4a6e
+    style B fill:#dbeafe,color:#1e40af
+    style C fill:#fef3c7,color:#92400e
+    style D fill:#fce7f3,color:#9d174d
+    style E fill:#d1fae5,color:#065f46
+    style F fill:#6366f1,color:#fff
+</div>
+
+<!-- FLUJO ADMIN -->
+<div class="page-break"></div>
+<h2>4. Flujo del Administrador</h2>
+
+<div class="mermaid">
+flowchart TD
+    LOGIN["🔐 Login Admin /admin/login<br/>admin@ukuxbox.com / Admin123!"] --> DASH["⚙️ Dashboard /admin"]
+
+    DASH --> STATS["📊 Estadísticas<br/>clientes, paquetes, pre-alertas"]
+
+    DASH --> REC["📥 Recepción<br/>/admin/casillero/recepcion"]
+    DASH --> DIG["⌨️ Digitación<br/>/admin/casillero/digitacion"]
+    DASH --> GUIA["🔍 Consultar Guía<br/>/admin/casillero/consultar-guia"]
+    DASH --> PREA["📋 Pre-Alertas<br/>/admin/casillero/pre-alertas"]
+    DASH --> CLI["👥 Clientes<br/>/admin/casillero/clientes"]
+    DASH --> NN["❓ Clientes NN<br/>/admin/casillero/clientes-nn"]
+
+    REC --> REC1["Recibir paquetes entrantes"]
+    DIG --> DIG1["Ingresar datos de paquetes"]
+    GUIA --> GUIA1["Buscar por tracking / MAWB / HAWB"]
+    PREA --> PREA1["Gestionar pre-alertas<br/>activas, matcheadas, retenidas"]
+    CLI --> CLI1["Ver todos los clientes"]
+    CLI --> CLI2["Crear cliente nuevo<br/>/admin/casillero/clientes/nuevo"]
+    NN --> NN1["Asignar paquetes sin dueño"]
+
+    style LOGIN fill:#6366f1,color:#fff
+    style DASH fill:#f59e0b,color:#fff
+    style REC fill:#fef3c7,color:#92400e
+    style DIG fill:#fef3c7,color:#92400e
+    style GUIA fill:#fef3c7,color:#92400e
+    style PREA fill:#fef3c7,color:#92400e
+    style CLI fill:#fef3c7,color:#92400e
+    style NN fill:#fef3c7,color:#92400e
+</div>
+
+<h3>Flujo operativo del admin</h3>
+
+<div class="mermaid">
+flowchart LR
+    A["1. Recepción<br/>Paquete llega a Miami"] --> B["2. Digitación<br/>Cargar datos al sistema"]
+    B --> C["3. Match Pre-Alerta<br/>Asociar con cliente"]
+    C --> D["4. Despacho<br/>Enviar a Paraguay"]
+    D --> E["5. Entrega<br/>Cliente retira en oficina"]
+
+    style A fill:#fef3c7,color:#92400e
+    style B fill:#fef3c7,color:#92400e
+    style C fill:#fef3c7,color:#92400e
+    style D fill:#fef3c7,color:#92400e
+    style E fill:#d1fae5,color:#065f46
+</div>
+
+<!-- RUTAS -->
+<div class="page-break"></div>
+<h2>5. Mapa Completo de Rutas</h2>
+
+<h3>Páginas Públicas</h3>
+<table class="routes-table">
+  <thead><tr><th>Ruta</th><th>Descripción</th></tr></thead>
+  <tbody>
+    <tr><td><code>/</code></td><td>Homepage - hero, servicios, calculadora, sucursales</td></tr>
+    <tr><td><code>/nosotros</code></td><td>Misión, visión, valores de la empresa</td></tr>
+    <tr><td><code>/servicios</code></td><td>Detalle de servicios y tarifas</td></tr>
+    <tr><td><code>/preguntas-frecuentes</code></td><td>FAQ expandible</td></tr>
+    <tr><td><code>/consultar</code></td><td>Rastreo público de paquetes (sin login)</td></tr>
+    <tr><td><code>/login</code></td><td>Login de clientes</td></tr>
+    <tr><td><code>/registro</code></td><td>Registro de nuevos clientes</td></tr>
+  </tbody>
+</table>
+
+<h3>Dashboard Cliente (requiere login)</h3>
+<table class="routes-table">
+  <thead><tr><th>Ruta</th><th>Descripción</th></tr></thead>
+  <tbody>
+    <tr><td><code>/dashboard/paquetes</code></td><td>Paquetes activos y estadísticas</td></tr>
+    <tr><td><code>/dashboard/historial</code></td><td>Historial de paquetes entregados</td></tr>
+    <tr><td><code>/dashboard/pre-alerta</code></td><td>Registrar compras entrantes</td></tr>
+    <tr><td><code>/dashboard/destinatarios</code></td><td>Personas autorizadas para retirar</td></tr>
+    <tr><td><code>/dashboard/perfil</code></td><td>Perfil, dirección, contraseña, oficina</td></tr>
+  </tbody>
+</table>
+
+<h3>Panel Admin (requiere rol admin)</h3>
+<table class="routes-table">
+  <thead><tr><th>Ruta</th><th>Descripción</th></tr></thead>
+  <tbody>
+    <tr><td><code>/admin</code></td><td>Dashboard con estadísticas generales</td></tr>
+    <tr><td><code>/admin/casillero/recepcion</code></td><td>Recibir paquetes entrantes</td></tr>
+    <tr><td><code>/admin/casillero/digitacion</code></td><td>Ingresar datos de paquetes</td></tr>
+    <tr><td><code>/admin/casillero/consultar-guia</code></td><td>Buscar por tracking/MAWB/HAWB</td></tr>
+    <tr><td><code>/admin/casillero/pre-alertas</code></td><td>Gestionar pre-alertas</td></tr>
+    <tr><td><code>/admin/casillero/clientes</code></td><td>Lista de todos los clientes</td></tr>
+    <tr><td><code>/admin/casillero/clientes/nuevo</code></td><td>Crear cliente manualmente</td></tr>
+    <tr><td><code>/admin/casillero/clientes-nn</code></td><td>Paquetes sin asignar</td></tr>
+  </tbody>
+</table>
+
+<div class="note">
+  <strong>Nota:</strong> Las variables <code>NEXT_PUBLIC_*</code> de Supabase se inyectan en build time. Después de cambiar env vars en Vercel, siempre hacer Redeploy.
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#6366f1',
+      primaryTextColor: '#fff',
+      primaryBorderColor: '#4f46e5',
+      lineColor: '#94a3b8',
+      secondaryColor: '#f1f5f9',
+      tertiaryColor: '#fff',
+      fontSize: '14px'
+    },
+    flowchart: {
+      htmlLabels: true,
+      curve: 'basis',
+      nodeSpacing: 30,
+      rankSpacing: 40
+    }
+  });
+</script>
+
+</body>
+</html>

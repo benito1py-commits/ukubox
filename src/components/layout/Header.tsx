@@ -2,29 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
-import { MapPin, Phone, Mail, Menu, X, ChevronDown } from "lucide-react";
-import { useAuth } from "@/lib/auth-context";
+import { useState } from "react";
+import { MapPin, Phone, Mail, Menu, X } from "lucide-react";
 
 const navLinks = [
-  { href: "/", label: "Inicio" },
-  { href: "/nosotros", label: "Nosotros" },
-  { href: "/servicios", label: "Servicios" },
-  { href: "/preguntas-frecuentes", label: "Preguntas Frecuentes" },
-];
-
-const moreLinks = [
-  { href: "https://parcelsapp.com/", label: "Rastrear Paquete", external: true },
-  { href: "/preguntas-frecuentes", label: "Preguntas Frecuentes" },
+  { href: "/sitio", label: "Inicio" },
+  { href: "/sitio/nosotros", label: "Nosotros" },
+  { href: "/sitio/servicios", label: "Servicios" },
+  { href: "/sitio/preguntas-frecuentes", label: "Preguntas Frecuentes" },
 ];
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
-  const { user, logout } = useAuth();
-
-  useEffect(() => { setMounted(true); }, []);
 
   const isActive = (href: string) => pathname === href;
 
@@ -44,29 +34,13 @@ export function Header() {
               <Mail size={14} /> sac@ukuxbox.com
             </a>
           </div>
-          <div className="flex items-center gap-4">
-            {mounted && user ? (
-              <>
-                <Link href="/dashboard/paquetes" className="hover:text-accent transition-colors font-medium">
-                  Mi Casillero
-                </Link>
-                <button onClick={logout} className="hover:text-accent transition-colors font-medium">
-                  Salir
-                </button>
-              </>
-            ) : (
-              <Link href="/login" className="hover:text-accent transition-colors font-medium">
-                Iniciar Sesión / Registro
-              </Link>
-            )}
-          </div>
         </div>
       </div>
 
       {/* Main Nav */}
       <nav className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-1 shrink-0">
+          <Link href="/sitio" className="flex items-center gap-1 shrink-0">
             <span className="text-2xl font-black tracking-tight">
               <span className="text-primary">UKU</span>
               <span className="text-foreground">XBOX</span>
@@ -100,21 +74,6 @@ export function Header() {
             >
               Rastrear Paquete
             </a>
-            {mounted && user ? (
-              <Link
-                href="/dashboard/paquetes"
-                className="ml-2 bg-accent text-foreground px-5 py-2 rounded-lg text-sm font-bold hover:bg-accent-hover transition-colors"
-              >
-                Mis Paquetes
-              </Link>
-            ) : (
-              <Link
-                href="/login"
-                className="ml-2 bg-primary text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-primary-hover transition-colors"
-              >
-                Iniciar Sesión
-              </Link>
-            )}
           </div>
 
           {/* Mobile Toggle */}
@@ -163,31 +122,6 @@ export function Header() {
                   <a href="mailto:sac@ukuxbox.com">sac@ukuxbox.com</a>
                 </div>
               </div>
-              {mounted && user ? (
-                <>
-                  <Link
-                    href="/dashboard/paquetes"
-                    onClick={() => setMobileOpen(false)}
-                    className="block bg-accent text-foreground text-center px-4 py-3 rounded-lg font-bold mt-2"
-                  >
-                    Mis Paquetes
-                  </Link>
-                  <button
-                    onClick={() => { logout(); setMobileOpen(false); }}
-                    className="block w-full text-center px-4 py-3 rounded-lg font-medium text-danger hover:bg-danger/5 transition-colors"
-                  >
-                    Cerrar Sesión
-                  </button>
-                </>
-              ) : (
-                <Link
-                  href="/login"
-                  onClick={() => setMobileOpen(false)}
-                  className="block bg-primary text-white text-center px-4 py-3 rounded-lg font-bold mt-2"
-                >
-                  Iniciar Sesión
-                </Link>
-              )}
             </div>
           </div>
         )}
