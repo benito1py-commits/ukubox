@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "UKUXBOX - Tu Casillero en Miami",
+  title: "UKUXBOX - Tu Casillero en Miami and New York",
   description:
     "Comprá en Estados Unidos y recibí en Paraguay. Tu casillero personal en Miami con UKUXBOX.",
 };
