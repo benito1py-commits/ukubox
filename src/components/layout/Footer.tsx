@@ -72,7 +72,7 @@ export function Footer() {
           <ul className="space-y-3 text-sm text-gray-400">
             <li className="flex items-start gap-3">
               <MapPin size={16} className="text-accent mt-0.5 shrink-0" />
-              <span>Teniente del Valle casi Itapúa<br />Asunción, Paraguay</span>
+              <span>España 2220 casi América<br />Asunción, Paraguay</span>
             </li>
             <li className="flex items-center gap-3">
               <Phone size={16} className="text-accent shrink-0" />

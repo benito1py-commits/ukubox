@@ -41,11 +41,11 @@ const manejoItems = [
 const addresses = [
   { country: "EEUU (Miami)", flag: "🇺🇸", lines: ["6758 N.W. 72 AV", "Miami, FL 33166-3049", "Florida - USA"], tel: "+1 (305) 430-5100" },
   { country: "EEUU (New York)", flag: "🇺🇸", lines: ["New York, NY", "USA"], tel: "+1 (305) 430-5100" },
-  { country: "Paraguay", flag: "🇵🇾", lines: ["Teniente del Valle casi Itapúa", "Asunción - Paraguay"], tel: "+595 982 278 071" },
+  { country: "Paraguay", flag: "🇵🇾", lines: ["España 2220 casi América", "Asunción - Paraguay"], tel: "+595 982 278 071" },
 ];
 
 const sucursales = [
-  { nombre: "Asunción - Central", telefono: "0982 278 071", direccion: "Teniente del Valle casi Itapúa", horario: "Lun-Vie: 08:00-18:00, Sáb: 08:00-12:00" },
+  { nombre: "Asunción - Central", telefono: "0982 278 071", direccion: "España 2220 casi América", horario: "Lun-Vie: 08:00-18:00, Sáb: 08:00-12:00" },
   { nombre: "Ciudad del Este", telefono: "0971 111 855", direccion: "Av. San Blas esq. Curupayty", horario: "Lun-Vie: 08:00-16:00, Sáb: 08:00-13:00" },
   { nombre: "Encarnación", telefono: "0983 073 000", direccion: "Av. Irrazábal c/ Tomás R. Pereira", horario: "Lun-Vie: 08:00-17:00" },
 ];
@@ -425,7 +425,7 @@ export default function HomePage() {
             </div>
             <div className="space-y-6">
               {[
-                { icon: MapPin, title: "Dirección", text: "Teniente del Valle casi Itapúa\nAsunción, Paraguay" },
+                { icon: MapPin, title: "Dirección", text: "España 2220 casi América\nAsunción, Paraguay" },
                 { icon: Phone, title: "WhatsApp", text: "+595 982 278 071", href: "https://wa.me/595982278071" },
                 { icon: Mail, title: "Email", text: "sac@ukuxbox.com", href: "mailto:sac@ukuxbox.com" },
                 { icon: Clock, title: "Horario", text: "Lunes a Viernes: 8:00 - 18:00\nSábados: 8:00 - 12:00" },

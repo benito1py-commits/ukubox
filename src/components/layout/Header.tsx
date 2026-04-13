@@ -26,7 +26,7 @@ export function Header() {
         <div className="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center">
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5 opacity-90">
-              <MapPin size={14} /> Teniente del Valle casi Itapúa, Asunción
+              <MapPin size={14} /> España 2220 casi América, Asunción
             </span>
             <a href="tel:0982278071" className="flex items-center gap-1.5 opacity-90 hover:opacity-100 transition-opacity">
               <Phone size={14} /> 0982 278 071
