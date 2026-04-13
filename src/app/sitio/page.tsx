@@ -7,17 +7,17 @@ import { Search, Package2, Calculator, Plane, Ship, Ban, Truck, ShoppingCart, Gl
 const faqs = [
   { pregunta: "¿Cómo obtengo mi dirección en Miami?", respuesta: "Al registrarte en UKUXBOX, recibirás automáticamente una dirección en Miami con tu número de casillero único. Esta dirección la puedes usar en cualquier tienda online de Estados Unidos para recibir tus compras." },
   { pregunta: "¿Cuánto tiempo tarda en llegar mi paquete?", respuesta: "El tiempo de tránsito desde Miami hasta nuestras oficinas en Paraguay es de aproximadamente 7 a 12 días hábiles, dependiendo del tipo de envío y el despacho aduanero." },
-  { pregunta: "¿Cómo se calcula el costo del envío?", respuesta: "El costo se calcula por peso en libras. Nuestras tarifas arrancan desde $8 por libra para envíos regulares. Paquetes más pesados pueden tener tarifas especiales. Contactanos para una cotización personalizada." },
+  { pregunta: "¿Cómo se calcula el costo del envío?", respuesta: "El costo se calcula por peso en kilos. Nuestras tarifas arrancan desde $8 por kilo para envíos regulares. Paquetes más pesados pueden tener tarifas especiales. Contactanos para una cotización personalizada." },
   { pregunta: "¿Qué es una Pre-Alerta?", respuesta: "La Pre-Alerta es un aviso que vos enviás cuando comprás algo online. Nos decís el número de tracking, la tienda y el valor declarado, así podemos prepararnos para recibir tu paquete y agilizar el proceso." },
   { pregunta: "¿Puedo consolidar varios paquetes?", respuesta: "Sí, ofrecemos servicio de consolidación. Podés acumular varios paquetes en tu casillero de Miami y enviarlos todos juntos en un solo despacho, ahorrando en costos de envío." },
   { pregunta: "¿Qué productos no se pueden enviar?", respuesta: "No se pueden enviar materiales peligrosos, armas, drogas, alimentos perecederos, animales vivos, ni artículos prohibidos por la legislación paraguaya. Consultá nuestra lista completa de artículos restringidos." },
 ];
 
 const steps = [
-  { num: "01", title: "Registrate", desc: "Creá tu casilla gratuitamente y ya estarás habilitado para realizar tus compras en el exterior.", href: "https://wa.me/595986733000?text=Hola,%20quiero%20crear%20mi%20casillero" },
-  { num: "02", title: "Comprá Online", desc: "Comprá todo lo que deseas en cualquier tienda de USA y envialo a tu casilla en Miami o New York.", href: "/servicios" },
+  { num: "01", title: "Registrate", desc: "Creá tu casilla gratuitamente y ya estarás habilitado para realizar tus compras en el exterior.", href: "https://wa.me/595982278071?text=Hola,%20quiero%20crear%20mi%20casillero" },
+  { num: "02", title: "Comprá Online", desc: "Comprá todo lo que deseas en cualquier tienda de USA y envialo a tu casilla en Miami.", href: "/servicios" },
   { num: "03", title: "Seguí tus Paquetes", desc: "Seguí los estados de tus paquetes 24/7 desde tu panel de cliente.", href: "https://parcelsapp.com/" },
-  { num: "04", title: "Recibí tu Paquete", desc: "Retirá en nuestra oficina o solicitá delivery a tu domicilio.", href: "https://wa.me/595986733000" },
+  { num: "04", title: "Recibí tu Paquete", desc: "Retirá en nuestra oficina o solicitá delivery a tu domicilio.", href: "https://wa.me/595982278071" },
 ];
 
 const services = [
@@ -41,11 +41,11 @@ const manejoItems = [
 const addresses = [
   { country: "EEUU (Miami)", flag: "🇺🇸", lines: ["6758 N.W. 72 AV", "Miami, FL 33166-3049", "Florida - USA"], tel: "+1 (305) 430-5100" },
   { country: "EEUU (New York)", flag: "🇺🇸", lines: ["New York, NY", "USA"], tel: "+1 (305) 430-5100" },
-  { country: "Paraguay", flag: "🇵🇾", lines: ["Teniente del Valle casi Itapúa", "Asunción - Paraguay"], tel: "+595 986 733 000" },
+  { country: "Paraguay", flag: "🇵🇾", lines: ["Teniente del Valle casi Itapúa", "Asunción - Paraguay"], tel: "+595 982 278 071" },
 ];
 
 const sucursales = [
-  { nombre: "Asunción - Central", telefono: "0986733000", direccion: "Teniente del Valle casi Itapúa", horario: "Lun-Vie: 08:00-18:00, Sáb: 08:00-12:00" },
+  { nombre: "Asunción - Central", telefono: "0982 278 071", direccion: "Teniente del Valle casi Itapúa", horario: "Lun-Vie: 08:00-18:00, Sáb: 08:00-12:00" },
   { nombre: "Ciudad del Este", telefono: "0971 111 855", direccion: "Av. San Blas esq. Curupayty", horario: "Lun-Vie: 08:00-16:00, Sáb: 08:00-13:00" },
   { nombre: "Encarnación", telefono: "0983 073 000", direccion: "Av. Irrazábal c/ Tomás R. Pereira", horario: "Lun-Vie: 08:00-17:00" },
 ];
@@ -75,14 +75,13 @@ export default function HomePage() {
           <div className="flex-1 text-white text-center lg:text-left">
             <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black mb-6 leading-tight">
               Tu Casillero en{" "}
-              <span className="text-accent">Miami</span> y{" "}
-              <span className="text-accent">New York</span>
+              <span className="text-accent">Miami</span>
             </h1>
             <p className="text-lg text-white/80 max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
               Comprá en cualquier tienda de Estados Unidos y recibí tus paquetes en Paraguay. Rápido, seguro y al mejor precio.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <a href="https://wa.me/595986733000?text=Hola,%20quiero%20crear%20mi%20casillero" target="_blank" rel="noopener noreferrer" className="bg-accent text-foreground px-8 py-3.5 rounded-lg text-base font-bold hover:bg-accent-hover shadow-lg transition-all text-center">
+              <a href="https://wa.me/595982278071?text=Hola,%20quiero%20crear%20mi%20casillero" target="_blank" rel="noopener noreferrer" className="bg-accent text-foreground px-8 py-3.5 rounded-lg text-base font-bold hover:bg-accent-hover shadow-lg transition-all text-center">
                 Crear Casillero Gratis
               </a>
               <Link href="/sitio/servicios" className="border-2 border-white/30 text-white px-8 py-3.5 rounded-lg text-base font-bold hover:bg-white/10 transition-all text-center">
@@ -170,7 +169,7 @@ export default function HomePage() {
           </div>
           <div className="text-center mt-10">
             <a
-              href="https://wa.me/595986733000"
+              href="https://wa.me/595982278071"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700 transition-colors"
@@ -407,7 +406,7 @@ export default function HomePage() {
                 const mensaje = (form.elements.namedItem("mensaje") as HTMLTextAreaElement).value;
                 if (!nombre || !email || !mensaje) return;
                 const text = `Hola, soy ${nombre} (${email}).%0A%0AAsunto: ${asunto}%0A%0A${mensaje}`;
-                window.open(`https://wa.me/595986733000?text=${text}`, "_blank");
+                window.open(`https://wa.me/595982278071?text=${text}`, "_blank");
                 setContactSent(true);
                 form.reset();
                 setTimeout(() => setContactSent(false), 3000);
@@ -427,7 +426,7 @@ export default function HomePage() {
             <div className="space-y-6">
               {[
                 { icon: MapPin, title: "Dirección", text: "Teniente del Valle casi Itapúa\nAsunción, Paraguay" },
-                { icon: Phone, title: "WhatsApp", text: "+595 986 733 000", href: "https://wa.me/595986733000" },
+                { icon: Phone, title: "WhatsApp", text: "+595 982 278 071", href: "https://wa.me/595982278071" },
                 { icon: Mail, title: "Email", text: "sac@ukuxbox.com", href: "mailto:sac@ukuxbox.com" },
                 { icon: Clock, title: "Horario", text: "Lunes a Viernes: 8:00 - 18:00\nSábados: 8:00 - 12:00" },
               ].map((item) => {
@@ -460,10 +459,10 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-black text-foreground mb-4">¿Listo para empezar?</h2>
           <p className="text-foreground/70 mb-8 text-lg">
-            Registrate hoy y obtené tu dirección en Miami y New York. Empezá a comprar en tus tiendas favoritas de USA.
+            Registrate hoy y obtené tu dirección en Miami. Empezá a comprar en tus tiendas favoritas de USA.
           </p>
           <a
-            href="https://wa.me/595986733000?text=Hola,%20quiero%20crear%20mi%20casillero"
+            href="https://wa.me/595982278071?text=Hola,%20quiero%20crear%20mi%20casillero"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex bg-primary text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-primary-hover shadow-lg transition-all"

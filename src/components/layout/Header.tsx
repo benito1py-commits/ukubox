@@ -9,6 +9,7 @@ const navLinks = [
   { href: "/sitio", label: "Inicio" },
   { href: "/sitio/nosotros", label: "Nosotros" },
   { href: "/sitio/servicios", label: "Servicios" },
+  { href: "/sitio/restricciones", label: "Restricciones" },
   { href: "/sitio/preguntas-frecuentes", label: "Preguntas Frecuentes" },
 ];
 
@@ -27,8 +28,8 @@ export function Header() {
             <span className="flex items-center gap-1.5 opacity-90">
               <MapPin size={14} /> Teniente del Valle casi Itapúa, Asunción
             </span>
-            <a href="tel:0986733000" className="flex items-center gap-1.5 opacity-90 hover:opacity-100 transition-opacity">
-              <Phone size={14} /> 0986733000
+            <a href="tel:0982278071" className="flex items-center gap-1.5 opacity-90 hover:opacity-100 transition-opacity">
+              <Phone size={14} /> 0982 278 071
             </a>
             <a href="mailto:sac@ukuxbox.com" className="flex items-center gap-1.5 opacity-90 hover:opacity-100 transition-opacity">
               <Mail size={14} /> sac@ukuxbox.com
@@ -115,7 +116,7 @@ export function Header() {
               <div className="border-t border-border pt-3 mt-3 space-y-2">
                 <div className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground">
                   <Phone size={14} />
-                  <a href="tel:0986733000">0986733000</a>
+                  <a href="tel:0982278071">0982 278 071</a>
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground">
                   <Mail size={14} />

@@ -32,7 +32,7 @@ const services = [
     desc: "Enviamos tus compras desde Miami hasta tu oficina en Paraguay de forma rápida y segura.",
     features: [
       "Tránsito de 7-12 días hábiles",
-      "Tarifas desde $8 por libra",
+      "Tarifas desde $8 por kilo",
       "Seguimiento en tiempo real",
       "Seguro de envío incluido",
     ],
@@ -133,22 +133,22 @@ export default function ServiciosPage() {
               {
                 name: "Estándar",
                 price: "$8",
-                unit: "por libra",
+                unit: "por kilo",
                 features: ["7-12 días hábiles", "Seguro básico incluido", "Tracking en línea"],
                 highlight: false,
               },
               {
                 name: "Express",
                 price: "$12",
-                unit: "por libra",
+                unit: "por kilo",
                 features: ["5-7 días hábiles", "Seguro completo", "Tracking prioritario", "Despacho preferente"],
                 highlight: true,
               },
               {
                 name: "Carga",
                 price: "$5",
-                unit: "por libra",
-                features: ["15-20 días hábiles", "Para paquetes +20 lbs", "Ideal para compras grandes"],
+                unit: "por kilo",
+                features: ["15-20 días hábiles", "Para paquetes +10 kg", "Ideal para compras grandes"],
                 highlight: false,
               },
             ].map((plan) => (
@@ -208,7 +208,7 @@ export default function ServiciosPage() {
             <Link href="/preguntas-frecuentes" className="bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-primary-hover transition-colors">
               Ver Preguntas Frecuentes
             </Link>
-            <a href="https://wa.me/595986733000" className="border-2 border-primary text-primary px-8 py-3 rounded-lg font-bold hover:bg-primary hover:text-white transition-colors">
+            <a href="https://wa.me/595982278071" className="border-2 border-primary text-primary px-8 py-3 rounded-lg font-bold hover:bg-primary hover:text-white transition-colors">
               Contactar por WhatsApp
             </a>
           </div>

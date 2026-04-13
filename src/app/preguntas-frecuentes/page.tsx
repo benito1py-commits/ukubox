@@ -4,10 +4,8 @@ import { useState } from "react";
 
 const faqs = [
   { pregunta: "¿Cómo obtengo mi dirección en Miami?", respuesta: "Al registrarte en UKUXBOX, recibirás automáticamente una dirección en Miami con tu número de casillero único. Esta dirección la puedes usar en cualquier tienda online de Estados Unidos para recibir tus compras." },
-  { pregunta: "¿Cuánto tiempo tarda en llegar mi paquete?", respuesta: "El tiempo de tránsito desde Miami hasta nuestras oficinas en Paraguay es de aproximadamente 7 a 12 días hábiles, dependiendo del tipo de envío y el despacho aduanero." },
-  { pregunta: "¿Cómo se calcula el costo del envío?", respuesta: "El costo se calcula por peso en libras. Nuestras tarifas arrancan desde $8 por libra para envíos regulares. Paquetes más pesados pueden tener tarifas especiales. Contactanos para una cotización personalizada." },
-  { pregunta: "¿Qué es una Pre-Alerta?", respuesta: "La Pre-Alerta es un aviso que vos enviás cuando comprás algo online. Nos decís el número de tracking, la tienda y el valor declarado, así podemos prepararnos para recibir tu paquete y agilizar el proceso." },
-  { pregunta: "¿Puedo consolidar varios paquetes?", respuesta: "Sí, ofrecemos servicio de consolidación. Podés acumular varios paquetes en tu casillero de Miami y enviarlos todos juntos en un solo despacho, ahorrando en costos de envío." },
+  { pregunta: "¿Cuánto tiempo tarda en llegar mi paquete?", respuesta: "Despachamos 2 veces por semana desde Miami. El tiempo de tránsito hasta nuestras oficinas en Paraguay es de aproximadamente 7 a 12 días hábiles, dependiendo del tipo de envío y el despacho aduanero." },
+  { pregunta: "¿Cómo se calcula el costo del envío?", respuesta: "El costo se calcula por peso en kilos. Nuestras tarifas arrancan desde $8 por kilo para envíos regulares. Paquetes más pesados pueden tener tarifas especiales. Contactanos para una cotización personalizada." },
   { pregunta: "¿Qué productos no se pueden enviar?", respuesta: "No se pueden enviar materiales peligrosos, armas, drogas, alimentos perecederos, animales vivos, ni artículos prohibidos por la legislación paraguaya. Consultá nuestra lista completa de artículos restringidos." },
   { pregunta: "¿Cómo puedo pagar?", respuesta: "Aceptamos pagos en efectivo en nuestras oficinas, transferencias bancarias, y pagos con tarjeta de crédito/débito. También aceptamos pagos por Giros Tigo y Billetera Personal." },
   { pregunta: "¿Qué hago si mi paquete llega dañado?", respuesta: "Si tu paquete llega dañado, por favor reportalo inmediatamente en nuestras oficinas al momento del retiro. Tomaremos fotos y iniciaremos un reclamo. Recomendamos siempre contratar el seguro adicional para compras de alto valor." },
@@ -78,7 +76,7 @@ export default function FAQPage() {
             Contactanos y con gusto te ayudamos con tu consulta.
           </p>
           <a
-            href="https://wa.me/595986733000"
+            href="https://wa.me/595982278071"
             className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-primary-hover transition-colors"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
