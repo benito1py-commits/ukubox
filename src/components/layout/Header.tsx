@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { MapPin, Phone, Mail, Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { MapPin, Phone, Mail, Menu, X, User, LogIn } from "lucide-react";
 
 const navLinks = [
   { href: "/sitio", label: "Inicio" },
@@ -15,9 +15,17 @@ const navLinks = [
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
   const pathname = usePathname();
 
   const isActive = (href: string) => pathname === href;
+
+  useEffect(() => {
+    fetch("/api/helga/auth/check")
+      .then((r) => r.json())
+      .then((data) => setAuthenticated(data.authenticated))
+      .catch(() => {});
+  }, [pathname]);
 
   return (
     <header className="w-full font-sans">
@@ -75,6 +83,43 @@ export function Header() {
             >
               Rastrear Paquete
             </a>
+
+            {/* Auth Buttons */}
+            <div className="flex items-center gap-2 ml-3 pl-3 border-l border-border">
+              {authenticated ? (
+                <Link
+                  href="/sitio/mi-cuenta"
+                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive("/sitio/mi-cuenta")
+                      ? "bg-primary text-white"
+                      : "bg-primary/10 text-primary hover:bg-primary/20"
+                  }`}
+                >
+                  <User size={16} />
+                  Mi Cuenta
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    href="/sitio/login"
+                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      isActive("/sitio/login")
+                        ? "text-primary bg-primary/5"
+                        : "text-foreground hover:text-primary hover:bg-primary/5"
+                    }`}
+                  >
+                    <LogIn size={16} />
+                    Ingresar
+                  </Link>
+                  <Link
+                    href="/sitio/registro"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded-lg text-sm font-semibold transition-colors"
+                  >
+                    Regístrate
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
 
           {/* Mobile Toggle */}
@@ -113,6 +158,39 @@ export function Header() {
               >
                 Rastrear Paquete
               </a>
+
+              {/* Mobile Auth Buttons */}
+              <div className="border-t border-border pt-3 mt-3 space-y-2">
+                {authenticated ? (
+                  <Link
+                    href="/sitio/mi-cuenta"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium bg-primary/10 text-primary"
+                  >
+                    <User size={18} />
+                    Mi Cuenta
+                  </Link>
+                ) : (
+                  <>
+                    <Link
+                      href="/sitio/login"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium text-foreground hover:bg-gray-50"
+                    >
+                      <LogIn size={18} />
+                      Iniciar Sesión
+                    </Link>
+                    <Link
+                      href="/sitio/registro"
+                      onClick={() => setMobileOpen(false)}
+                      className="block px-4 py-3 rounded-lg font-semibold text-center bg-primary text-white"
+                    >
+                      Regístrate
+                    </Link>
+                  </>
+                )}
+              </div>
+
               <div className="border-t border-border pt-3 mt-3 space-y-2">
                 <div className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground">
                   <Phone size={14} />
