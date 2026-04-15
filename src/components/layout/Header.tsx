@@ -75,15 +75,6 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href="https://parcelsapp.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 rounded-lg text-sm font-medium text-foreground hover:text-primary hover:bg-primary/5 transition-colors"
-            >
-              Rastrear Paquete
-            </a>
-
             {/* Auth Buttons */}
             <div className="flex items-center gap-2 ml-3 pl-3 border-l border-border">
               {authenticated ? (
@@ -150,15 +141,6 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-              <a
-                href="https://parcelsapp.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block px-4 py-3 rounded-lg font-medium text-foreground hover:bg-gray-50 transition-colors"
-              >
-                Rastrear Paquete
-              </a>
-
               {/* Mobile Auth Buttons */}
               <div className="border-t border-border pt-3 mt-3 space-y-2">
                 {authenticated ? (
