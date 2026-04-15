@@ -4,15 +4,6 @@ import Link from "next/link";
 import { useState, useRef } from "react";
 import { Search, Package2, Calculator, Plane, Ship, Ban, Truck, ShoppingCart, Globe, Box, Shield, Warehouse, MapPin, Phone, Clock, Mail } from "lucide-react";
 
-const faqs = [
-  { pregunta: "¿Cómo obtengo mi dirección en Miami?", respuesta: "Al registrarte en UKUXBOX, recibirás automáticamente una dirección en Miami con tu número de casillero único. Esta dirección la puedes usar en cualquier tienda online de Estados Unidos para recibir tus compras." },
-  { pregunta: "¿Cuánto tiempo tarda en llegar mi paquete?", respuesta: "El tiempo de tránsito desde Miami hasta nuestras oficinas en Paraguay es de aproximadamente 7 a 12 días hábiles, dependiendo del tipo de envío y el despacho aduanero." },
-  { pregunta: "¿Cómo se calcula el costo del envío?", respuesta: "El costo se calcula por peso en kilos. Nuestras tarifas arrancan desde $8 por kilo para envíos regulares. Paquetes más pesados pueden tener tarifas especiales. Contactanos para una cotización personalizada." },
-  { pregunta: "¿Qué es una Pre-Alerta?", respuesta: "La Pre-Alerta es un aviso que vos enviás cuando comprás algo online. Nos decís el número de tracking, la tienda y el valor declarado, así podemos prepararnos para recibir tu paquete y agilizar el proceso." },
-  { pregunta: "¿Puedo consolidar varios paquetes?", respuesta: "Sí, ofrecemos servicio de consolidación. Podés acumular varios paquetes en tu casillero de Miami y enviarlos todos juntos en un solo despacho, ahorrando en costos de envío." },
-  { pregunta: "¿Qué productos no se pueden enviar?", respuesta: "No se pueden enviar materiales peligrosos, armas, drogas, alimentos perecederos, animales vivos, ni artículos prohibidos por la legislación paraguaya. Consultá nuestra lista completa de artículos restringidos." },
-];
-
 const steps = [
   { num: "01", title: "Registrate", desc: "Creá tu casilla gratuitamente y ya estarás habilitado para realizar tus compras en el exterior.", href: "https://wa.me/595982278071?text=Hola,%20quiero%20crear%20mi%20casillero" },
   { num: "02", title: "Comprá Online", desc: "Comprá todo lo que deseas en cualquier tienda de USA y envialo a tu casilla en Miami.", href: "/servicios" },
@@ -52,7 +43,7 @@ const sucursales = [
 
 export default function HomePage() {
   const [activeStep, setActiveStep] = useState(0);
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
   const [trackingNumber, setTrackingNumber] = useState("");
   const [weight, setWeight] = useState("1");
   const [contactSent, setContactSent] = useState(false);
@@ -278,49 +269,6 @@ export default function HomePage() {
             >
               {activeStep === 0 ? "Registrate Gratis" : "Continuar"}
             </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ PREGUNTAS FRECUENTES ═══ */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl font-black mb-3">Preguntas Frecuentes</h2>
-            <div className="w-14 h-1 bg-accent mx-auto mb-4 rounded-full" />
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              Encontrá respuestas a las preguntas más comunes sobre nuestro servicio.
-            </p>
-          </div>
-          <div className="max-w-3xl mx-auto space-y-3">
-            {faqs.slice(0, 6).map((faq, index) => (
-              <div key={index} className="bg-white border border-border rounded-xl overflow-hidden shadow-sm">
-                <button
-                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                  className="w-full px-6 py-5 text-left flex items-center justify-between font-medium hover:bg-gray-50/50 transition-colors"
-                >
-                  <span>{faq.pregunta}</span>
-                  <svg
-                    className={`w-5 h-5 text-primary shrink-0 ml-4 transition-transform ${openFaq === index ? "rotate-180" : ""}`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {openFaq === index && (
-                  <div className="px-6 pb-5 text-muted-foreground text-sm leading-relaxed border-t border-border pt-4">
-                    {faq.respuesta}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <Link href="/sitio/preguntas-frecuentes" className="text-primary font-semibold hover:underline">
-              Ver todas las preguntas →
-            </Link>
           </div>
         </div>
       </section>
