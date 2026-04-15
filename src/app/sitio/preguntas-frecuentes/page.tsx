@@ -3,12 +3,56 @@
 import { useState } from "react";
 
 const faqs = [
-  { pregunta: "¿Cómo obtengo mi dirección en Miami?", respuesta: "Al registrarte en UKUXBOX, recibirás automáticamente una dirección en Miami con tu número de casillero único. Esta dirección la puedes usar en cualquier tienda online de Estados Unidos para recibir tus compras." },
-  { pregunta: "¿Cuánto tiempo tarda en llegar mi paquete?", respuesta: "Despachamos 2 veces por semana desde Miami. El tiempo de tránsito hasta nuestras oficinas en Paraguay es de aproximadamente 7 a 12 días hábiles, dependiendo del tipo de envío y el despacho aduanero." },
-  { pregunta: "¿Cómo se calcula el costo del envío?", respuesta: "El costo se calcula por peso en kilos. Nuestras tarifas arrancan desde $8 por kilo para envíos regulares. Paquetes más pesados pueden tener tarifas especiales. Contactanos para una cotización personalizada." },
-  { pregunta: "¿Qué productos no se pueden enviar?", respuesta: "No se pueden enviar materiales peligrosos, armas, drogas, alimentos perecederos, animales vivos, ni artículos prohibidos por la legislación paraguaya. Consultá nuestra lista completa de artículos restringidos." },
-  { pregunta: "¿Cómo puedo pagar?", respuesta: "Aceptamos pagos en efectivo en nuestras oficinas, transferencias bancarias, y pagos con tarjeta de crédito/débito. También aceptamos pagos por Giros Tigo y Billetera Personal." },
-  { pregunta: "¿Qué hago si mi paquete llega dañado?", respuesta: "Si tu paquete llega dañado, por favor reportalo inmediatamente en nuestras oficinas al momento del retiro. Tomaremos fotos y iniciaremos un reclamo. Recomendamos siempre contratar el seguro adicional para compras de alto valor." },
+  {
+    pregunta: "¿Qué es UKUX BOX?",
+    respuesta:
+      "El servicio de Casilla internacional te permite obtener una dirección física en Miami para recibir tus compras realizadas en Estados Unidos, la Unión Europea, o el país que quieras, luego de que te registras gratis como cliente.\n\nTe permite comprar en tiendas de USA a precios locales, aprovechar promociones y ofertas que no están disponibles en Paraguay.\n\nUKUXBOX se encarga de la recepción, transporte internacional, despacho aduanero y entrega en nuestras oficinas en Asunción o envío a domicilio a todo el país.",
+  },
+  {
+    pregunta: "¿Por qué necesito el servicio de Casilla UKUX BOX?",
+    respuesta:
+      "Muchas tiendas de Estados Unidos no realizan envíos internacionales. Las que sí lo hacen cobran costos de transporte elevados y no gestionan el despacho aduanero en Paraguay.\n\nCon UKUXBOX podés acceder a tiendas, productos, precios y promociones que no existen en Paraguay, mientras nosotros nos encargamos de todos los procesos y costos asociados.",
+  },
+  {
+    pregunta: "¿Qué requisitos debo tener para utilizar el servicio de casilla internacional?",
+    respuesta:
+      "El único requisito es tener una tarjeta de crédito para poder hacer compras internacionales.\n\nSi no contás con una, podés utilizar nuestro servicio de \"Compramos por ti\" donde nosotros realizamos la compra por vos.",
+  },
+  {
+    pregunta: "¿Cuál es mi dirección de envío o shipping address?",
+    respuesta:
+      "Tu dirección es: Tu Nombre + Número de casillero (UKU# 00001), 6758 N.W. 72 AV MIAMI – FLORIDA, 33166 – 3049.\n\nPara obtener tu número de casillero único, primero debés registrarte en nuestra plataforma.",
+  },
+  {
+    pregunta: "¿Cómo compro con mi dirección UKUX Box en Miami?",
+    respuesta:
+      "Es muy simple, en 3 pasos:\n\n1) Ingresá a la tienda online de tu preferencia.\n2) Seleccioná los productos que deseas y agregalos al carrito.\n3) Al momento del checkout, ingresá tu dirección UKUXBOX de Miami con tu código de cliente como dirección de envío (shipping address).",
+  },
+  {
+    pregunta: "Mi proveedor me solicita un número telefónico en los Estados Unidos, ¿qué coloco?",
+    respuesta:
+      "Tu número UKUX BOX en los Estados Unidos es: (786) 658-1314",
+  },
+  {
+    pregunta: "¿Qué significa billing y shipping address?",
+    respuesta:
+      "Billing address (dirección de facturación) es la dirección asociada a tu tarjeta de crédito.\n\nShipping address (dirección de envío) es la dirección donde se envía tu compra: Nombre Completo + Número de Casillero, 6758 NW 72nd Av., Miami, FL 33166-3049.",
+  },
+  {
+    pregunta: "¿Puedo autorizar a otras personas a utilizar mi casillero?",
+    respuesta:
+      "No. El uso de tu casillero está bajo tu responsabilidad y para su uso de forma individual.\n\nCada persona debe registrarse por separado por motivos de seguridad y responsabilidad en el sistema.",
+  },
+  {
+    pregunta: "¿Existe alguna restricción sobre lo que puedo enviar?",
+    respuesta:
+      "Artículos que requieren manejo especial: perfumes, latas de aerosol, tinta, hielo seco, productos químicos y productos perecederos.\n\nArtículos prohibidos: dinero en efectivo, joyas, bebidas alcohólicas, armas de fuego y municiones, productos perecederos, animales, medicinas y tabaco.\n\nEn consolidados está estrictamente prohibido enviar materiales inflamables, corrosivos, explosivos, armas y municiones (incluyendo armas de caza, defensa personal, tasers, garrotes, pistolas de paintball) y material pornográfico.\n\nServicio especial de perfumes: ofrecemos un consolidado semanal solo de perfumes, permitiendo hasta 3 perfumes de no más de 100ml cada uno semanalmente, con un costo fijo por manejo de US$20.00. Para cantidades mayores, contactá a nuestro equipo de soporte.\n\nLos envíos de carga peligrosa se manejan de forma individual según los requisitos de la TSA, con la documentación correspondiente preparada por nuestra bodega en Miami.",
+  },
+  {
+    pregunta: "¿En cuántos días debería recibir mi compra en Paraguay?",
+    respuesta:
+      "Los tiempos de tránsito varían entre 5 y 15 días, dependiendo de varios factores, tales como los tiempos de entrega de las tiendas en USA a nuestras bodegas en Miami, o los tiempos de procesamiento en la aduana de Paraguay.\n\nEn temporada alta (Noviembre-Diciembre), le recomendamos hacer sus compras con antelación producto de los retrasos por parte de las aerolíneas que despegan desde la ciudad de Miami a Paraguay por el alto volumen de carga que tiene y quedan con mucha carga Courier rezagada, demorando los procesos normales de entrega por parte de la industria en General.",
+  },
 ];
 
 export default function FAQPage() {
@@ -61,8 +105,10 @@ export default function FAQPage() {
                 </svg>
               </button>
               {openIndex === index && (
-                <div className="px-6 pb-5 text-muted-foreground border-t border-border pt-4 ml-11">
-                  {faq.respuesta}
+                <div className="px-6 pb-5 text-muted-foreground border-t border-border pt-4 ml-11 space-y-3">
+                  {faq.respuesta.split("\n\n").map((parrafo, i) => (
+                    <p key={i}>{parrafo}</p>
+                  ))}
                 </div>
               )}
             </div>

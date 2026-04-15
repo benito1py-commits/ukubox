@@ -49,8 +49,6 @@ export function Footer() {
             <li><Link href="/sitio/nosotros" className="hover:text-accent transition-colors">Nosotros</Link></li>
             <li><Link href="/sitio/servicios" className="hover:text-accent transition-colors">Servicios</Link></li>
             <li><Link href="/sitio/preguntas-frecuentes" className="hover:text-accent transition-colors">Preguntas Frecuentes</Link></li>
-            <li><a href="https://parcelsapp.com/" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">Rastrear Paquete</a></li>
-            <li><a href="https://parcelsapp.com/" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">Rastrear Paquete</a></li>
           </ul>
         </div>
 
