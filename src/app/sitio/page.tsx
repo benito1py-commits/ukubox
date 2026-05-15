@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { useState, useRef } from "react";
-import { Search, Package2, Calculator, Plane, Ship, Ban, Truck, ShoppingCart, Globe, Box, Shield, Warehouse, MapPin, Phone, Clock, Mail } from "lucide-react";
+import { Package2, Calculator, Plane, Ship, Ban, Truck, ShoppingCart, Globe, Box, Shield, Warehouse, MapPin, Phone, Clock, Mail } from "lucide-react";
 
 const steps = [
-  { num: "01", title: "Registrate", desc: "Creá tu casilla gratuitamente y ya estarás habilitado para realizar tus compras en el exterior.", href: "https://wa.me/595982278071?text=Hola,%20quiero%20crear%20mi%20casillero" },
+  { num: "01", title: "Registrate", desc: "Creá tu casilla gratuitamente y ya estarás habilitado para realizar tus compras en el exterior.", href: "https://ukuxbox.helgasys.com/clients" },
   { num: "02", title: "Comprá Online", desc: "Comprá todo lo que deseas en cualquier tienda de USA y envialo a tu casilla en Miami.", href: "/servicios" },
   { num: "03", title: "Seguí tus Paquetes", desc: "Seguí los estados de tus paquetes 24/7 desde tu panel de cliente.", href: "https://parcelsapp.com/" },
   { num: "04", title: "Recibí tu Paquete", desc: "Retirá en nuestra oficina o solicitá delivery a tu domicilio.", href: "https://wa.me/595982278071" },
@@ -44,18 +44,10 @@ const sucursales = [
 export default function HomePage() {
   const [activeStep, setActiveStep] = useState(0);
 
-  const [trackingNumber, setTrackingNumber] = useState("");
   const [weight, setWeight] = useState("1");
   const [contactSent, setContactSent] = useState(false);
   const contactFormRef = useRef<HTMLFormElement>(null);
   const estimatedCost = (parseFloat(weight || "0") * 25).toFixed(2);
-
-  const handleTrack = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (trackingNumber.trim()) {
-      window.open(`https://parcelsapp.com/tracking/${trackingNumber}`, "_blank");
-    }
-  };
 
   return (
     <div>
@@ -72,7 +64,7 @@ export default function HomePage() {
               Comprá en cualquier tienda de Estados Unidos y recibí tus paquetes en Paraguay. Rápido, seguro y al mejor precio.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <a href="https://wa.me/595982278071?text=Hola,%20quiero%20crear%20mi%20casillero" target="_blank" rel="noopener noreferrer" className="bg-accent text-foreground px-8 py-3.5 rounded-lg text-base font-bold hover:bg-accent-hover shadow-lg transition-all text-center">
+              <a href="https://ukuxbox.helgasys.com/clients" target="_blank" rel="noopener noreferrer" className="bg-accent text-foreground px-8 py-3.5 rounded-lg text-base font-bold hover:bg-accent-hover shadow-lg transition-all text-center">
                 Crear Casillero Gratis
               </a>
               <Link href="/sitio/servicios" className="border-2 border-white/30 text-white px-8 py-3.5 rounded-lg text-base font-bold hover:bg-white/10 transition-all text-center">
@@ -90,18 +82,14 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-lg font-bold text-foreground">Rastreá tu Envío</h3>
               </div>
-              <form onSubmit={handleTrack} className="flex gap-2">
-                <input
-                  type="text"
-                  placeholder="Número de tracking"
-                  value={trackingNumber}
-                  onChange={(e) => setTrackingNumber(e.target.value)}
-                  className="flex-1 px-4 py-3 rounded-lg border border-border bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/20 outline-none text-sm"
-                />
-                <button type="submit" className="bg-primary text-white px-4 py-3 rounded-lg font-semibold hover:bg-primary-hover shadow transition-all">
-                  <Search size={18} />
-                </button>
-              </form>
+              <a
+                href="https://ukuxbox.helgasys.com/consulta-estado/consulta-estado"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full bg-primary text-white px-4 py-3 rounded-lg font-semibold hover:bg-primary-hover shadow transition-all text-center"
+              >
+                Rastrear Envío
+              </a>
             </div>
 
             {/* Calculator */}
@@ -410,7 +398,7 @@ export default function HomePage() {
             Registrate hoy y obtené tu dirección en Miami. Empezá a comprar en tus tiendas favoritas de USA.
           </p>
           <a
-            href="https://wa.me/595982278071?text=Hola,%20quiero%20crear%20mi%20casillero"
+            href="https://ukuxbox.helgasys.com/clients"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex bg-primary text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-primary-hover shadow-lg transition-all"

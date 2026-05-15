@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { MapPin, Phone, Mail, Menu, X, User, LogIn } from "lucide-react";
+import { MapPin, Phone, Mail, Menu, X, User, LogIn, ExternalLink } from "lucide-react";
 
 const navLinks = [
   { href: "/sitio", label: "Inicio" },
@@ -91,23 +91,24 @@ export function Header() {
                 </Link>
               ) : (
                 <>
-                  <Link
-                    href="/sitio/login"
-                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      isActive("/sitio/login")
-                        ? "text-primary bg-primary/5"
-                        : "text-foreground hover:text-primary hover:bg-primary/5"
-                    }`}
+                  <a
+                    href="https://ukuxbox.helgasys.com/login"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-foreground hover:text-primary hover:bg-primary/5 transition-colors"
                   >
                     <LogIn size={16} />
                     Ingresar
-                  </Link>
-                  <Link
-                    href="/sitio/registro"
+                  </a>
+                  <a
+                    href="https://ukuxbox.helgasys.com/clients"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded-lg text-sm font-semibold transition-colors"
                   >
                     Regístrate
-                  </Link>
+                    <ExternalLink size={14} />
+                  </a>
                 </>
               )}
             </div>
@@ -154,21 +155,26 @@ export function Header() {
                   </Link>
                 ) : (
                   <>
-                    <Link
-                      href="/sitio/login"
+                    <a
+                      href="https://ukuxbox.helgasys.com/login"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       onClick={() => setMobileOpen(false)}
                       className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium text-foreground hover:bg-gray-50"
                     >
                       <LogIn size={18} />
                       Iniciar Sesión
-                    </Link>
-                    <Link
-                      href="/sitio/registro"
+                    </a>
+                    <a
+                      href="https://ukuxbox.helgasys.com/clients"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       onClick={() => setMobileOpen(false)}
-                      className="block px-4 py-3 rounded-lg font-semibold text-center bg-primary text-white"
+                      className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold text-center bg-primary text-white"
                     >
                       Regístrate
-                    </Link>
+                      <ExternalLink size={14} />
+                    </a>
                   </>
                 )}
               </div>

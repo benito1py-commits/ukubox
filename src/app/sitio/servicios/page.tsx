@@ -170,9 +170,9 @@ export default function ServiciosPage() {
             Contactanos y con gusto te asesoramos para encontrar la mejor opción para vos.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/sitio/registro" className="bg-primary text-white px-8 py-3 rounded-xl font-bold hover:bg-primary-hover transition-colors">
+            <a href="https://ukuxbox.helgasys.com/clients" target="_blank" rel="noopener noreferrer" className="bg-primary text-white px-8 py-3 rounded-xl font-bold hover:bg-primary-hover transition-colors inline-flex items-center justify-center gap-2">
               Crear mi cuenta
-            </Link>
+            </a>
             <Link href="/sitio/preguntas-frecuentes" className="bg-white text-primary px-8 py-3 rounded-xl font-bold hover:bg-white/80 transition-colors border-2 border-primary">
               Ver Preguntas Frecuentes
             </Link>

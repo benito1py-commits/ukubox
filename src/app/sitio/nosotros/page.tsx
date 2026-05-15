@@ -204,12 +204,14 @@ export default function NosotrosPage() {
           <p className="text-3xl font-black mb-4">"Donde comprar y transportar se hace simple"</p>
           <h2 className="text-2xl font-bold mb-6">¿Qué aun no tienes tu cuenta con Nosotros?</h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/sitio/registro"
+            <a
+              href="https://ukuxbox.helgasys.com/clients"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-primary text-white font-bold px-8 py-4 rounded-xl hover:bg-primary/90 transition-colors"
             >
               Crear mi cuenta
-            </Link>
+            </a>
             <Link
               href="/sitio/servicios"
               className="inline-flex items-center justify-center gap-2 bg-white text-primary font-bold px-8 py-4 rounded-xl hover:bg-white/90 transition-colors border-2 border-primary"

@@ -116,12 +116,14 @@ export default function LoginPage() {
           {/* Register link */}
           <div className="mt-6 text-center text-sm text-muted-foreground">
             ¿No tienes cuenta?{" "}
-            <Link
-              href="/sitio/registro"
-              className="text-primary font-semibold hover:underline"
+            <a
+              href="https://ukuxbox.helgasys.com/clients"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary font-semibold hover:underline inline-flex items-center gap-1"
             >
               Regístrate aquí
-            </Link>
+            </a>
           </div>
         </div>
       </div>

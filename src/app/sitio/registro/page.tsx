@@ -222,12 +222,14 @@ export default function RegistroPage() {
           <p className="text-muted-foreground mb-6">
             Tu cuenta ha sido creada correctamente. Ya puedes iniciar sesión con tu correo y contraseña.
           </p>
-          <Link
-            href="/sitio/login"
+          <a
+            href="https://ukuxbox.helgasys.com/login"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block w-full bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-4 rounded-xl transition-colors text-center"
           >
             Iniciar Sesión
-          </Link>
+          </a>
         </div>
       </div>
     );
@@ -643,12 +645,14 @@ export default function RegistroPage() {
           {/* Login link */}
           <div className="mt-6 text-center text-sm text-muted-foreground">
             ¿Ya tienes cuenta?{" "}
-            <Link
-              href="/sitio/login"
+            <a
+              href="https://ukuxbox.helgasys.com/login"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-primary font-semibold hover:underline"
             >
               Inicia sesión
-            </Link>
+            </a>
           </div>
         </div>
       </div>
