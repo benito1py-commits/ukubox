@@ -2,30 +2,23 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
-import { MapPin, Phone, Mail, Menu, X, User, LogIn, ExternalLink } from "lucide-react";
+import { useState } from "react";
+import { MapPin, Phone, Mail, Menu, X, LogIn, UserPlus, ExternalLink } from "lucide-react";
 
 const navLinks = [
   { href: "/sitio", label: "Inicio" },
   { href: "/sitio/nosotros", label: "Nosotros" },
   { href: "/sitio/servicios", label: "Servicios" },
+  { href: "/sitio/productos", label: "Productos" },
   { href: "/sitio/restricciones", label: "Restricciones" },
   { href: "/sitio/preguntas-frecuentes", label: "Preguntas Frecuentes" },
 ];
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [authenticated, setAuthenticated] = useState(false);
   const pathname = usePathname();
 
   const isActive = (href: string) => pathname === href;
-
-  useEffect(() => {
-    fetch("/api/helga/auth/check")
-      .then((r) => r.json())
-      .then((data) => setAuthenticated(data.authenticated))
-      .catch(() => {});
-  }, [pathname]);
 
   return (
     <header className="w-full font-sans">
@@ -76,41 +69,50 @@ export function Header() {
               </Link>
             ))}
             {/* Auth Buttons */}
-            <div className="flex items-center gap-2 ml-3 pl-3 border-l border-border">
-              {authenticated ? (
-                <Link
-                  href="/sitio/mi-cuenta"
-                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    isActive("/sitio/mi-cuenta")
-                      ? "bg-primary text-white"
-                      : "bg-primary/10 text-primary hover:bg-primary/20"
-                  }`}
-                >
-                  <User size={16} />
-                  Mi Cuenta
-                </Link>
-              ) : (
-                <>
-                  <a
-                    href="https://ukuxbox.helgasys.com/login"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-foreground hover:text-primary hover:bg-primary/5 transition-colors"
-                  >
-                    <LogIn size={16} />
-                    Ingresar
-                  </a>
-                  <a
-                    href="https://ukuxbox.helgasys.com/clients"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded-lg text-sm font-semibold transition-colors"
-                  >
-                    Regístrate
-                    <ExternalLink size={14} />
-                  </a>
-                </>
-              )}
+            <div className="flex items-center gap-1.5 ml-3 pl-3 border-l border-border">
+              {/* Helga */}
+              <a
+                href="https://ukuxbox.helgasys.com/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:text-primary hover:bg-primary/5 transition-colors"
+              >
+                <LogIn size={15} />
+                Ingresar Helga
+              </a>
+              <a
+                href="https://ukuxbox.helgasys.com/clients"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:text-primary hover:bg-primary/5 transition-colors"
+              >
+                <UserPlus size={15} />
+                Registrar Helga
+                <ExternalLink size={12} />
+              </a>
+              {/* UKUXBOX (Supabase) */}
+              <Link
+                href="/sitio/acceder"
+                className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  isActive("/sitio/acceder")
+                    ? "bg-primary text-white"
+                    : "bg-primary/10 text-primary hover:bg-primary/20"
+                }`}
+              >
+                <LogIn size={15} />
+                Ingresar UKUXBOX
+              </Link>
+              <Link
+                href="/sitio/registro-usuario"
+                className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                  isActive("/sitio/registro-usuario")
+                    ? "bg-primary-hover text-white"
+                    : "bg-primary hover:bg-primary-hover text-white"
+                }`}
+              >
+                <UserPlus size={15} />
+                Registrar UKUXBOX
+              </Link>
             </div>
           </div>
 
@@ -144,39 +146,43 @@ export function Header() {
               ))}
               {/* Mobile Auth Buttons */}
               <div className="border-t border-border pt-3 mt-3 space-y-2">
-                {authenticated ? (
-                  <Link
-                    href="/sitio/mi-cuenta"
-                    onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium bg-primary/10 text-primary"
-                  >
-                    <User size={18} />
-                    Mi Cuenta
-                  </Link>
-                ) : (
-                  <>
-                    <a
-                      href="https://ukuxbox.helgasys.com/login"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setMobileOpen(false)}
-                      className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium text-foreground hover:bg-gray-50"
-                    >
-                      <LogIn size={18} />
-                      Iniciar Sesión
-                    </a>
-                    <a
-                      href="https://ukuxbox.helgasys.com/clients"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setMobileOpen(false)}
-                      className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold text-center bg-primary text-white"
-                    >
-                      Regístrate
-                      <ExternalLink size={14} />
-                    </a>
-                  </>
-                )}
+                <a
+                  href="https://ukuxbox.helgasys.com/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium text-foreground hover:bg-gray-50"
+                >
+                  <LogIn size={18} />
+                  Ingresar Helga
+                </a>
+                <a
+                  href="https://ukuxbox.helgasys.com/clients"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium text-foreground hover:bg-gray-50"
+                >
+                  <UserPlus size={18} />
+                  Registrar Helga
+                  <ExternalLink size={14} />
+                </a>
+                <Link
+                  href="/sitio/acceder"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium bg-primary/10 text-primary"
+                >
+                  <LogIn size={18} />
+                  Ingresar UKUXBOX
+                </Link>
+                <Link
+                  href="/sitio/registro-usuario"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold text-center bg-primary text-white"
+                >
+                  <UserPlus size={18} />
+                  Registrar UKUXBOX
+                </Link>
               </div>
 
               <div className="border-t border-border pt-3 mt-3 space-y-2">
