@@ -7,7 +7,10 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // Solo intervenimos las rutas nuevas de Supabase; no tocamos /api/helga ni el
-  // resto del sitio (que usa la auth de Helga).
-  matcher: ["/admin/:path*", "/sitio/cuenta/:path*"],
+  // Cubrimos todo el sitio público y el admin para refrescar/persistir la sesión
+  // de Supabase ANTES del render (así el Header muestra el estado real y los
+  // Server Components leen una sesión válida). updateSession sólo redirige en
+  // /admin y /sitio/cuenta; en el resto sólo sincroniza cookies. No tocamos
+  // /api/helga ni la auth de Helga.
+  matcher: ["/admin/:path*", "/sitio/:path*"],
 };

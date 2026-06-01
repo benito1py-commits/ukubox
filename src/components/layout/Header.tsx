@@ -2,8 +2,23 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { MapPin, Phone, Mail, Menu, X, LogIn, UserPlus, ExternalLink } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Menu,
+  X,
+  LogIn,
+  LogOut,
+  UserPlus,
+  ExternalLink,
+  ChevronDown,
+  User as UserIcon,
+  LayoutDashboard,
+} from "lucide-react";
+
+import { cerrarSesion } from "@/app/sitio/cuenta/actions";
 
 const navLinks = [
   { href: "/sitio", label: "Inicio" },
@@ -14,11 +29,38 @@ const navLinks = [
   { href: "/sitio/preguntas-frecuentes", label: "Preguntas Frecuentes" },
 ];
 
-export function Header() {
+type Usuario = { nombre: string | null; esAdmin: boolean } | null;
+
+const menuItem =
+  "flex items-center gap-2.5 w-full px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors text-left";
+
+export function Header({ usuario }: { usuario?: Usuario }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [accederOpen, setAccederOpen] = useState(false);
+  const accederRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   const isActive = (href: string) => pathname === href;
+  const logueado = Boolean(usuario);
+
+  // Cerrar el dropdown al hacer click afuera o con Escape.
+  useEffect(() => {
+    if (!accederOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (accederRef.current && !accederRef.current.contains(e.target as Node)) {
+        setAccederOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setAccederOpen(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [accederOpen]);
 
   return (
     <header className="w-full font-sans">
@@ -54,12 +96,13 @@ export function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   isActive(link.href)
                     ? "text-primary bg-primary/5"
                     : "text-foreground hover:text-primary hover:bg-primary/5"
@@ -68,59 +111,119 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-            {/* Auth Buttons */}
-            <div className="flex items-center gap-1.5 ml-3 pl-3 border-l border-border">
-              {/* Helga */}
-              <a
-                href="https://ukuxbox.helgasys.com/login"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:text-primary hover:bg-primary/5 transition-colors"
-              >
-                <LogIn size={15} />
-                Ingresar Helga
-              </a>
-              <a
-                href="https://ukuxbox.helgasys.com/clients"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:text-primary hover:bg-primary/5 transition-colors"
-              >
-                <UserPlus size={15} />
-                Registrar Helga
-                <ExternalLink size={12} />
-              </a>
-              {/* UKUXBOX (Supabase) */}
-              <Link
-                href="/sitio/acceder"
-                className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive("/sitio/acceder")
-                    ? "bg-primary text-white"
-                    : "bg-primary/10 text-primary hover:bg-primary/20"
+
+            {/* Dropdown de acceso / cuenta */}
+            <div className="relative ml-2 pl-2 border-l border-border" ref={accederRef}>
+              <button
+                type="button"
+                onClick={() => setAccederOpen((v) => !v)}
+                aria-haspopup="menu"
+                aria-expanded={accederOpen}
+                className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold transition-colors max-w-[14rem] ${
+                  logueado
+                    ? "bg-primary/10 text-primary hover:bg-primary/20"
+                    : "bg-primary text-white hover:bg-primary-hover"
                 }`}
               >
-                <LogIn size={15} />
-                Ingresar UKUXBOX
-              </Link>
-              <Link
-                href="/sitio/registro-usuario"
-                className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                  isActive("/sitio/registro-usuario")
-                    ? "bg-primary-hover text-white"
-                    : "bg-primary hover:bg-primary-hover text-white"
-                }`}
-              >
-                <UserPlus size={15} />
-                Registrar UKUXBOX
-              </Link>
+                <UserIcon size={15} />
+                <span className="truncate">
+                  {logueado ? usuario?.nombre ?? "Mi cuenta" : "Acceder"}
+                </span>
+                <ChevronDown
+                  size={15}
+                  className={`transition-transform ${accederOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              {accederOpen && (
+                <div
+                  role="menu"
+                  onClick={() => setAccederOpen(false)}
+                  className="absolute right-0 mt-2 w-60 bg-white border border-border rounded-xl shadow-lg py-2 z-50"
+                >
+                  {logueado ? (
+                    <>
+                      <Link href="/sitio/cuenta" role="menuitem" className={menuItem}>
+                        <UserIcon size={16} />
+                        Mi cuenta
+                      </Link>
+                      {usuario?.esAdmin && (
+                        <Link href="/admin" role="menuitem" className={menuItem}>
+                          <LayoutDashboard size={16} />
+                          Panel de administración
+                        </Link>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <Link href="/sitio/acceder" role="menuitem" className={menuItem}>
+                        <LogIn size={16} />
+                        Ingresar UKUXBOX
+                      </Link>
+                      <Link
+                        href="/sitio/registro-usuario"
+                        role="menuitem"
+                        className={menuItem}
+                      >
+                        <UserPlus size={16} />
+                        Registrar UKUXBOX
+                      </Link>
+                    </>
+                  )}
+
+                  <div className="my-2 border-t border-border" />
+                  <p className="px-4 pb-1 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                    Sistema Helga
+                  </p>
+                  <a
+                    href="https://ukuxbox.helgasys.com/login"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    role="menuitem"
+                    className={menuItem}
+                  >
+                    <LogIn size={16} />
+                    Ingresar Helga
+                    <ExternalLink size={12} className="ml-auto text-muted-foreground" />
+                  </a>
+                  <a
+                    href="https://ukuxbox.helgasys.com/clients"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    role="menuitem"
+                    className={menuItem}
+                  >
+                    <UserPlus size={16} />
+                    Registrar Helga
+                    <ExternalLink size={12} className="ml-auto text-muted-foreground" />
+                  </a>
+
+                  {logueado && (
+                    <>
+                      <div className="my-2 border-t border-border" />
+                      <form action={cerrarSesion}>
+                        <button
+                          type="submit"
+                          role="menuitem"
+                          className={`${menuItem} text-danger hover:bg-danger/5`}
+                        >
+                          <LogOut size={16} />
+                          Cerrar sesión
+                        </button>
+                      </form>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
           {/* Mobile Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 text-foreground hover:bg-gray-100 rounded-lg transition-colors"
+            className="lg:hidden p-2 text-foreground hover:bg-gray-100 rounded-lg transition-colors"
             aria-label="Menu"
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -128,13 +231,14 @@ export function Header() {
 
         {/* Mobile Menu */}
         {mobileOpen && (
-          <div className="md:hidden bg-white border-t border-border shadow-lg">
+          <div className="lg:hidden bg-white border-t border-border shadow-lg">
             <div className="px-4 py-3 space-y-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
+                  aria-current={isActive(link.href) ? "page" : undefined}
                   className={`block px-4 py-3 rounded-lg font-medium transition-colors ${
                     isActive(link.href)
                       ? "text-primary bg-primary/5"
@@ -144,8 +248,51 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-              {/* Mobile Auth Buttons */}
+
+              {/* Mobile Auth */}
               <div className="border-t border-border pt-3 mt-3 space-y-2">
+                {logueado ? (
+                  <>
+                    <Link
+                      href="/sitio/cuenta"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium bg-primary/10 text-primary"
+                    >
+                      <UserIcon size={18} />
+                      {usuario?.nombre ?? "Mi cuenta"}
+                    </Link>
+                    {usuario?.esAdmin && (
+                      <Link
+                        href="/admin"
+                        onClick={() => setMobileOpen(false)}
+                        className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium text-foreground hover:bg-gray-50"
+                      >
+                        <LayoutDashboard size={18} />
+                        Panel de administración
+                      </Link>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/sitio/acceder"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium bg-primary/10 text-primary"
+                    >
+                      <LogIn size={18} />
+                      Ingresar UKUXBOX
+                    </Link>
+                    <Link
+                      href="/sitio/registro-usuario"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold text-center bg-primary text-white"
+                    >
+                      <UserPlus size={18} />
+                      Registrar UKUXBOX
+                    </Link>
+                  </>
+                )}
+
                 <a
                   href="https://ukuxbox.helgasys.com/login"
                   target="_blank"
@@ -155,6 +302,7 @@ export function Header() {
                 >
                   <LogIn size={18} />
                   Ingresar Helga
+                  <ExternalLink size={14} className="text-muted-foreground" />
                 </a>
                 <a
                   href="https://ukuxbox.helgasys.com/clients"
@@ -165,24 +313,20 @@ export function Header() {
                 >
                   <UserPlus size={18} />
                   Registrar Helga
-                  <ExternalLink size={14} />
+                  <ExternalLink size={14} className="text-muted-foreground" />
                 </a>
-                <Link
-                  href="/sitio/acceder"
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium bg-primary/10 text-primary"
-                >
-                  <LogIn size={18} />
-                  Ingresar UKUXBOX
-                </Link>
-                <Link
-                  href="/sitio/registro-usuario"
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold text-center bg-primary text-white"
-                >
-                  <UserPlus size={18} />
-                  Registrar UKUXBOX
-                </Link>
+
+                {logueado && (
+                  <form action={cerrarSesion}>
+                    <button
+                      type="submit"
+                      className="w-full flex items-center gap-2 px-4 py-3 rounded-lg font-medium text-danger hover:bg-danger/5"
+                    >
+                      <LogOut size={18} />
+                      Cerrar sesión
+                    </button>
+                  </form>
+                )}
               </div>
 
               <div className="border-t border-border pt-3 mt-3 space-y-2">

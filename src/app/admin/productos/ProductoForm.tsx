@@ -6,14 +6,20 @@ import { useState } from "react";
 import { ImagePlus, Loader2 } from "lucide-react";
 
 import { createClient } from "@/lib/supabase/client";
-import type { Producto } from "@/lib/supabase/types";
+import type { Categoria, Producto } from "@/lib/supabase/types";
 import {
   crearProducto,
   actualizarProducto,
   type ProductoFormData,
 } from "./actions";
 
-export default function ProductoForm({ producto }: { producto?: Producto }) {
+export default function ProductoForm({
+  producto,
+  categorias,
+}: {
+  producto?: Producto;
+  categorias: Categoria[];
+}) {
   const router = useRouter();
   const esEdicion = Boolean(producto);
 
@@ -21,9 +27,10 @@ export default function ProductoForm({ producto }: { producto?: Producto }) {
     nombre: producto?.nombre ?? "",
     descripcion: producto?.descripcion ?? "",
     precio: producto?.precio != null ? String(producto.precio) : "",
-    categoria: producto?.categoria ?? "",
+    categoria_id: producto?.categoria_id ?? "",
     imagen_url: producto?.imagen_url ?? "",
     activo: producto?.activo ?? true,
+    bajo_pedido: producto?.bajo_pedido ?? false,
   });
   const [subiendo, setSubiendo] = useState(false);
   const [guardando, setGuardando] = useState(false);
@@ -144,13 +151,27 @@ export default function ProductoForm({ producto }: { producto?: Producto }) {
           <label className="block text-sm font-medium text-foreground mb-1.5">
             Categoría
           </label>
-          <input
-            type="text"
-            value={form.categoria}
-            onChange={(e) => update("categoria", e.target.value)}
-            placeholder="Ej: Electrónica"
+          <select
+            value={form.categoria_id}
+            onChange={(e) => update("categoria_id", e.target.value)}
             className={inputClass}
-          />
+          >
+            <option value="">Sin categoría</option>
+            {categorias.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.nombre}
+              </option>
+            ))}
+          </select>
+          {categorias.length === 0 && (
+            <p className="text-xs text-muted-foreground mt-1">
+              No hay categorías.{" "}
+              <a href="/admin/categorias" className="text-primary hover:underline">
+                Crear una
+              </a>
+              .
+            </p>
+          )}
         </div>
       </div>
 
@@ -199,6 +220,22 @@ export default function ProductoForm({ producto }: { producto?: Producto }) {
         />
         <span className="text-sm font-medium text-foreground">
           Producto activo (visible en el catálogo público)
+        </span>
+      </label>
+
+      <label className="flex items-start gap-3">
+        <input
+          type="checkbox"
+          checked={form.bajo_pedido}
+          onChange={(e) => update("bajo_pedido", e.target.checked)}
+          className="w-4 h-4 accent-primary mt-0.5"
+        />
+        <span className="text-sm font-medium text-foreground">
+          Bajo pedido
+          <span className="block text-xs font-normal text-muted-foreground">
+            Los usuarios pueden solicitarlo desde el catálogo. Se muestra el
+            botón &quot;Solicitar bajo pedido&quot; en lugar de la compra directa.
+          </span>
         </span>
       </label>
 

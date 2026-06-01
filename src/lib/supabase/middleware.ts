@@ -35,9 +35,15 @@ export async function updateSession(request: NextRequest) {
   );
 
   // IMPORTANTE: usar getUser() (valida el token contra Supabase), no getSession().
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // Resiliente: si el refresh token quedó inválido, getUser puede lanzar; lo
+  // tratamos como "sin sesión" en vez de romper la request con un 500.
+  let user = null;
+  try {
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  } catch {
+    user = null;
+  }
 
   const { pathname } = request.nextUrl;
   const esRutaAdmin = pathname.startsWith("/admin");

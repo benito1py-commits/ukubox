@@ -5,6 +5,7 @@ import { Package } from "lucide-react";
 
 import { createClient } from "@/lib/supabase/server";
 import type { Producto } from "@/lib/supabase/types";
+import SolicitarBajoPedido from "./SolicitarBajoPedido";
 
 export const metadata: Metadata = {
   title: "Productos - UKUXBOX",
@@ -12,53 +13,107 @@ export const metadata: Metadata = {
     "Explorá los productos que podés importar con UKUXBOX desde Estados Unidos y el mundo.",
 };
 
-function ProductoCard({ producto }: { producto: Producto }) {
+function ProductoCard({
+  producto,
+  logueado,
+}: {
+  producto: Producto;
+  logueado: boolean;
+}) {
   return (
     <div className="bg-white border border-border rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col">
-      <div className="relative aspect-square bg-muted flex items-center justify-center">
-        {producto.imagen_url ? (
-          <Image
-            src={producto.imagen_url}
-            alt={producto.nombre}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
-            sizes="(max-width: 768px) 50vw, 25vw"
-          />
+      <Link href={`/sitio/productos/${producto.id}`} className="flex flex-col">
+        <div className="relative aspect-square bg-muted flex items-center justify-center">
+          {producto.imagen_url ? (
+            <Image
+              src={producto.imagen_url}
+              alt={producto.nombre}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
+              sizes="(max-width: 768px) 50vw, 25vw"
+            />
+          ) : (
+            <Package className="w-10 h-10 text-muted-foreground" />
+          )}
+          {producto.bajo_pedido && (
+            <span className="absolute top-2 left-2 text-xs font-semibold bg-accent text-primary px-2.5 py-1 rounded-full shadow-sm">
+              Bajo pedido
+            </span>
+          )}
+        </div>
+        <div className="px-4 pt-4">
+          {producto.categoria && (
+            <span className="text-xs font-medium text-primary mb-1 block">
+              {producto.categoria}
+            </span>
+          )}
+          <h3 className="font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
+            {producto.nombre}
+          </h3>
+          {producto.descripcion && (
+            <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+              {producto.descripcion}
+            </p>
+          )}
+          {producto.precio != null && (
+            <span className="text-lg font-black text-foreground">
+              ${producto.precio}
+            </span>
+          )}
+        </div>
+      </Link>
+      <div className="p-4 mt-auto">
+        {producto.bajo_pedido ? (
+          <SolicitarBajoPedido productoId={producto.id} logueado={logueado} />
         ) : (
-          <Package className="w-10 h-10 text-muted-foreground" />
-        )}
-      </div>
-      <div className="p-4 flex flex-col flex-1">
-        {producto.categoria && (
-          <span className="text-xs font-medium text-primary mb-1">
-            {producto.categoria}
-          </span>
-        )}
-        <h3 className="font-bold text-foreground mb-1">{producto.nombre}</h3>
-        {producto.descripcion && (
-          <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
-            {producto.descripcion}
-          </p>
-        )}
-        {producto.precio != null && (
-          <span className="mt-auto text-lg font-black text-foreground">
-            ${producto.precio}
-          </span>
+          <Link
+            href={`/sitio/productos/${producto.id}`}
+            className="inline-flex items-center justify-center w-full bg-muted hover:bg-border text-foreground text-sm font-semibold py-2.5 px-4 rounded-xl transition-colors"
+          >
+            Ver detalle
+          </Link>
         )}
       </div>
     </div>
   );
 }
 
-export default async function ProductosPage() {
+export default async function ProductosPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ cat?: string }>;
+}) {
+  const { cat } = await searchParams;
   const supabase = await createClient();
-  const { data: productos } = await supabase
+
+  let query = supabase
     .from("productos")
     .select("*")
     .eq("activo", true)
     .order("created_at", { ascending: false });
 
+  if (cat) query = query.eq("categoria_id", cat);
+
+  const [{ data: productos }, { data: categorias }] = await Promise.all([
+    query,
+    supabase.from("categorias").select("*").order("nombre"),
+  ]);
+
+  // Página pública: sólo necesitamos saber si hay sesión para mostrar el botón
+  // de pedido. getUser() puede fallar (sin sesión / token vencido sin refrescar);
+  // si falla, tratamos al visitante como no logueado en vez de romper el render.
+  let logueado = false;
+  try {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    logueado = Boolean(user);
+  } catch {
+    logueado = false;
+  }
+
   const hayProductos = productos && productos.length > 0;
+  const hayCategorias = categorias && categorias.length > 0;
 
   return (
     <div className="bg-gray-50/50">
@@ -83,11 +138,52 @@ export default async function ProductosPage() {
 
       {/* Productos */}
       <section className="max-w-7xl mx-auto px-4 py-16">
+        {hayCategorias && (
+          <div className="flex flex-wrap gap-2 mb-8">
+            <Link
+              href="/sitio/productos"
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                !cat
+                  ? "bg-primary text-white"
+                  : "bg-white border border-border text-foreground hover:border-primary hover:text-primary"
+              }`}
+            >
+              Todos
+            </Link>
+            {categorias.map((c) => (
+              <Link
+                key={c.id}
+                href={`/sitio/productos?cat=${c.id}`}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  cat === c.id
+                    ? "bg-primary text-white"
+                    : "bg-white border border-border text-foreground hover:border-primary hover:text-primary"
+                }`}
+              >
+                {c.nombre}
+              </Link>
+            ))}
+          </div>
+        )}
+
         {hayProductos ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {productos.map((p) => (
-              <ProductoCard key={p.id} producto={p} />
+              <ProductoCard key={p.id} producto={p} logueado={logueado} />
             ))}
+          </div>
+        ) : cat ? (
+          <div className="text-center py-16">
+            <Package className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+            <h2 className="text-xl font-bold text-foreground mb-2">
+              No hay productos en esta categoría
+            </h2>
+            <Link
+              href="/sitio/productos"
+              className="text-primary font-semibold hover:underline"
+            >
+              Ver todos los productos
+            </Link>
           </div>
         ) : (
           <div className="text-center py-16">

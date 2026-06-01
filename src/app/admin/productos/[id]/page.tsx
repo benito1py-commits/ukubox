@@ -13,11 +13,10 @@ export default async function EditarProductoPage({
   const { id } = await params;
   const supabase = await createClient();
 
-  const { data: producto } = await supabase
-    .from("productos")
-    .select("*")
-    .eq("id", id)
-    .single();
+  const [{ data: producto }, { data: categorias }] = await Promise.all([
+    supabase.from("productos").select("*").eq("id", id).single(),
+    supabase.from("categorias").select("*").order("nombre"),
+  ]);
 
   if (!producto) {
     notFound();
@@ -35,7 +34,7 @@ export default async function EditarProductoPage({
       <h1 className="text-2xl font-black text-foreground mb-6">
         Editar producto
       </h1>
-      <ProductoForm producto={producto} />
+      <ProductoForm producto={producto} categorias={categorias ?? []} />
     </div>
   );
 }

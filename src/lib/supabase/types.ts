@@ -12,10 +12,121 @@ export type Database = {
   };
   public: {
     Tables: {
+      categorias: {
+        Row: {
+          created_at: string;
+          id: string;
+          nombre: string;
+          orden: number;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          nombre: string;
+          orden?: number;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          nombre?: string;
+          orden?: number;
+        };
+        Relationships: [];
+      };
+      configuracion: {
+        Row: {
+          alias: string | null;
+          banco: string | null;
+          documento: string | null;
+          id: boolean;
+          instrucciones: string | null;
+          numero_cuenta: string | null;
+          titular: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          alias?: string | null;
+          banco?: string | null;
+          documento?: string | null;
+          id?: boolean;
+          instrucciones?: string | null;
+          numero_cuenta?: string | null;
+          titular?: string | null;
+          updated_at?: string;
+        };
+        Update: {
+          alias?: string | null;
+          banco?: string | null;
+          documento?: string | null;
+          id?: boolean;
+          instrucciones?: string | null;
+          numero_cuenta?: string | null;
+          titular?: string | null;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      pedidos: {
+        Row: {
+          cantidad: number;
+          comentario: string | null;
+          comprobante_path: string | null;
+          created_at: string;
+          estado: string;
+          id: string;
+          notas_admin: string | null;
+          precio_cotizado: number | null;
+          precio_unitario: number | null;
+          producto_id: string | null;
+          producto_nombre: string;
+          updated_at: string;
+          usuario_id: string;
+        };
+        Insert: {
+          cantidad?: number;
+          comentario?: string | null;
+          comprobante_path?: string | null;
+          created_at?: string;
+          estado?: string;
+          id?: string;
+          notas_admin?: string | null;
+          precio_cotizado?: number | null;
+          precio_unitario?: number | null;
+          producto_id?: string | null;
+          producto_nombre: string;
+          updated_at?: string;
+          usuario_id: string;
+        };
+        Update: {
+          cantidad?: number;
+          comentario?: string | null;
+          comprobante_path?: string | null;
+          created_at?: string;
+          estado?: string;
+          id?: string;
+          notas_admin?: string | null;
+          precio_cotizado?: number | null;
+          precio_unitario?: number | null;
+          producto_id?: string | null;
+          producto_nombre?: string;
+          updated_at?: string;
+          usuario_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "pedidos_producto_id_fkey";
+            columns: ["producto_id"];
+            referencedRelation: "productos";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       productos: {
         Row: {
           activo: boolean;
+          bajo_pedido: boolean;
           categoria: string | null;
+          categoria_id: string | null;
           created_at: string;
           creado_por: string | null;
           descripcion: string | null;
@@ -27,7 +138,9 @@ export type Database = {
         };
         Insert: {
           activo?: boolean;
+          bajo_pedido?: boolean;
           categoria?: string | null;
+          categoria_id?: string | null;
           created_at?: string;
           creado_por?: string | null;
           descripcion?: string | null;
@@ -39,7 +152,9 @@ export type Database = {
         };
         Update: {
           activo?: boolean;
+          bajo_pedido?: boolean;
           categoria?: string | null;
+          categoria_id?: string | null;
           created_at?: string;
           creado_por?: string | null;
           descripcion?: string | null;
@@ -99,3 +214,25 @@ export type Producto = Database["public"]["Tables"]["productos"]["Row"];
 export type ProductoInsert = Database["public"]["Tables"]["productos"]["Insert"];
 export type ProductoUpdate = Database["public"]["Tables"]["productos"]["Update"];
 export type Profile = Database["public"]["Tables"]["profiles"]["Row"];
+export type Pedido = Database["public"]["Tables"]["pedidos"]["Row"];
+export type PedidoInsert = Database["public"]["Tables"]["pedidos"]["Insert"];
+export type PedidoUpdate = Database["public"]["Tables"]["pedidos"]["Update"];
+export type Configuracion = Database["public"]["Tables"]["configuracion"]["Row"];
+export type Categoria = Database["public"]["Tables"]["categorias"]["Row"];
+
+export type EstadoPedido =
+  | "pendiente"
+  | "cotizado"
+  | "pago_informado"
+  | "pagado"
+  | "completado"
+  | "rechazado";
+
+export const ESTADOS_PEDIDO: { valor: EstadoPedido; label: string }[] = [
+  { valor: "pendiente", label: "Pendiente" },
+  { valor: "cotizado", label: "Cotizado" },
+  { valor: "pago_informado", label: "Pago informado" },
+  { valor: "pagado", label: "Pagado" },
+  { valor: "completado", label: "Completado" },
+  { valor: "rechazado", label: "Rechazado" },
+];

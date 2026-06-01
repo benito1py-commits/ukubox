@@ -8,9 +8,10 @@ export type ProductoFormData = {
   nombre: string;
   descripcion: string;
   precio: string;
-  categoria: string;
+  categoria_id: string;
   imagen_url: string;
   activo: boolean;
+  bajo_pedido: boolean;
 };
 
 type ActionResult = { ok: true } | { ok: false; error: string };
@@ -41,19 +42,38 @@ function parsePrecio(precio: string): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
+// Resuelve categoria_id → { categoria_id, categoria (nombre denormalizado) }.
+async function resolverCategoria(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  categoriaId: string,
+): Promise<{ categoria_id: string | null; categoria: string | null }> {
+  if (!categoriaId) return { categoria_id: null, categoria: null };
+  const { data: cat } = await supabase
+    .from("categorias")
+    .select("nombre")
+    .eq("id", categoriaId)
+    .single();
+  if (!cat) return { categoria_id: null, categoria: null };
+  return { categoria_id: categoriaId, categoria: cat.nombre };
+}
+
 export async function crearProducto(
   data: ProductoFormData,
 ): Promise<ActionResult> {
   const { supabase, user, autorizado } = await requireAdmin();
   if (!autorizado) return { ok: false, error: "No autorizado" };
 
+  const cat = await resolverCategoria(supabase, data.categoria_id);
+
   const { error } = await supabase.from("productos").insert({
     nombre: data.nombre,
     descripcion: data.descripcion || null,
     precio: parsePrecio(data.precio),
-    categoria: data.categoria || null,
+    categoria: cat.categoria,
+    categoria_id: cat.categoria_id,
     imagen_url: data.imagen_url || null,
     activo: data.activo,
+    bajo_pedido: data.bajo_pedido,
     creado_por: user!.id,
   });
 
@@ -71,15 +91,19 @@ export async function actualizarProducto(
   const { supabase, autorizado } = await requireAdmin();
   if (!autorizado) return { ok: false, error: "No autorizado" };
 
+  const cat = await resolverCategoria(supabase, data.categoria_id);
+
   const { error } = await supabase
     .from("productos")
     .update({
       nombre: data.nombre,
       descripcion: data.descripcion || null,
       precio: parsePrecio(data.precio),
-      categoria: data.categoria || null,
+      categoria: cat.categoria,
+      categoria_id: cat.categoria_id,
       imagen_url: data.imagen_url || null,
       activo: data.activo,
+      bajo_pedido: data.bajo_pedido,
     })
     .eq("id", id);
 

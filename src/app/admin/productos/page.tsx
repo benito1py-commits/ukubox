@@ -81,15 +81,22 @@ export default async function AdminProductosPage() {
                     {p.precio != null ? `$${p.precio}` : "—"}
                   </td>
                   <td className="px-4 py-3">
-                    <span
-                      className={`text-xs font-medium px-2.5 py-1 rounded-full ${
-                        p.activo
-                          ? "bg-success/10 text-success"
-                          : "bg-muted text-muted-foreground"
-                      }`}
-                    >
-                      {p.activo ? "Activo" : "Inactivo"}
-                    </span>
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <span
+                        className={`text-xs font-medium px-2.5 py-1 rounded-full ${
+                          p.activo
+                            ? "bg-success/10 text-success"
+                            : "bg-muted text-muted-foreground"
+                        }`}
+                      >
+                        {p.activo ? "Activo" : "Inactivo"}
+                      </span>
+                      {p.bajo_pedido && (
+                        <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-accent/20 text-accent-hover">
+                          Bajo pedido
+                        </span>
+                      )}
+                    </div>
                   </td>
                   <td className="px-4 py-3">
                     <ProductoAcciones id={p.id} activo={p.activo} />
