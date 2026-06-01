@@ -8,6 +8,12 @@ const nextConfig: NextConfig = {
         hostname: "dvvomybmfaulqdxoymbz.supabase.co",
         pathname: "/storage/v1/object/public/**",
       },
+      {
+        // Imágenes placeholder para los productos de ejemplo (supabase/seed.sql).
+        // Las imágenes reales se suben desde el admin al bucket de Supabase.
+        protocol: "https",
+        hostname: "picsum.photos",
+      },
     ],
   },
 };
