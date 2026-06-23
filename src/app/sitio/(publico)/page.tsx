@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState, useRef } from "react";
 import { Package2, Calculator, Plane, Ship, Ban, Truck, ShoppingCart, Globe, Box, Shield, Warehouse, MapPin, Phone, Clock, Mail } from "lucide-react";
 
+import { calcularTarifa } from "@/lib/tarifas";
+
 const steps = [
   { num: "01", title: "Registrate", desc: "Creá tu casilla gratuitamente y ya estarás habilitado para realizar tus compras en el exterior.", href: "https://ukuxbox.helgasys.com/clients" },
   { num: "02", title: "Comprá Online", desc: "Comprá todo lo que deseas en cualquier tienda de USA y envialo a tu casilla en Miami.", href: "/servicios" },
@@ -47,7 +49,8 @@ export default function HomePage() {
   const [weight, setWeight] = useState("1");
   const [contactSent, setContactSent] = useState(false);
   const contactFormRef = useRef<HTMLFormElement>(null);
-  const estimatedCost = (parseFloat(weight || "0") * 25).toFixed(2);
+  const gramos = Math.round(parseFloat(weight || "0") * 1000);
+  const estimatedCost = calcularTarifa(gramos).toFixed(2);
 
   return (
     <div>
@@ -117,6 +120,12 @@ export default function HomePage() {
                   <p className="text-2xl font-bold text-primary">${estimatedCost}</p>
                 </div>
               </div>
+              <Link
+                href="/sitio/tarifas"
+                className="block text-center text-sm font-semibold text-primary hover:underline mt-3"
+              >
+                Ver todas las tarifas →
+              </Link>
             </div>
           </div>
         </div>

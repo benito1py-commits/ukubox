@@ -24,6 +24,7 @@ const navLinks = [
   { href: "/sitio", label: "Inicio" },
   { href: "/sitio/nosotros", label: "Nosotros" },
   { href: "/sitio/servicios", label: "Servicios" },
+  { href: "/sitio/tarifas", label: "Tarifas" },
   { href: "/sitio/productos", label: "Productos" },
   { href: "/sitio/restricciones", label: "Restricciones" },
   { href: "/sitio/preguntas-frecuentes", label: "Preguntas Frecuentes" },
