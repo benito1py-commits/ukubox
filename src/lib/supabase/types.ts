@@ -38,6 +38,7 @@ export type Database = {
           alias: string | null;
           banco: string | null;
           documento: string | null;
+          en_construccion: boolean;
           id: boolean;
           instrucciones: string | null;
           numero_cuenta: string | null;
@@ -48,6 +49,7 @@ export type Database = {
           alias?: string | null;
           banco?: string | null;
           documento?: string | null;
+          en_construccion?: boolean;
           id?: boolean;
           instrucciones?: string | null;
           numero_cuenta?: string | null;
@@ -58,6 +60,7 @@ export type Database = {
           alias?: string | null;
           banco?: string | null;
           documento?: string | null;
+          en_construccion?: boolean;
           id?: boolean;
           instrucciones?: string | null;
           numero_cuenta?: string | null;
@@ -72,6 +75,7 @@ export type Database = {
           comentario: string | null;
           comprobante_path: string | null;
           created_at: string;
+          direccion_entrega: string | null;
           estado: string;
           id: string;
           notas_admin: string | null;
@@ -79,6 +83,7 @@ export type Database = {
           precio_unitario: number | null;
           producto_id: string | null;
           producto_nombre: string;
+          telefono: string | null;
           updated_at: string;
           usuario_id: string;
         };
@@ -87,6 +92,7 @@ export type Database = {
           comentario?: string | null;
           comprobante_path?: string | null;
           created_at?: string;
+          direccion_entrega?: string | null;
           estado?: string;
           id?: string;
           notas_admin?: string | null;
@@ -94,6 +100,7 @@ export type Database = {
           precio_unitario?: number | null;
           producto_id?: string | null;
           producto_nombre: string;
+          telefono?: string | null;
           updated_at?: string;
           usuario_id: string;
         };
@@ -102,6 +109,7 @@ export type Database = {
           comentario?: string | null;
           comprobante_path?: string | null;
           created_at?: string;
+          direccion_entrega?: string | null;
           estado?: string;
           id?: string;
           notas_admin?: string | null;
@@ -109,6 +117,7 @@ export type Database = {
           precio_unitario?: number | null;
           producto_id?: string | null;
           producto_nombre?: string;
+          telefono?: string | null;
           updated_at?: string;
           usuario_id?: string;
         };
@@ -196,6 +205,20 @@ export type Database = {
     };
     Functions: {
       es_admin: {
+        Args: Record<PropertyKey, never>;
+        Returns: boolean;
+      };
+      crear_pedido: {
+        Args: {
+          p_producto_id: string;
+          p_cantidad: number;
+          p_comentario: string;
+          p_direccion: string;
+          p_telefono: string;
+        };
+        Returns: string;
+      };
+      sitio_en_construccion: {
         Args: Record<PropertyKey, never>;
         Returns: boolean;
       };

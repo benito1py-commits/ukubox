@@ -64,7 +64,11 @@ function ProductoCard({
       </Link>
       <div className="p-4 mt-auto">
         {producto.bajo_pedido ? (
-          <SolicitarBajoPedido productoId={producto.id} logueado={logueado} />
+          <SolicitarBajoPedido
+            productoId={producto.id}
+            precio={producto.precio}
+            logueado={logueado}
+          />
         ) : (
           <Link
             href={`/sitio/productos/${producto.id}`}

@@ -55,3 +55,22 @@ export async function guardarConfiguracion(
   revalidatePath("/sitio/cuenta");
   return { ok: true };
 }
+
+// Habilita/oculta el sitio público. Con en_construccion=true solo los admins ven
+// el sitio; al pasarlo a false, queda visible para todos.
+export async function cambiarModoConstruccion(
+  enConstruccion: boolean,
+): Promise<ActionResult> {
+  const { supabase, autorizado } = await requireAdmin();
+  if (!autorizado) return { ok: false, error: "No autorizado" };
+
+  const { error } = await supabase
+    .from("configuracion")
+    .update({ en_construccion: enConstruccion })
+    .eq("id", true);
+
+  if (error) return { ok: false, error: error.message };
+
+  revalidatePath("/", "layout");
+  return { ok: true };
+}

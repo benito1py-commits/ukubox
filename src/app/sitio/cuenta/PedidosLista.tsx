@@ -149,6 +149,14 @@ export default function PedidosLista({
                   </p>
                 )}
 
+                {(p.direccion_entrega || p.telefono) && (
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Entrega: {p.direccion_entrega}
+                    {p.direccion_entrega && p.telefono ? " · " : ""}
+                    {p.telefono ? `Tel: ${p.telefono}` : ""}
+                  </p>
+                )}
+
                 {/* Estimado de referencia mientras todavía no hay cotización */}
                 {p.precio_cotizado == null && p.precio_unitario != null && (
                   <p className="text-sm mt-2 text-muted-foreground">

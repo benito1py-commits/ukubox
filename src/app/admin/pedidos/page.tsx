@@ -124,6 +124,17 @@ export default async function AdminPedidosPage({
                   </span>
                 </div>
 
+                {(p.direccion_entrega || p.telefono) && (
+                  <p className="text-sm text-muted-foreground mt-2">
+                    <span className="font-medium text-foreground">
+                      Entrega:{" "}
+                    </span>
+                    {p.direccion_entrega}
+                    {p.direccion_entrega && p.telefono ? " · " : ""}
+                    {p.telefono && <span>Tel: {p.telefono}</span>}
+                  </p>
+                )}
+
                 {p.comentario && (
                   <p className="text-sm text-muted-foreground mt-2">
                     <span className="font-medium text-foreground">

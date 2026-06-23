@@ -108,11 +108,12 @@ export default async function ProductoDetallePage({ params }: Params) {
               {producto.bajo_pedido ? (
                 <div className="flex flex-col">
                   <p className="text-sm text-muted-foreground mb-2">
-                    Este producto es <strong>bajo pedido</strong>: lo solicitás,
-                    te lo cotizamos y coordinamos el pago.
+                    Este producto es <strong>bajo pedido</strong>: lo pedís,
+                    indicás dónde recibirlo y lo pagás por transferencia.
                   </p>
                   <SolicitarBajoPedido
                     productoId={producto.id}
+                    precio={producto.precio}
                     logueado={logueado}
                   />
                 </div>

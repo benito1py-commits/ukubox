@@ -1,11 +1,21 @@
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
+
+import { sitioEnConstruccion } from "@/lib/construccion";
 
 export const metadata: Metadata = {
   title: "UKUXBOX - Sitio en Construcción",
   description: "Estamos trabajando para brindarte la mejor experiencia. Próximamente.",
 };
 
-export default function EnConstruccionPage() {
+export const dynamic = "force-dynamic";
+
+export default async function EnConstruccionPage() {
+  // Si el sitio ya está habilitado, la raíz lleva al sitio real.
+  if (!(await sitioEnConstruccion())) {
+    redirect("/sitio");
+  }
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-primary via-primary to-blue-900 text-white px-4">
       <div className="text-center max-w-lg">

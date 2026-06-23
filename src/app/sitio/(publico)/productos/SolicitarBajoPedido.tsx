@@ -9,18 +9,25 @@ import { crearPedido } from "./actions";
 
 export default function SolicitarBajoPedido({
   productoId,
+  precio,
   logueado,
 }: {
   productoId: string;
+  precio: number | null;
   logueado: boolean;
 }) {
   const router = useRouter();
   const [abierto, setAbierto] = useState(false);
   const [cantidad, setCantidad] = useState(1);
+  const [direccion, setDireccion] = useState("");
+  const [telefono, setTelefono] = useState("");
   const [comentario, setComentario] = useState("");
   const [enviando, setEnviando] = useState(false);
   const [listo, setListo] = useState(false);
   const [error, setError] = useState("");
+
+  const total =
+    precio != null ? Math.round(precio * Math.max(cantidad, 1) * 100) / 100 : null;
 
   if (!logueado) {
     return (
@@ -29,7 +36,7 @@ export default function SolicitarBajoPedido({
         className="mt-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white text-sm font-semibold py-2.5 px-4 rounded-xl transition-colors"
       >
         <ShoppingBag className="w-4 h-4" />
-        Solicitar bajo pedido
+        Comprar
       </Link>
     );
   }
@@ -39,13 +46,13 @@ export default function SolicitarBajoPedido({
       <div className="mt-auto flex flex-col gap-2">
         <div className="inline-flex items-center gap-2 bg-success/10 text-success text-sm font-semibold py-2.5 px-4 rounded-xl">
           <Check className="w-4 h-4" />
-          ¡Pedido enviado!
+          ¡Pedido confirmado!
         </div>
         <Link
           href="/sitio/cuenta"
           className="text-sm font-semibold text-primary hover:underline text-center"
         >
-          Ver mis pedidos →
+          Pagar por transferencia →
         </Link>
       </div>
     );
@@ -59,7 +66,7 @@ export default function SolicitarBajoPedido({
         className="mt-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white text-sm font-semibold py-2.5 px-4 rounded-xl transition-colors"
       >
         <ShoppingBag className="w-4 h-4" />
-        Solicitar bajo pedido
+        Comprar
       </button>
     );
   }
@@ -72,6 +79,8 @@ export default function SolicitarBajoPedido({
         producto_id: productoId,
         cantidad,
         comentario,
+        direccion,
+        telefono,
       });
       if (!res.ok) {
         setError(res.error);
@@ -102,6 +111,20 @@ export default function SolicitarBajoPedido({
           className="w-20 px-2 py-1.5 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
         />
       </div>
+      <input
+        type="text"
+        value={direccion}
+        onChange={(e) => setDireccion(e.target.value)}
+        placeholder="Dirección de entrega"
+        className={inputClass}
+      />
+      <input
+        type="tel"
+        value={telefono}
+        onChange={(e) => setTelefono(e.target.value)}
+        placeholder="Teléfono de contacto"
+        className={inputClass}
+      />
       <textarea
         value={comentario}
         onChange={(e) => setComentario(e.target.value)}
@@ -109,6 +132,12 @@ export default function SolicitarBajoPedido({
         rows={2}
         className={inputClass}
       />
+      {total != null && (
+        <div className="flex items-center justify-between text-sm pt-1">
+          <span className="text-muted-foreground">Total</span>
+          <span className="font-bold text-foreground">${total}</span>
+        </div>
+      )}
       <div className="flex gap-2">
         <button
           type="button"
@@ -121,7 +150,7 @@ export default function SolicitarBajoPedido({
           ) : (
             <ShoppingBag className="w-4 h-4" />
           )}
-          {enviando ? "Enviando..." : "Enviar pedido"}
+          {enviando ? "Confirmando..." : "Confirmar pedido"}
         </button>
         <button
           type="button"

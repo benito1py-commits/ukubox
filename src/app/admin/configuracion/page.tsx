@@ -2,10 +2,13 @@ import { Landmark } from "lucide-react";
 
 import { createClient } from "@/lib/supabase/server";
 import ConfiguracionForm from "./ConfiguracionForm";
+import ModoConstruccion from "./ModoConstruccion";
 
 export const metadata = {
   title: "Configuración - UKUXBOX",
 };
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminConfiguracionPage() {
   const supabase = await createClient();
@@ -18,6 +21,8 @@ export default async function AdminConfiguracionPage() {
 
   return (
     <div>
+      <ModoConstruccion enConstruccion={configuracion?.en_construccion ?? true} />
+
       <div className="flex items-center gap-3 mb-2">
         <Landmark className="w-6 h-6 text-primary" />
         <h1 className="text-2xl font-black text-foreground">
