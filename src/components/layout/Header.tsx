@@ -159,7 +159,7 @@ export function Header({ usuario }: { usuario?: Usuario }) {
                     <>
                       <Link href="/sitio/acceder" role="menuitem" className={menuItem}>
                         <LogIn size={16} />
-                        Ingresar UKUXBOX
+                        Login UKUXBOX
                       </Link>
                       <Link
                         href="/sitio/registro-usuario"
@@ -184,7 +184,7 @@ export function Header({ usuario }: { usuario?: Usuario }) {
                     className={menuItem}
                   >
                     <LogIn size={16} />
-                    Ingresar Helga
+                    Login Helga
                     <ExternalLink size={12} className="ml-auto text-muted-foreground" />
                   </a>
                   <a
@@ -281,7 +281,7 @@ export function Header({ usuario }: { usuario?: Usuario }) {
                       className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium bg-primary/10 text-primary"
                     >
                       <LogIn size={18} />
-                      Ingresar UKUXBOX
+                      Login UKUXBOX
                     </Link>
                     <Link
                       href="/sitio/registro-usuario"
@@ -302,7 +302,7 @@ export function Header({ usuario }: { usuario?: Usuario }) {
                   className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium text-foreground hover:bg-gray-50"
                 >
                   <LogIn size={18} />
-                  Ingresar Helga
+                  Login Helga
                   <ExternalLink size={14} className="text-muted-foreground" />
                 </a>
                 <a

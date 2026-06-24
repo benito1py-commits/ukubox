@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef } from "react";
-import { Package2, Calculator, Plane, Ship, Ban, Truck, ShoppingCart, Globe, Box, Shield, Warehouse, MapPin, Phone, Clock, Mail } from "lucide-react";
+import { Package2, Calculator, Plane, Ship, Ban, Truck, ShoppingCart, Globe, Box, Shield, Warehouse, MapPin, Phone, Clock, Mail, LogIn } from "lucide-react";
 
 import { calcularTarifa } from "@/lib/tarifas";
 
@@ -33,14 +33,11 @@ const manejoItems = [
 
 const addresses = [
   { country: "EEUU (Miami)", flag: "🇺🇸", lines: ["6758 N.W. 72 AV", "Miami, FL 33166-3049", "Florida - USA"], tel: "+1 (305) 430-5100" },
-  { country: "EEUU (New York)", flag: "🇺🇸", lines: ["New York, NY", "USA"], tel: "+1 (305) 430-5100" },
   { country: "Paraguay", flag: "🇵🇾", lines: ["España 2220 casi América", "Asunción - Paraguay"], tel: "+595 982 278 071" },
 ];
 
 const sucursales = [
   { nombre: "Asunción - Central", telefono: "0982 278 071", direccion: "España 2220 casi América", horario: "Lun-Vie: 08:00-18:00, Sáb: 08:00-12:00" },
-  { nombre: "Ciudad del Este", telefono: "0971 111 855", direccion: "Av. San Blas esq. Curupayty", horario: "Lun-Vie: 08:00-16:00, Sáb: 08:00-13:00" },
-  { nombre: "Encarnación", telefono: "0983 073 000", direccion: "Av. Irrazábal c/ Tomás R. Pereira", horario: "Lun-Vie: 08:00-17:00" },
 ];
 
 export default function HomePage() {
@@ -70,10 +67,20 @@ export default function HomePage() {
               <a href="https://ukuxbox.helgasys.com/clients" target="_blank" rel="noopener noreferrer" className="bg-accent text-foreground px-8 py-3.5 rounded-lg text-base font-bold hover:bg-accent-hover shadow-lg transition-all text-center">
                 Crear Casillero Gratis
               </a>
+              <Link href="/sitio/acceder" className="inline-flex items-center justify-center gap-2 bg-white/10 border-2 border-white/40 text-white px-8 py-3.5 rounded-lg text-base font-bold hover:bg-white/20 transition-all text-center">
+                <LogIn size={18} />
+                Login
+              </Link>
               <Link href="/sitio/servicios" className="border-2 border-white/30 text-white px-8 py-3.5 rounded-lg text-base font-bold hover:bg-white/10 transition-all text-center">
                 Ver Servicios
               </Link>
             </div>
+            <p className="mt-5 text-sm text-white/70 text-center lg:text-left">
+              ¿Ya tenés casillero?{" "}
+              <Link href="/sitio/acceder" className="font-semibold text-accent hover:underline">
+                Iniciá sesión acá
+              </Link>
+            </p>
           </div>
 
           <div className="w-full max-w-md lg:w-[420px] lg:shrink-0 flex flex-col gap-5">
@@ -303,7 +310,7 @@ export default function HomePage() {
               Encontrá la sucursal más cercana a tu ubicación.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 max-w-md mx-auto">
             {sucursales.map((suc) => (
               <div key={suc.nombre} className="bg-white rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-shadow">
                 <h3 className="font-bold text-lg mb-4">{suc.nombre}</h3>
