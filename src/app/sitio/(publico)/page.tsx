@@ -43,10 +43,13 @@ const sucursales = [
 export default function HomePage() {
   const [activeStep, setActiveStep] = useState(0);
 
-  const [weight, setWeight] = useState("1");
+  const [kg, setKg] = useState("1");
+  const [g, setG] = useState("0");
   const [contactSent, setContactSent] = useState(false);
   const contactFormRef = useRef<HTMLFormElement>(null);
-  const gramos = Math.round(parseFloat(weight || "0") * 1000);
+  const gramos = Math.round(
+    (parseFloat(kg || "0") || 0) * 1000 + (parseFloat(g || "0") || 0),
+  );
   const estimatedCost = calcularTarifa(gramos).toFixed(2);
 
   return (
@@ -112,15 +115,34 @@ export default function HomePage() {
               </div>
               <div className="flex gap-4 items-end">
                 <div className="flex-1">
-                  <label className="block text-xs font-semibold text-muted-foreground mb-1.5 uppercase">Peso (KG)</label>
-                  <input
-                    type="number"
-                    min="0.1"
-                    step="0.1"
-                    value={weight}
-                    onChange={(e) => setWeight(e.target.value)}
-                    className="w-full px-4 py-3 rounded-lg border border-border bg-gray-50 outline-none text-base"
-                  />
+                  <label className="block text-xs font-semibold text-muted-foreground mb-1.5 uppercase">Peso</label>
+                  <div className="flex gap-2">
+                    <div className="flex-1">
+                      <input
+                        type="number"
+                        min="0"
+                        step="1"
+                        value={kg}
+                        onChange={(e) => setKg(e.target.value)}
+                        aria-label="Kilogramos"
+                        className="w-full px-3 py-3 rounded-lg border border-border bg-gray-50 outline-none text-base"
+                      />
+                      <span className="block text-center text-[11px] text-muted-foreground mt-1">kg</span>
+                    </div>
+                    <div className="flex-1">
+                      <input
+                        type="number"
+                        min="0"
+                        max="999"
+                        step="10"
+                        value={g}
+                        onChange={(e) => setG(e.target.value)}
+                        aria-label="Gramos"
+                        className="w-full px-3 py-3 rounded-lg border border-border bg-gray-50 outline-none text-base"
+                      />
+                      <span className="block text-center text-[11px] text-muted-foreground mt-1">g</span>
+                    </div>
+                  </div>
                 </div>
                 <div className="flex-1 bg-primary/5 rounded-lg border border-primary/20 p-3 text-center">
                   <p className="text-xs text-muted-foreground mb-0.5">Estimado</p>

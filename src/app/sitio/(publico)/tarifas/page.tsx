@@ -18,8 +18,11 @@ const ejemplos = [
 ];
 
 export default function TarifasPage() {
-  const [peso, setPeso] = useState("1");
-  const gramos = Math.round(parseFloat(peso || "0") * 1000);
+  const [kg, setKg] = useState("1");
+  const [g, setG] = useState("0");
+  const gramos = Math.round(
+    (parseFloat(kg || "0") || 0) * 1000 + (parseFloat(g || "0") || 0),
+  );
   const estimado = calcularTarifa(gramos).toFixed(2);
 
   return (
@@ -78,6 +81,12 @@ export default function TarifasPage() {
                 </tr>
               </tbody>
             </table>
+            <p className="px-6 py-4 text-xs text-muted-foreground border-t border-border">
+              Los valores son puntos de referencia. El precio se calcula de forma
+              proporcional según el peso exacto: entre cada referencia aumenta de
+              forma lineal por cada gramo adicional. Usá la calculadora para el
+              importe exacto.
+            </p>
           </div>
 
           {/* Calculadora */}
@@ -89,16 +98,35 @@ export default function TarifasPage() {
               <h2 className="text-lg font-bold text-foreground">Cotizá tu envío</h2>
             </div>
             <label className="block text-xs font-semibold text-muted-foreground mb-1.5 uppercase">
-              Peso (KG)
+              Peso
             </label>
-            <input
-              type="number"
-              min="0.1"
-              step="0.1"
-              value={peso}
-              onChange={(e) => setPeso(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg border border-border bg-gray-50 outline-none text-base focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-            />
+            <div className="flex gap-3">
+              <div className="flex-1">
+                <input
+                  type="number"
+                  min="0"
+                  step="1"
+                  value={kg}
+                  onChange={(e) => setKg(e.target.value)}
+                  aria-label="Kilogramos"
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-gray-50 outline-none text-base focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                />
+                <span className="block text-center text-[11px] text-muted-foreground mt-1">kg</span>
+              </div>
+              <div className="flex-1">
+                <input
+                  type="number"
+                  min="0"
+                  max="999"
+                  step="10"
+                  value={g}
+                  onChange={(e) => setG(e.target.value)}
+                  aria-label="Gramos"
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-gray-50 outline-none text-base focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                />
+                <span className="block text-center text-[11px] text-muted-foreground mt-1">g</span>
+              </div>
+            </div>
             <div className="mt-4 bg-primary/5 rounded-xl border border-primary/20 p-4 text-center">
               <p className="text-xs text-muted-foreground mb-0.5">Costo estimado</p>
               <p className="text-3xl font-black text-primary">${estimado}</p>
