@@ -202,7 +202,13 @@ export function Header({ usuario }: { usuario?: Usuario }) {
                   {logueado && (
                     <>
                       <div className="my-2 border-t border-border" />
-                      <form action={cerrarSesion}>
+                      {/* stopPropagation: sin esto el onClick del menú cierra el
+                          dropdown y desmonta el form antes de despachar la action,
+                          cancelando el cierre de sesión. */}
+                      <form
+                        action={cerrarSesion}
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         <button
                           type="submit"
                           role="menuitem"
