@@ -25,7 +25,6 @@ const navLinks = [
   { href: "/sitio/nosotros", label: "Nosotros" },
   { href: "/sitio/servicios", label: "Servicios" },
   { href: "/sitio/tarifas", label: "Tarifas" },
-  { href: "/sitio/productos", label: "Productos" },
   { href: "/sitio/restricciones", label: "Restricciones" },
   { href: "/sitio/preguntas-frecuentes", label: "Preguntas Frecuentes" },
 ];
@@ -157,47 +156,23 @@ export function Header({ usuario }: { usuario?: Usuario }) {
                     </>
                   ) : (
                     <>
-                      <Link href="/sitio/acceder" role="menuitem" className={menuItem}>
+                      <Link href="/cliente/login" role="menuitem" className={menuItem}>
                         <LogIn size={16} />
-                        Login UKUXBOX
+                        Ingresar a mi casillero
                       </Link>
-                      <Link
-                        href="/sitio/registro-usuario"
+                      <a
+                        href="https://ukuxbox.helgasys.com/clients"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         role="menuitem"
                         className={menuItem}
                       >
                         <UserPlus size={16} />
-                        Registrar UKUXBOX
-                      </Link>
+                        Registrarme
+                        <ExternalLink size={12} className="ml-auto text-muted-foreground" />
+                      </a>
                     </>
                   )}
-
-                  <div className="my-2 border-t border-border" />
-                  <p className="px-4 pb-1 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                    Sistema Helga
-                  </p>
-                  <a
-                    href="https://ukuxbox.helgasys.com/login"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    role="menuitem"
-                    className={menuItem}
-                  >
-                    <LogIn size={16} />
-                    Login Helga
-                    <ExternalLink size={12} className="ml-auto text-muted-foreground" />
-                  </a>
-                  <a
-                    href="https://ukuxbox.helgasys.com/clients"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    role="menuitem"
-                    className={menuItem}
-                  >
-                    <UserPlus size={16} />
-                    Registrar Helga
-                    <ExternalLink size={12} className="ml-auto text-muted-foreground" />
-                  </a>
 
                   {logueado && (
                     <>
@@ -282,46 +257,25 @@ export function Header({ usuario }: { usuario?: Usuario }) {
                 ) : (
                   <>
                     <Link
-                      href="/sitio/acceder"
+                      href="/cliente/login"
                       onClick={() => setMobileOpen(false)}
                       className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium bg-primary/10 text-primary"
                     >
                       <LogIn size={18} />
-                      Login UKUXBOX
+                      Ingresar a mi casillero
                     </Link>
-                    <Link
-                      href="/sitio/registro-usuario"
+                    <a
+                      href="https://ukuxbox.helgasys.com/clients"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       onClick={() => setMobileOpen(false)}
                       className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold text-center bg-primary text-white"
                     >
                       <UserPlus size={18} />
-                      Registrar UKUXBOX
-                    </Link>
+                      Registrarme
+                    </a>
                   </>
                 )}
-
-                <a
-                  href="https://ukuxbox.helgasys.com/login"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium text-foreground hover:bg-gray-50"
-                >
-                  <LogIn size={18} />
-                  Login Helga
-                  <ExternalLink size={14} className="text-muted-foreground" />
-                </a>
-                <a
-                  href="https://ukuxbox.helgasys.com/clients"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium text-foreground hover:bg-gray-50"
-                >
-                  <UserPlus size={18} />
-                  Registrar Helga
-                  <ExternalLink size={14} className="text-muted-foreground" />
-                </a>
 
                 {logueado && (
                   <form action={cerrarSesion}>

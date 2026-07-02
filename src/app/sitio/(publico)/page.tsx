@@ -70,7 +70,7 @@ export default function HomePage() {
               <a href="https://ukuxbox.helgasys.com/clients" target="_blank" rel="noopener noreferrer" className="bg-accent text-foreground px-8 py-3.5 rounded-lg text-base font-bold hover:bg-accent-hover shadow-lg transition-all text-center">
                 Crear Casillero Gratis
               </a>
-              <Link href="/sitio/acceder" className="inline-flex items-center justify-center gap-2 bg-white/10 border-2 border-white/40 text-white px-8 py-3.5 rounded-lg text-base font-bold hover:bg-white/20 transition-all text-center">
+              <Link href="/cliente/login" className="inline-flex items-center justify-center gap-2 bg-white/10 border-2 border-white/40 text-white px-8 py-3.5 rounded-lg text-base font-bold hover:bg-white/20 transition-all text-center">
                 <LogIn size={18} />
                 Login
               </Link>
@@ -80,7 +80,7 @@ export default function HomePage() {
             </div>
             <p className="mt-5 text-sm text-white/70 text-center lg:text-left">
               ¿Ya tenés casillero?{" "}
-              <Link href="/sitio/acceder" className="font-semibold text-accent hover:underline">
+              <Link href="/cliente/login" className="font-semibold text-accent hover:underline">
                 Iniciá sesión acá
               </Link>
             </p>

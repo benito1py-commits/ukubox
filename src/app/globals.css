@@ -26,3 +26,16 @@ body {
   color: var(--color-foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
+
+/* Neutraliza el fondo azulado del autocompletado de Chrome/WebKit,
+   que rompía el estilo de los inputs (recuadro celeste sin esquinas). */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: var(--color-foreground);
+  caret-color: var(--color-foreground);
+  box-shadow: inset 0 0 0 1000px var(--color-background);
+  transition: background-color 9999s ease-in-out 0s;
+}
