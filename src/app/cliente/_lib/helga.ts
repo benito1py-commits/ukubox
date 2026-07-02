@@ -16,6 +16,7 @@ import { cookies } from "next/headers";
 const BASE_URL = process.env.HELGA_BASE_URL!;
 const CLIENT_ID = process.env.HELGA_CLIENT_ID!;
 const CLIENT_SECRET = process.env.HELGA_CLIENT_SECRET!;
+const APP_ID = process.env.HELGA_APP_ID!;
 
 const ACCESS_COOKIE = "cliente_access_token";
 const REFRESH_COOKIE = "cliente_refresh_token";
@@ -157,4 +158,95 @@ export async function getValidAccessToken(): Promise<string> {
   const tokens = await refreshToken(refresh);
   await setSession(tokens);
   return tokens.access_token;
+}
+
+// ===== Catálogos públicos (solo app_id, sin token) =====
+
+export interface Pais {
+  codigo: string;
+  nombre: string;
+  activo: boolean;
+}
+export interface Departamento {
+  id: number;
+  nombre: string;
+}
+export interface Ciudad {
+  id: number;
+  nombre: string;
+}
+export interface TipoIdentificacion {
+  id: number;
+  descripcion: string;
+  activo: boolean;
+}
+
+/** GET público a un catálogo (el app_id va en la URL). */
+async function publicGet<T>(path: string): Promise<T> {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    headers: { Accept: "application/json" },
+    cache: "no-store",
+  });
+  const data = await res.json();
+  if (!res.ok) throw new HelgaError(res.status, data);
+  return data as T;
+}
+
+export function getPaises(): Promise<Pais[]> {
+  return publicGet<Pais[]>(
+    `/api/casillero/clientes/getCountries/${APP_ID}`
+  );
+}
+
+export function getDepartamentos(codigoPais: string): Promise<Departamento[]> {
+  return publicGet<Departamento[]>(
+    `/api/casillero/clientes/getDepartaments/${codigoPais}/${APP_ID}`
+  );
+}
+
+export function getCiudades(departamentoId: number | string): Promise<Ciudad[]> {
+  return publicGet<Ciudad[]>(
+    `/api/casillero/clientes/getCities/${departamentoId}/${APP_ID}`
+  );
+}
+
+export async function getTiposIdentificacion(): Promise<TipoIdentificacion[]> {
+  const data = await publicGet<HelgaEnvelope<TipoIdentificacion[]>>(
+    `/api/tiposdeidentificacion/${APP_ID}`
+  );
+  return data.datos;
+}
+
+// ===== Registro de cliente (público, app_id en el body) =====
+
+export interface RegistroInput {
+  tipo_de_cuenta_id: number;
+  tipo_de_identificacion_id?: number;
+  numero_de_identificacion: string;
+  primer_nombre: string;
+  segundo_nombre: string;
+  primer_apellido: string;
+  segundo_apellido?: string;
+  email: string;
+  email_confirmation: string;
+  password: string;
+  password_confirmation: string;
+  pais_codigo: string;
+  departamento_id?: number;
+  ciudad_id?: number;
+  telefono_celular: string;
+  direccion: string;
+  telefono_fijo?: string;
+}
+
+/** Crea un cliente de casillero. app_id se agrega del lado del servidor. */
+export async function registrar(input: RegistroInput): Promise<unknown> {
+  const res = await fetch(`${BASE_URL}/api/clientes`, {
+    method: "POST",
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    body: JSON.stringify({ ...input, app_id: APP_ID }),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new HelgaError(res.status, data);
+  return data;
 }

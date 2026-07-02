@@ -12,7 +12,6 @@ import {
   LogIn,
   LogOut,
   UserPlus,
-  ExternalLink,
   ChevronDown,
   User as UserIcon,
   LayoutDashboard,
@@ -160,17 +159,14 @@ export function Header({ usuario }: { usuario?: Usuario }) {
                         <LogIn size={16} />
                         Ingresar a mi casillero
                       </Link>
-                      <a
-                        href="https://ukuxbox.helgasys.com/clients"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <Link
+                        href="/cliente/registro"
                         role="menuitem"
                         className={menuItem}
                       >
                         <UserPlus size={16} />
                         Registrarme
-                        <ExternalLink size={12} className="ml-auto text-muted-foreground" />
-                      </a>
+                      </Link>
                     </>
                   )}
 
@@ -264,16 +260,14 @@ export function Header({ usuario }: { usuario?: Usuario }) {
                       <LogIn size={18} />
                       Ingresar a mi casillero
                     </Link>
-                    <a
-                      href="https://ukuxbox.helgasys.com/clients"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href="/cliente/registro"
                       onClick={() => setMobileOpen(false)}
                       className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold text-center bg-primary text-white"
                     >
                       <UserPlus size={18} />
                       Registrarme
-                    </a>
+                    </Link>
                   </>
                 )}
 

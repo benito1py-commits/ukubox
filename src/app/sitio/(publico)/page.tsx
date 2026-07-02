@@ -7,7 +7,7 @@ import { Package2, Calculator, Plane, Ship, Ban, Truck, ShoppingCart, Globe, Box
 import { calcularTarifa } from "@/lib/tarifas";
 
 const steps = [
-  { num: "01", title: "Registrate", desc: "Creá tu casilla gratuitamente y ya estarás habilitado para realizar tus compras en el exterior.", href: "https://ukuxbox.helgasys.com/clients" },
+  { num: "01", title: "Registrate", desc: "Creá tu casilla gratuitamente y ya estarás habilitado para realizar tus compras en el exterior.", href: "/cliente/registro" },
   { num: "02", title: "Comprá Online", desc: "Comprá todo lo que deseas en cualquier tienda de USA y envialo a tu casilla en Miami.", href: "/servicios" },
   { num: "03", title: "Seguí tus Paquetes", desc: "Seguí los estados de tus paquetes 24/7 desde tu panel de cliente.", href: "https://parcelsapp.com/" },
   { num: "04", title: "Recibí tu Paquete", desc: "Retirá en nuestra oficina o solicitá delivery a tu domicilio.", href: "https://wa.me/595982278071" },
@@ -67,9 +67,9 @@ export default function HomePage() {
               Comprá en cualquier tienda de Estados Unidos y recibí tus paquetes en Paraguay. Rápido, seguro y al mejor precio.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <a href="https://ukuxbox.helgasys.com/clients" target="_blank" rel="noopener noreferrer" className="bg-accent text-foreground px-8 py-3.5 rounded-lg text-base font-bold hover:bg-accent-hover shadow-lg transition-all text-center">
+              <Link href="/cliente/registro" className="bg-accent text-foreground px-8 py-3.5 rounded-lg text-base font-bold hover:bg-accent-hover shadow-lg transition-all text-center">
                 Crear Casillero Gratis
-              </a>
+              </Link>
               <Link href="/cliente/login" className="inline-flex items-center justify-center gap-2 bg-white/10 border-2 border-white/40 text-white px-8 py-3.5 rounded-lg text-base font-bold hover:bg-white/20 transition-all text-center">
                 <LogIn size={18} />
                 Login
@@ -435,14 +435,12 @@ export default function HomePage() {
           <p className="text-foreground/70 mb-8 text-lg">
             Registrate hoy y obtené tu dirección en Miami. Empezá a comprar en tus tiendas favoritas de USA.
           </p>
-          <a
-            href="https://ukuxbox.helgasys.com/clients"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/cliente/registro"
             className="inline-flex bg-primary text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-primary-hover shadow-lg transition-all"
           >
             Crear mi Casillero Gratis
-          </a>
+          </Link>
         </div>
       </section>
     </div>

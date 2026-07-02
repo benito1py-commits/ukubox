@@ -1,12 +1,32 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import LoginForm from "./LoginForm";
+import {
+  getPaises,
+  getTiposIdentificacion,
+  type Pais,
+  type TipoIdentificacion,
+} from "../_lib/helga";
+import RegistroForm from "./RegistroForm";
 
 export const metadata = {
-  title: "Ingresar — UKUXBOX",
+  title: "Crear casillero — UKUXBOX",
 };
 
-export default function LoginPage() {
+export const dynamic = "force-dynamic";
+
+export default async function RegistroPage() {
+  // Precargamos los catálogos que no dependen de otra selección.
+  let paises: Pais[] = [];
+  let tiposId: TipoIdentificacion[] = [];
+  try {
+    [paises, tiposId] = await Promise.all([
+      getPaises(),
+      getTiposIdentificacion(),
+    ]);
+  } catch {
+    // Si fallan los catálogos, el form igual carga (los selects quedan vacíos).
+  }
+
   return (
     <main className="flex min-h-screen flex-col bg-muted">
       {/* Barra superior con logo */}
@@ -23,34 +43,25 @@ export default function LoginPage() {
             </span>
           </Link>
           <Link
-            href="/sitio"
+            href="/cliente/login"
             className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
           >
             <ArrowLeft size={16} />
-            Volver al inicio
+            Ya tengo cuenta
           </Link>
         </div>
       </header>
 
       {/* Formulario */}
-      <div className="flex flex-1 items-center justify-center px-4 py-12">
-        <div className="w-full max-w-sm rounded-2xl border border-border bg-white p-8 shadow-sm">
+      <div className="flex flex-1 justify-center px-4 py-10">
+        <div className="w-full max-w-lg rounded-2xl border border-border bg-white p-8 shadow-sm">
           <h1 className="text-xl font-bold text-foreground">
-            Ingresá a tu casillero
+            Creá tu casillero gratis
           </h1>
           <p className="mb-6 mt-1 text-sm text-muted-foreground">
-            Usá tu email y contraseña de UKUXBOX.
+            Completá tus datos para empezar a comprar en Estados Unidos.
           </p>
-          <LoginForm />
-          <p className="mt-6 text-center text-sm text-muted-foreground">
-            ¿No tenés casillero?{" "}
-            <Link
-              href="/cliente/registro"
-              className="font-semibold text-primary hover:underline"
-            >
-              Creá uno gratis
-            </Link>
-          </p>
+          <RegistroForm paises={paises} tiposId={tiposId} />
         </div>
       </div>
     </main>
