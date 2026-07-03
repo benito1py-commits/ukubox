@@ -48,8 +48,10 @@ export function Footer() {
           <ul className="space-y-3 text-sm text-gray-400">
             <li><Link href="/sitio/nosotros" className="hover:text-accent transition-colors">Nosotros</Link></li>
             <li><Link href="/sitio/servicios" className="hover:text-accent transition-colors">Servicios</Link></li>
+            <li><Link href="/sitio/productos" className="hover:text-accent transition-colors">Productos</Link></li>
             <li><Link href="/sitio/tarifas" className="hover:text-accent transition-colors">Tarifas</Link></li>
             <li><Link href="/sitio/preguntas-frecuentes" className="hover:text-accent transition-colors">Preguntas Frecuentes</Link></li>
+            <li><Link href="/sitio/acceder?next=/admin" className="hover:text-accent transition-colors">Acceso administración</Link></li>
           </ul>
         </div>
 

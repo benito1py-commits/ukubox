@@ -66,13 +66,13 @@ export default function HomePage() {
             <p className="text-lg text-white/80 max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
               Comprá en cualquier tienda de Estados Unidos y recibí tus paquetes en Paraguay. Rápido, seguro y al mejor precio.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <div className="flex flex-col gap-4 max-w-sm mx-auto lg:mx-0">
               <Link href="/cliente/registro" className="bg-accent text-foreground px-8 py-3.5 rounded-lg text-base font-bold hover:bg-accent-hover shadow-lg transition-all text-center">
-                Crear Casillero Gratis
+                Crear Casillero - Registrarme Gratis
               </Link>
               <Link href="/cliente/login" className="inline-flex items-center justify-center gap-2 bg-white/10 border-2 border-white/40 text-white px-8 py-3.5 rounded-lg text-base font-bold hover:bg-white/20 transition-all text-center">
                 <LogIn size={18} />
-                Login
+                Acceder
               </Link>
               <Link href="/sitio/servicios" className="border-2 border-white/30 text-white px-8 py-3.5 rounded-lg text-base font-bold hover:bg-white/10 transition-all text-center">
                 Ver Servicios

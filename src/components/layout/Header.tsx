@@ -23,6 +23,7 @@ const navLinks = [
   { href: "/sitio", label: "Inicio" },
   { href: "/sitio/nosotros", label: "Nosotros" },
   { href: "/sitio/servicios", label: "Servicios" },
+  { href: "/sitio/productos", label: "Productos" },
   { href: "/sitio/tarifas", label: "Tarifas" },
   { href: "/sitio/restricciones", label: "Restricciones" },
   { href: "/sitio/preguntas-frecuentes", label: "Preguntas Frecuentes" },
@@ -157,7 +158,7 @@ export function Header({ usuario }: { usuario?: Usuario }) {
                     <>
                       <Link href="/cliente/login" role="menuitem" className={menuItem}>
                         <LogIn size={16} />
-                        Ingresar a mi casillero
+                        Acceder a mi casillero
                       </Link>
                       <Link
                         href="/cliente/registro"
@@ -165,7 +166,7 @@ export function Header({ usuario }: { usuario?: Usuario }) {
                         className={menuItem}
                       >
                         <UserPlus size={16} />
-                        Registrarme
+                        Registrarme Gratis
                       </Link>
                     </>
                   )}
@@ -258,7 +259,7 @@ export function Header({ usuario }: { usuario?: Usuario }) {
                       className="flex items-center gap-2 px-4 py-3 rounded-lg font-medium bg-primary/10 text-primary"
                     >
                       <LogIn size={18} />
-                      Ingresar a mi casillero
+                      Acceder a mi casillero
                     </Link>
                     <Link
                       href="/cliente/registro"
@@ -266,7 +267,7 @@ export function Header({ usuario }: { usuario?: Usuario }) {
                       className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold text-center bg-primary text-white"
                     >
                       <UserPlus size={18} />
-                      Registrarme
+                      Registrarme Gratis
                     </Link>
                   </>
                 )}
