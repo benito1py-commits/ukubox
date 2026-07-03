@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef } from "react";
-import { Package2, Calculator, Plane, Ship, Ban, Truck, ShoppingCart, Globe, Box, Shield, Warehouse, MapPin, Phone, Clock, Mail, LogIn } from "lucide-react";
+import { Package2, Calculator, Plane, Ship, Ban, Truck, ShoppingCart, Globe, Box, Shield, Warehouse, MapPin, Phone, Clock, Mail, LogIn, BadgePercent } from "lucide-react";
 
 import { calcularTarifa } from "@/lib/tarifas";
 
@@ -54,6 +54,16 @@ export default function HomePage() {
 
   return (
     <div>
+      {/* ═══ FRANJA PROMOCIONAL ═══ */}
+      <div className="bg-accent text-foreground">
+        <div className="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-center gap-2.5 text-center">
+          <BadgePercent size={20} className="shrink-0" />
+          <p className="text-sm sm:text-base font-bold">
+            ¡Ahorrá hasta un 7% en tus compras de tecnología y moda pagando $0 de impuestos en USA!
+          </p>
+        </div>
+      </div>
+
       {/* ═══ HERO ═══ */}
       <section className="relative bg-gradient-to-br from-primary via-primary to-blue-900 min-h-[520px] flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.08),transparent_60%)]"></div>
