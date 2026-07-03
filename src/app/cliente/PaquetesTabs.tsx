@@ -9,6 +9,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Loader2,
+  Copy,
+  Check,
 } from "lucide-react";
 import type { Paquete, PaquetesPage } from "./_lib/helga";
 
@@ -198,18 +200,25 @@ function PaqueteFila({ p }: { p: Paquete }) {
 
   const peso = kgs ? `${kgs} kg` : "—";
 
+  const toggle = () => setAbierto((v) => !v);
+
   return (
     <li>
-      <button
-        type="button"
-        onClick={() => setAbierto((v) => !v)}
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={toggle}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            toggle();
+          }
+        }}
         aria-expanded={abierto}
-        className="grid w-full grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 px-4 py-3 text-left transition-colors hover:bg-muted/40 sm:grid-cols-[11rem_1fr_9rem_7rem_2rem]"
+        className="grid w-full cursor-pointer grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 px-4 py-3 text-left transition-colors hover:bg-muted/40 sm:grid-cols-[11rem_1fr_9rem_7rem_2rem]"
       >
-        {/* Tracking */}
-        <span className="truncate font-mono text-sm font-medium text-foreground">
-          {tracking ?? "—"}
-        </span>
+        {/* Tracking (tooltip en hover + copiar al clic) */}
+        <TrackingTag value={tracking} />
 
         {/* Contenido (en móvil va debajo, ocupando el ancho) */}
         <span className="order-last col-span-2 truncate text-sm text-muted-foreground sm:order-none sm:col-span-1">
@@ -238,7 +247,7 @@ function PaqueteFila({ p }: { p: Paquete }) {
             abierto ? "rotate-180" : ""
           }`}
         />
-      </button>
+      </div>
 
       {abierto && (
         <dl className="grid grid-cols-2 gap-x-4 gap-y-3 bg-muted/30 px-4 pb-4 pt-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -263,5 +272,52 @@ function PaqueteFila({ p }: { p: Paquete }) {
         </dl>
       )}
     </li>
+  );
+}
+
+/**
+ * Muestra el número de tracking (que suele cortarse por ser largo). En hover
+ * despliega un tooltip con el valor completo; al hacer clic lo copia al
+ * portapapeles. Detiene la propagación para no expandir/colapsar la fila.
+ */
+function TrackingTag({ value }: { value: string | null }) {
+  const [copiado, setCopiado] = useState(false);
+
+  if (!value) {
+    return <span className="text-sm text-muted-foreground">—</span>;
+  }
+
+  async function copiar(e: React.MouseEvent) {
+    e.stopPropagation();
+    try {
+      await navigator.clipboard.writeText(value!);
+      setCopiado(true);
+      setTimeout(() => setCopiado(false), 1500);
+    } catch {
+      // navegador sin permiso de portapapeles: no hacemos nada.
+    }
+  }
+
+  return (
+    <span className="group/tt relative min-w-0">
+      <button
+        type="button"
+        onClick={copiar}
+        title="Copiar tracking"
+        className="flex w-full min-w-0 items-center gap-1.5 text-left font-mono text-sm font-medium text-foreground hover:text-primary"
+      >
+        <span className="truncate">{value}</span>
+        {copiado ? (
+          <Check className="h-3.5 w-3.5 shrink-0 text-success" />
+        ) : (
+          <Copy className="h-3.5 w-3.5 shrink-0 opacity-0 transition-opacity group-hover/tt:opacity-60" />
+        )}
+      </button>
+
+      {/* Tooltip con el valor completo */}
+      <span className="pointer-events-none absolute left-0 top-full z-20 mt-1 hidden max-w-[80vw] whitespace-nowrap rounded-md bg-foreground px-2 py-1 font-mono text-xs text-white shadow-lg group-hover/tt:block">
+        {copiado ? "¡Copiado!" : value}
+      </span>
+    </span>
   );
 }
