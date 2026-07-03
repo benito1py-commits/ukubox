@@ -261,7 +261,9 @@ export default function RegistroForm({
             <option value="">Seleccioná…</option>
             {tiposId.map((t) => (
               <option key={t.id} value={t.id}>
-                {t.descripcion}
+                {t.descripcion.trim().toUpperCase() === "DNI"
+                  ? "DNI O CEDULA"
+                  : t.descripcion}
               </option>
             ))}
           </select>
