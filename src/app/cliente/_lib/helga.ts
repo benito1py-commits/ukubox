@@ -108,6 +108,82 @@ export async function refreshToken(refresh: string): Promise<TokenResponse> {
   return data as TokenResponse;
 }
 
+/**
+ * Un paquete del historial del casillero. La API de Helga no documenta los
+ * nombres exactos de los campos (el ejemplo del PDF deja "datos" vacío), así
+ * que dejamos un índice abierto y los leemos de forma defensiva en la UI.
+ */
+export type Paquete = Record<string, unknown>;
+
+/** Cantidad de paquetes por página del historial. */
+export const PAQUETES_PAGE_SIZE = 15;
+
+/** Una página del historial, con la metadata de paginación de Helga. */
+export interface PaquetesPage {
+  paquetes: Paquete[];
+  page: number;
+  lastPage: number;
+  total: number;
+}
+
+/** Paginador estilo Laravel que devuelve Helga dentro de "datos". */
+interface LaravelPaginator<T> {
+  data: T[];
+  current_page?: number;
+  last_page?: number;
+  total?: number;
+}
+
+/**
+ * Historial de paquetes disponibles del casillero (paginado).
+ * POST /api/casillero/despachos/preliquidaciones/paqsdisponibles?page=N
+ *
+ * `str_busqueda` filtra por una cadena contenida en los campos que conforman
+ * el historial. La respuesta viene paginada estilo Laravel dentro de "datos"
+ * (datos.data = array + current_page/last_page/total).
+ */
+export async function getPaquetes(
+  accessToken: string,
+  opts: { page?: number; pageSize?: number; str_busqueda?: string } = {}
+): Promise<PaquetesPage> {
+  const page = opts.page ?? 1;
+  const base = `${BASE_URL}/api/casillero/despachos/preliquidaciones/paqsdisponibles`;
+  const url = page > 1 ? `${base}?page=${page}` : base;
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      pageSize: opts.pageSize ?? PAQUETES_PAGE_SIZE,
+      ...(opts.str_busqueda ? { str_busqueda: opts.str_busqueda } : {}),
+    }),
+    cache: "no-store",
+  });
+  const data = await res.json();
+  if (!res.ok) throw new HelgaError(res.status, data);
+
+  const datos = (data as HelgaEnvelope<unknown>).datos;
+
+  // datos puede ser un array plano (sin paginación) o un paginador Laravel.
+  if (Array.isArray(datos)) {
+    return { paquetes: datos as Paquete[], page: 1, lastPage: 1, total: datos.length };
+  }
+  if (datos && typeof datos === "object" && Array.isArray((datos as LaravelPaginator<Paquete>).data)) {
+    const pag = datos as LaravelPaginator<Paquete>;
+    return {
+      paquetes: pag.data,
+      page: pag.current_page ?? page,
+      lastPage: pag.last_page ?? 1,
+      total: pag.total ?? pag.data.length,
+    };
+  }
+  return { paquetes: [], page: 1, lastPage: 1, total: 0 };
+}
+
 /** Perfil del cliente autenticado. */
 export async function getPerfil(accessToken: string): Promise<Perfil> {
   const res = await fetch(`${BASE_URL}/api/casillero/clientes`, {

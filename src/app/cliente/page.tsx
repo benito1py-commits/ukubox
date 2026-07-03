@@ -1,8 +1,15 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { User, Package, Mail, Phone, MapPin, ArrowLeft } from "lucide-react";
-import { getValidAccessToken, getPerfil, type Perfil } from "./_lib/helga";
+import {
+  getValidAccessToken,
+  getPerfil,
+  getPaquetes,
+  type Perfil,
+  type PaquetesPage,
+} from "./_lib/helga";
 import LogoutButton from "./LogoutButton";
+import PaquetesTabs from "./PaquetesTabs";
 
 export const metadata = {
   title: "Mi casillero",
@@ -13,13 +20,26 @@ export const dynamic = "force-dynamic";
 
 export default async function ClientePage() {
   let perfil: Perfil;
+  let token: string;
 
   try {
-    const token = await getValidAccessToken();
+    token = await getValidAccessToken();
     perfil = await getPerfil(token);
   } catch {
     // Sin sesión válida → al login.
     redirect("/cliente/login");
+  }
+
+  // El historial no debe tumbar la página si Helga falla: degradamos a vacío.
+  let inicial: PaquetesPage = { paquetes: [], page: 1, lastPage: 1, total: 0 };
+  try {
+    inicial = await getPaquetes(token);
+    // TEMPORAL: expone las claves reales del historial para afinar las columnas.
+    if (inicial.paquetes[0]) {
+      console.log("[cliente] claves del historial:", Object.keys(inicial.paquetes[0]));
+    }
+  } catch (error) {
+    console.error("[cliente] no se pudo obtener el historial de paquetes:", error);
   }
 
   return (
@@ -50,7 +70,7 @@ export default async function ClientePage() {
         </div>
       </header>
 
-      <div className="mx-auto max-w-2xl px-4 py-10">
+      <div className="mx-auto max-w-4xl px-4 py-10">
         <div className="mb-6">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 px-2.5 py-1 text-xs font-medium text-success">
             <span className="h-1.5 w-1.5 rounded-full bg-success" />
@@ -88,6 +108,12 @@ export default async function ClientePage() {
           </dl>
         </section>
 
+        <div className="mt-8">
+          <h2 className="mb-3 text-lg font-semibold text-foreground">
+            Mis paquetes
+          </h2>
+          <PaquetesTabs inicial={inicial} />
+        </div>
       </div>
     </main>
   );
