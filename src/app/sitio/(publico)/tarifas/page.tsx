@@ -17,6 +17,17 @@ const ejemplos = [
   { peso: "3 kg", detalle: "Base $35,00 + 10 × $1,85", total: "$53,50" },
 ];
 
+/** Describe el peso seleccionado en palabras (p. ej. "2 kg y 5 g") para que quede
+ *  claro que 5 son 5 gramos, no 500. */
+function describirPeso(gramos: number): string {
+  if (gramos <= 0) return "0 g";
+  const kg = Math.floor(gramos / 1000);
+  const g = gramos % 1000;
+  if (kg > 0 && g > 0) return `${kg} kg y ${g} g`;
+  if (kg > 0) return `${kg} kg`;
+  return `${g} g`;
+}
+
 export default function TarifasPage() {
   const [kg, setKg] = useState("1");
   const [g, setG] = useState("0");
@@ -127,6 +138,14 @@ export default function TarifasPage() {
                 <span className="block text-center text-[11px] text-muted-foreground mt-1">g</span>
               </div>
             </div>
+            <p className="mt-2 text-center text-xs text-muted-foreground">
+              Estás cotizando{" "}
+              <strong className="text-foreground">{describirPeso(gramos)}</strong>
+              {" "}
+              <span className="inline-block rounded-md bg-primary/10 px-2 py-0.5 font-bold text-primary">
+                {gramos} g en total
+              </span>
+            </p>
             <div className="mt-4 bg-primary/5 rounded-xl border border-primary/20 p-4 text-center">
               <p className="text-xs text-muted-foreground mb-0.5">Costo estimado</p>
               <p className="text-3xl font-black text-primary">${estimado}</p>
@@ -159,14 +178,15 @@ export default function TarifasPage() {
                 </h3>
               </div>
               <p className="text-muted-foreground mb-4">
-                Cada rango de peso tiene un precio fijo.
+                El precio sube de forma proporcional según el peso exacto del
+                paquete.
               </p>
               <ul className="space-y-2.5 text-sm">
                 {[
                   "300 g → USD 12,50",
-                  "800 g → USD 17,50",
-                  "1,3 kg → USD 26,25",
-                  "1,9 kg → USD 35,00",
+                  "800 g → USD 15,50",
+                  "1,3 kg → USD 22,75",
+                  "1,9 kg → USD 33,25",
                 ].map((ej) => (
                   <li key={ej} className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
