@@ -237,31 +237,29 @@ export default function ComoComprarAmazonPage() {
             <span className="font-semibold text-foreground">UKU# 00001</span> por
             tu número de casillero.
           </p>
-          <div className="grid md:grid-cols-2 gap-8 items-start">
-            <dl className="grid grid-cols-1 gap-y-4">
-              {camposDireccion.map((campo) => (
-                <div key={campo.label} className="border-b border-border pb-3">
-                  <dt className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">
-                    {campo.label}
-                  </dt>
-                  <dd className="font-semibold text-foreground">{campo.valor}</dd>
-                </div>
-              ))}
-            </dl>
+          <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+            {camposDireccion.map((campo) => (
+              <div key={campo.label} className="border-b border-border pb-3">
+                <dt className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">
+                  {campo.label}
+                </dt>
+                <dd className="font-semibold text-foreground">{campo.valor}</dd>
+              </div>
+            ))}
+          </dl>
 
-            <figure className="mx-auto">
-              <Image
-                src="/guias/amazon/form-direccion-v2.jpg"
-                alt="Formulario Add a new address de Amazon completado con la dirección de Miami"
-                width={852}
-                height={1014}
-                className="w-full max-w-sm h-auto rounded-lg border border-border shadow-sm bg-white"
-              />
-              <figcaption className="text-xs text-muted-foreground text-center mt-2">
-                Así se ve el formulario completado en Amazon.
-              </figcaption>
-            </figure>
-          </div>
+          <figure className="mt-8">
+            <Image
+              src="/guias/amazon/form-direccion-v3.jpg"
+              alt="Formulario Add a new address de Amazon completado con la dirección de Miami"
+              width={1600}
+              height={998}
+              className="w-full h-auto rounded-lg border border-border shadow-sm bg-white"
+            />
+            <figcaption className="text-xs text-muted-foreground text-center mt-2">
+              Así se ve el formulario completado en Amazon.
+            </figcaption>
+          </figure>
 
           <div className="mt-6 flex items-start gap-2 text-sm text-muted-foreground bg-accent/10 rounded-lg p-4">
             <Info className="w-5 h-5 text-accent shrink-0 mt-0.5" />
