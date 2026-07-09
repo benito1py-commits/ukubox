@@ -30,11 +30,11 @@ const camposDireccion = [
   { label: "Country/Region", valor: "United States" },
   {
     label: "Full name (First and Last name)",
-    valor: "Tu nombre y apellido  (UKU# 00001)",
+    valor: "Tu nombre y apellido  (PYGUI001)",
   },
   { label: "Phone number", valor: "Tu número de teléfono" },
   { label: "Address", valor: "6758 NW 72nd Ave" },
-  { label: "(SUITE)", valor: "UKU# 00001 (tu número de casillero)" },
+  { label: "(SUITE)", valor: "PYGUI001 (tu número de casillero)" },
   { label: "City", valor: "MIAMI" },
   { label: "State", valor: "Florida" },
   { label: "ZIP Code", valor: "33166" },
@@ -43,11 +43,11 @@ const camposDireccion = [
 const pasos: Paso[] = [
   {
     icon: UserPlus,
-    titulo: "Creá tu casillero y obtené tu número UKU#",
+    titulo: "Creá tu casillero y obtené tu número de casillero",
     cuerpo: (
       <>
         Antes de comprar necesitás tu número de casillero único (por ejemplo{" "}
-        <span className="font-semibold text-foreground">UKU# 00001</span>). Si
+        <span className="font-semibold text-foreground">PYGUI001</span>). Si
         todavía no lo tenés,{" "}
         <Link
           href="/cliente/registro"
@@ -234,7 +234,7 @@ export default function ComoComprarAmazonPage() {
           </div>
           <p className="text-sm text-muted-foreground mb-6">
             Cargá estos datos exactamente así en Amazon, reemplazando{" "}
-            <span className="font-semibold text-foreground">UKU# 00001</span> por
+            <span className="font-semibold text-foreground">PYGUI001</span> por
             tu número de casillero.
           </p>
           <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
@@ -264,7 +264,7 @@ export default function ComoComprarAmazonPage() {
           <div className="mt-6 flex items-start gap-2 text-sm text-muted-foreground bg-accent/10 rounded-lg p-4">
             <Info className="w-5 h-5 text-accent shrink-0 mt-0.5" />
             <p>
-              Importante: si no ponés tu número de casillero (UKU#) en la
+              Importante: si no ponés tu número de casillero (ej. PYGUI001) en la
               dirección, no podemos identificar de quién es el paquete cuando
               llega a Miami. Revisalo siempre antes de confirmar tu compra.
             </p>
