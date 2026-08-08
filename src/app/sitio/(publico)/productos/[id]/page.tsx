@@ -119,7 +119,7 @@ export default async function ProductoDetallePage({ params }: Params) {
                 </div>
               ) : (
                 <a
-                  href="https://wa.me/595982278071"
+                  href="https://wa.me/595991618033"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-6 rounded-xl transition-colors"

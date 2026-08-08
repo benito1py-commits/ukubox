@@ -122,7 +122,7 @@ export default function FAQPage() {
             Contactanos y con gusto te ayudamos con tu consulta.
           </p>
           <a
-            href="https://wa.me/595982278071"
+            href="https://wa.me/595991618033"
             className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-primary-hover transition-colors"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

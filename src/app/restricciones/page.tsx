@@ -190,7 +190,7 @@ export default function RestriccionesPage() {
               Ver Preguntas Frecuentes
             </Link>
             <a
-              href="https://wa.me/595982278071"
+              href="https://wa.me/595991618033"
               className="border-2 border-primary text-primary px-8 py-3 rounded-lg font-bold hover:bg-primary hover:text-white transition-colors"
             >
               Contactar por WhatsApp

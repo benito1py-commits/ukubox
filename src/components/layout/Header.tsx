@@ -77,8 +77,8 @@ export function Header({ usuario }: { usuario?: Usuario }) {
             <span className="flex items-center gap-1.5 opacity-90">
               <MapPin size={14} /> España 2220 casi América, Asunción
             </span>
-            <a href="tel:0982278071" className="flex items-center gap-1.5 opacity-90 hover:opacity-100 transition-opacity">
-              <Phone size={14} /> 0982 278 071
+            <a href="tel:0991618033" className="flex items-center gap-1.5 opacity-90 hover:opacity-100 transition-opacity">
+              <Phone size={14} /> 0991 618033
             </a>
             <a href="mailto:sac@ukuxbox.com" className="flex items-center gap-1.5 opacity-90 hover:opacity-100 transition-opacity">
               <Mail size={14} /> sac@ukuxbox.com
@@ -307,7 +307,7 @@ export function Header({ usuario }: { usuario?: Usuario }) {
               <div className="border-t border-border pt-3 mt-3 space-y-2">
                 <div className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground">
                   <Phone size={14} />
-                  <a href="tel:0982278071">0982 278 071</a>
+                  <a href="tel:0991618033">0991 618033</a>
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground">
                   <Mail size={14} />

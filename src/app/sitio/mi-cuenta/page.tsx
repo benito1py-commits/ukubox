@@ -87,7 +87,13 @@ export default function MiCuentaPage() {
         return;
       }
       const data = await res.json();
-      const c = data.datos || data;
+      // Cualquier otro error (403, 500…) no debe renderizar un perfil vacío:
+      // sin `datos` no hay cliente que mostrar.
+      if (!res.ok || !data.datos) {
+        setError(data.msg || data.error || "No se pudo cargar tu perfil.");
+        return;
+      }
+      const c = data.datos;
       setCliente(c);
       setEditForm({
         primer_nombre: c.primer_nombre || "",
@@ -188,7 +194,30 @@ export default function MiCuentaPage() {
     );
   }
 
-  if (!cliente) return null;
+  if (!cliente) {
+    return (
+      <div className="min-h-[80vh] flex items-center justify-center px-4">
+        <div className="w-full max-w-md bg-white rounded-2xl shadow-lg border border-border p-8 text-center">
+          <h1 className="text-xl font-bold text-foreground mb-2">
+            No pudimos cargar tu cuenta
+          </h1>
+          <p className="text-muted-foreground mb-6 text-sm">
+            {error || "Intentá de nuevo en unos minutos."}
+          </p>
+          <button
+            onClick={() => {
+              setError("");
+              setLoading(true);
+              loadProfile();
+            }}
+            className="inline-block bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-6 rounded-xl transition-colors"
+          >
+            Reintentar
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const fullName = [
     cliente.primer_nombre,

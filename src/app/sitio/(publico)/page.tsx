@@ -10,7 +10,7 @@ const steps = [
   { num: "01", title: "Registrate", desc: "Creá tu casilla gratuitamente y ya estarás habilitado para realizar tus compras en el exterior.", href: "/cliente/registro" },
   { num: "02", title: "Comprá Online", desc: "Comprá todo lo que deseas en cualquier tienda de USA y envialo a tu casilla en Miami.", href: "/servicios" },
   { num: "03", title: "Seguí tus Paquetes", desc: "Seguí los estados de tus paquetes 24/7 desde tu panel de cliente.", href: "https://parcelsapp.com/" },
-  { num: "04", title: "Recibí tu Paquete", desc: "Retirá en nuestra oficina o solicitá delivery a tu domicilio.", href: "https://wa.me/595982278071" },
+  { num: "04", title: "Recibí tu Paquete", desc: "Retirá en nuestra oficina o solicitá delivery a tu domicilio.", href: "https://wa.me/595991618033" },
 ];
 
 const services = [
@@ -33,11 +33,11 @@ const manejoItems = [
 
 const addresses = [
   { country: "EEUU (Miami)", flag: "🇺🇸", lines: ["6758 N.W. 72 AV", "Miami, FL 33166-3049", "Florida - USA"], tel: "+1 (305) 430-5100" },
-  { country: "Paraguay", flag: "🇵🇾", lines: ["España 2220 casi América", "Asunción - Paraguay"], tel: "+595 982 278 071" },
+  { country: "Paraguay", flag: "🇵🇾", lines: ["España 2220 casi América", "Asunción - Paraguay"], tel: "+595 991 618033" },
 ];
 
 const sucursales = [
-  { nombre: "Asunción - Central", telefono: "0982 278 071", direccion: "España 2220 casi América", horario: "Lun-Vie: 08:00-18:00, Sáb: 08:00-12:00" },
+  { nombre: "Asunción - Central", telefono: "0991 618033", direccion: "España 2220 casi América", horario: "Lun-Vie: 08:00-18:00, Sáb: 08:00-12:00" },
 ];
 
 export default function HomePage() {
@@ -196,7 +196,7 @@ export default function HomePage() {
           </div>
           <div className="text-center mt-10">
             <a
-              href="https://wa.me/595982278071"
+              href="https://wa.me/595991618033"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700 transition-colors"
@@ -349,7 +349,7 @@ export default function HomePage() {
                 <div className="space-y-3 text-sm text-muted-foreground">
                   <p className="flex items-center gap-2">
                     <Phone size={14} className="text-primary shrink-0" />
-                    <a href={`https://wa.me/595${suc.telefono.replace(/\s/g, "")}`} className="hover:text-primary transition-colors">
+                    <a href={`https://wa.me/595${suc.telefono.replace(/\D/g, "").replace(/^0/, "")}`} className="hover:text-primary transition-colors">
                       {suc.telefono}
                     </a>
                   </p>
@@ -390,7 +390,7 @@ export default function HomePage() {
                 const mensaje = (form.elements.namedItem("mensaje") as HTMLTextAreaElement).value;
                 if (!nombre || !email || !mensaje) return;
                 const text = `Hola, soy ${nombre} (${email}).%0A%0AAsunto: ${asunto}%0A%0A${mensaje}`;
-                window.open(`https://wa.me/595982278071?text=${text}`, "_blank");
+                window.open(`https://wa.me/595991618033?text=${text}`, "_blank");
                 setContactSent(true);
                 form.reset();
                 setTimeout(() => setContactSent(false), 3000);
@@ -410,7 +410,7 @@ export default function HomePage() {
             <div className="space-y-6">
               {[
                 { icon: MapPin, title: "Dirección", text: "España 2220 casi América\nAsunción, Paraguay" },
-                { icon: Phone, title: "WhatsApp", text: "+595 982 278 071", href: "https://wa.me/595982278071" },
+                { icon: Phone, title: "WhatsApp", text: "+595 991 618033", href: "https://wa.me/595991618033" },
                 { icon: Mail, title: "Email", text: "sac@ukuxbox.com", href: "mailto:sac@ukuxbox.com" },
                 { icon: Clock, title: "Horario", text: "Lunes a Viernes: 8:00 - 18:00\nSábados: 8:00 - 12:00" },
               ].map((item) => {
