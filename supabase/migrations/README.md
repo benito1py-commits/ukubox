@@ -16,6 +16,8 @@ y se volcaron acá para versionar el esquema. El orden lo da el prefijo timestam
 | `008_revoke_proteger_pedido_execute` | Revoca EXECUTE de `proteger_pedido` (es trigger, no RPC). |
 | `009_categorias` | Tabla `categorias` + `productos.categoria_id` + migración de los textos libres. |
 | `010_pedidos_precio_unitario` | `pedidos.precio_unitario` (snapshot del precio de lista) + fix de `proteger_pedido`. |
+| `011_checkout_entrega_y_modo_construccion` | `pedidos.direccion_entrega`/`telefono`, `crear_pedido()`, flag `en_construccion` + `sitio_en_construccion()`. |
+| `012_solicitudes_repuesto` | Tabla `solicitudes_repuesto` (orden de repuesto automotor), RLS admin-only y `crear_solicitud_repuesto()` pública. |
 
 ## Aplicar en un proyecto nuevo
 

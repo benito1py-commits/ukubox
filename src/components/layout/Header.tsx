@@ -24,6 +24,12 @@ const navLinks = [
   { href: "/sitio/nosotros", label: "Nosotros" },
   { href: "/sitio/servicios", label: "Servicios" },
   { href: "/sitio/productos", label: "Productos" },
+  // destacado: se pinta como pastilla amarilla en vez de link de texto.
+  {
+    href: "/sitio/solicitud-repuesto",
+    label: "Repuestos Automotores",
+    destacado: true,
+  },
   { href: "/sitio/tarifas", label: "Tarifas" },
   { href: "/sitio/restricciones", label: "Restricciones" },
   { href: "/sitio/preguntas-frecuentes", label: "Preguntas Frecuentes" },
@@ -96,16 +102,23 @@ export function Header({ usuario }: { usuario?: Usuario }) {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-0.5">
+          {/* xl (no lg): con 8 items + el botón de acceso ya no entran a 1024px. */}
+          <div className="hidden xl:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 aria-current={isActive(link.href) ? "page" : undefined}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive(link.href)
-                    ? "text-primary bg-primary/5"
-                    : "text-foreground hover:text-primary hover:bg-primary/5"
+                className={`px-3 py-2 rounded-lg text-sm transition-colors ${
+                  link.destacado
+                    ? `font-bold bg-accent text-primary hover:bg-accent-hover ${
+                        isActive(link.href) ? "ring-2 ring-primary/30" : ""
+                      }`
+                    : `font-medium ${
+                        isActive(link.href)
+                          ? "text-primary bg-primary/5"
+                          : "text-foreground hover:text-primary hover:bg-primary/5"
+                      }`
                 }`}
               >
                 {link.label}
@@ -200,7 +213,7 @@ export function Header({ usuario }: { usuario?: Usuario }) {
           {/* Mobile Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 text-foreground hover:bg-gray-100 rounded-lg transition-colors"
+            className="xl:hidden p-2 text-foreground hover:bg-gray-100 rounded-lg transition-colors"
             aria-label="Menu"
             aria-expanded={mobileOpen}
           >
@@ -210,7 +223,7 @@ export function Header({ usuario }: { usuario?: Usuario }) {
 
         {/* Mobile Menu */}
         {mobileOpen && (
-          <div className="lg:hidden bg-white border-t border-border shadow-lg">
+          <div className="xl:hidden bg-white border-t border-border shadow-lg">
             <div className="px-4 py-3 space-y-1">
               {navLinks.map((link) => (
                 <Link
@@ -218,10 +231,16 @@ export function Header({ usuario }: { usuario?: Usuario }) {
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   aria-current={isActive(link.href) ? "page" : undefined}
-                  className={`block px-4 py-3 rounded-lg font-medium transition-colors ${
-                    isActive(link.href)
-                      ? "text-primary bg-primary/5"
-                      : "text-foreground hover:bg-gray-50"
+                  className={`block px-4 py-3 rounded-lg transition-colors ${
+                    link.destacado
+                      ? `font-bold bg-accent text-primary ${
+                          isActive(link.href) ? "ring-2 ring-primary/30" : ""
+                        }`
+                      : `font-medium ${
+                          isActive(link.href)
+                            ? "text-primary bg-primary/5"
+                            : "text-foreground hover:bg-gray-50"
+                        }`
                   }`}
                 >
                   {link.label}

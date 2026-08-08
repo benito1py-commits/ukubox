@@ -8,6 +8,7 @@ import {
   Package,
   Tags,
   ShoppingBag,
+  Wrench,
   Landmark,
   LogOut,
   ArrowLeft,
@@ -22,6 +23,7 @@ const navLinks = [
   { href: "/admin/productos", label: "Productos", icon: Package },
   { href: "/admin/categorias", label: "Categorías", icon: Tags },
   { href: "/admin/pedidos", label: "Pedidos", icon: ShoppingBag },
+  { href: "/admin/solicitudes-repuesto", label: "Repuestos", icon: Wrench },
   { href: "/admin/configuracion", label: "Configuración", icon: Landmark },
 ];
 
