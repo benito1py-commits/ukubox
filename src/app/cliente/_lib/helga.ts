@@ -18,6 +18,10 @@ const CLIENT_ID = process.env.HELGA_CLIENT_ID!;
 const CLIENT_SECRET = process.env.HELGA_CLIENT_SECRET!;
 const APP_ID = process.env.HELGA_APP_ID!;
 
+// Helga valida el header `Origin` contra una whitelist y responde 403
+// "Acceso denegado" si no llega. El fetch del servidor no lo envía solo.
+const ORIGIN = process.env.HELGA_ORIGIN || BASE_URL;
+
 const ACCESS_COOKIE = "cliente_access_token";
 const REFRESH_COOKIE = "cliente_refresh_token";
 
@@ -75,7 +79,11 @@ export async function getToken(
 ): Promise<TokenResponse> {
   const res = await fetch(`${BASE_URL}/oauth/token`, {
     method: "POST",
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Origin: ORIGIN,
+    },
     body: JSON.stringify({
       grant_type: "password",
       client_id: Number(CLIENT_ID),
@@ -94,7 +102,11 @@ export async function getToken(
 export async function refreshToken(refresh: string): Promise<TokenResponse> {
   const res = await fetch(`${BASE_URL}/oauth/token`, {
     method: "POST",
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Origin: ORIGIN,
+    },
     body: JSON.stringify({
       grant_type: "refresh_token",
       refresh_token: refresh,
@@ -155,6 +167,7 @@ export async function getPaquetes(
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Origin: ORIGIN,
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({
@@ -189,6 +202,7 @@ export async function getPerfil(accessToken: string): Promise<Perfil> {
   const res = await fetch(`${BASE_URL}/api/casillero/clientes`, {
     headers: {
       Accept: "application/json",
+      Origin: ORIGIN,
       Authorization: `Bearer ${accessToken}`,
     },
   });
@@ -260,7 +274,7 @@ export interface TipoIdentificacion {
 /** GET público a un catálogo (el app_id va en la URL). */
 async function publicGet<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
-    headers: { Accept: "application/json" },
+    headers: { Accept: "application/json", Origin: ORIGIN },
     cache: "no-store",
   });
   const data = await res.json();
@@ -319,7 +333,11 @@ export interface RegistroInput {
 export async function registrar(input: RegistroInput): Promise<unknown> {
   const res = await fetch(`${BASE_URL}/api/clientes`, {
     method: "POST",
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Origin: ORIGIN,
+    },
     body: JSON.stringify({ ...input, app_id: APP_ID }),
   });
   const data = await res.json();
