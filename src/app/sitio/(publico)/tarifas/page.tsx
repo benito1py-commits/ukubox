@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Calculator, Check, Package, Scale } from "lucide-react";
+import { Calculator, Check, Scale } from "lucide-react";
 
 import {
   TARIFAS,
@@ -12,9 +12,9 @@ import {
 } from "@/lib/tarifas";
 
 const ejemplos = [
-  { peso: "2,1 kg", detalle: "Base $35,00 + 1 × $1,85", total: "$36,85" },
-  { peso: "2,5 kg", detalle: "Base $35,00 + 5 × $1,85", total: "$44,25" },
-  { peso: "3 kg", detalle: "Base $35,00 + 10 × $1,85", total: "$53,50" },
+  { peso: "2,1 kg", detalle: "Base $39,00 + 1 × $1,95", total: "$40,95" },
+  { peso: "2,5 kg", detalle: "Base $39,00 + 5 × $1,95", total: "$48,75" },
+  { peso: "3 kg", detalle: "Base $39,00 + 10 × $1,95", total: "$58,50" },
 ];
 
 /** Describe el peso seleccionado en palabras (p. ej. "2 kg y 5 g") para que quede
@@ -93,10 +93,9 @@ export default function TarifasPage() {
               </tbody>
             </table>
             <p className="px-6 py-4 text-xs text-muted-foreground border-t border-border">
-              Los valores son puntos de referencia. El precio se calcula de forma
-              proporcional según el peso exacto: entre cada referencia aumenta de
-              forma lineal por cada gramo adicional. Usá la calculadora para el
-              importe exacto.
+              La tarifa se cobra por tramo: todo paquete cuyo peso caiga dentro de
+              un rango paga el precio de ese rango. Usá la calculadora para conocer
+              el importe exacto.
             </p>
           </div>
 
@@ -166,36 +165,7 @@ export default function TarifasPage() {
           </h2>
           <div className="w-14 h-1 bg-accent mb-10 rounded-full" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Hasta 2 kg */}
-            <div className="bg-gray-50 border border-border rounded-2xl p-7">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-                  <Package className="w-5 h-5" />
-                </div>
-                <h3 className="text-lg font-bold text-foreground">
-                  Paquetes hasta 2 kg
-                </h3>
-              </div>
-              <p className="text-muted-foreground mb-4">
-                El precio sube de forma proporcional según el peso exacto del
-                paquete.
-              </p>
-              <ul className="space-y-2.5 text-sm">
-                {[
-                  "300 g → USD 12,50",
-                  "800 g → USD 15,50",
-                  "1,3 kg → USD 22,75",
-                  "1,9 kg → USD 33,25",
-                ].map((ej) => (
-                  <li key={ej} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-foreground">{ej}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
+          <div className="max-w-2xl">
             {/* Más de 2 kg */}
             <div className="bg-gray-50 border border-border rounded-2xl p-7">
               <div className="flex items-center gap-3 mb-4">
@@ -207,8 +177,12 @@ export default function TarifasPage() {
                 </h3>
               </div>
               <p className="text-muted-foreground mb-4">
-                Se toma una base de <strong>USD 35,00</strong> y se suma{" "}
-                <strong>USD 1,85</strong> por cada 100 g adicionales.
+                Se toma una base de{" "}
+                <strong>USD {TARIFA_BASE_EXTRA.toFixed(2).replace(".", ",")}</strong>{" "}
+                y se suma{" "}
+                <strong>USD {TARIFA_POR_100G.toFixed(2).replace(".", ",")}</strong>{" "}
+                por cada 100 g adicionales (la fracción de 100 g se cobra
+                completa).
               </p>
               <ul className="space-y-2.5 text-sm">
                 {ejemplos.map((ej) => (
